@@ -1,0 +1,125 @@
+{
+ "key": "butterfly",
+ "metafora": "Las mariposas son el escaparate visual de la colonia: transforman datos e ideas en artefactos que se pueden ver, tocar y compartir.",
+ "vuela": true,
+ "anatomia": "patas=LAN, alas=internet/la net (especie voladora), cabeza=sesera; el entorno es el ordenador.",
+ "camaras": {
+  "reina": "Galería real (núcleo)",
+  "despensa": "Paleta activa (contexto activo)",
+  "granero": "Archivo de diseño (lo hecho)",
+  "guarderia": "Cocón (en construcción)",
+  "vertedero": "Crisálida muerta (archivo)",
+  "tuneles": "Corrientes de aire (enlaces)"
+ },
+ "casta_base": {
+  "id": "monarca",
+  "nombre": "Monarca",
+  "sp": "Danaus plexippus",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "morpho",
+   "nombre": "Morpho",
+   "sp": "Morpho peleides",
+   "camara": "despensa",
+   "utilidad": "artefacto interactivo / widget / HTML",
+   "keywords": [
+    "widget",
+    "artefacto",
+    "artifact",
+    "html",
+    "interactivo",
+    "interactive",
+    "panel",
+    "panel interactivo",
+    "calculadora",
+    "calculadoras",
+    "pwa",
+    "offline",
+    "navaja suiza"
+   ]
+  },
+  {
+   "id": "cometa",
+   "nombre": "Cometa",
+   "sp": "Graphium agamemnon",
+   "camara": "guarderia",
+   "utilidad": "animacion / canvas / efectos visuales",
+   "keywords": [
+    "animado",
+    "animacion",
+    "animation",
+    "canvas",
+    "glow",
+    "efecto",
+    "effect",
+    "neuroanatomia",
+    "cerebro",
+    "surcos",
+    "region"
+   ]
+  },
+  {
+   "id": "polilla",
+   "nombre": "Polilla",
+   "sp": "Manduca sexta",
+   "camara": "granero",
+   "utilidad": "analisis / diagnostico visual / lectura de datos",
+   "keywords": [
+    "analisis",
+    "analytic",
+    "diagnostico",
+    "diagnostic",
+    "disco",
+    "carpetas",
+    "archivos",
+    "swimming",
+    "natacion",
+    "contenido"
+   ]
+  },
+  {
+   "id": "pavon",
+   "nombre": "Pavo real",
+   "sp": "Inachis io",
+   "camara": "granero",
+   "utilidad": "diseno de producto / diseño visual / infografia",
+   "keywords": [
+    "diseno",
+    "diseno producto",
+    "design",
+    "infografia",
+    "infographic",
+    "svg",
+    "tablero",
+    "board",
+    "monopoly",
+    "juego",
+    "game",
+    "personalizado",
+    "custom",
+    "visual"
+   ]
+  },
+  {
+   "id": "monarca",
+   "nombre": "Monarca",
+   "sp": "Danaus plexippus",
+   "camara": "tuneles",
+   "utilidad": "compartir / exportar / enviar artefacto",
+   "keywords": [
+    "exportar",
+    "export",
+    "enviar",
+    "whatsapp",
+    "png",
+    "compartir",
+    "share",
+    "respuesta visual",
+    "respuesta amigo",
+    "visual response"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Terrario · gabinete del naturalista</title>
+<style>
+  :root{color-scheme:light;
+    --paper:#f2e9d2;--paper2:#e9dcb8;--card:#f8f1dd;--ink:#3a2c1a;--ink2:#6b5638;--sepia:#8a7350;
+    --frame:#4a3a22;--line:#bca97c;--moss:#5d7a3a;
+    --ease-pop:cubic-bezier(.34,1.56,.64,1);--t:.18s;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E")}
+  *{box-sizing:border-box}html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);overflow-x:hidden;
+    font:15px/1.5 Georgia,'Palatino Linotype','Book Antiqua','Iowan Old Style',serif}
+  body::before{content:"";position:fixed;inset:0;background-image:var(--grain);pointer-events:none;z-index:1000}
+  .sheet{max-width:1280px;margin:14px auto 28px;padding:12px 20px 18px;
+    border:1.5px solid var(--frame);outline:1px solid var(--frame);outline-offset:4px;background:transparent}
+  .top{text-align:center;padding:4px 0 0}
+  .top .orn{color:var(--sepia);font-size:13px;letter-spacing:.5em;margin-left:.5em}
+  .top h1{margin:2px 0 0;font-size:25px;font-weight:600;letter-spacing:.3em;font-variant:all-small-caps;color:var(--ink)}
+  .top .hint{font-style:italic;color:var(--ink2);font-size:13px;max-width:880px;margin:2px auto 0}
+  .rule{height:5px;border-top:1px solid var(--frame);border-bottom:1px solid var(--frame);margin:8px 16% 6px;opacity:.8}
+  .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:3px 16px;font-size:12.5px;color:var(--ink2);
+    font-variant:all-small-caps;letter-spacing:.08em;margin:2px 0}
+  .lz{display:inline-flex;align-items:center;gap:5px}
+  .lz i{width:10px;height:10px;border-radius:50%;border:1px solid var(--frame);display:inline-block}
+  .lenses{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:8px 0 12px}
+  .lensbtn{font:inherit;font-size:13px;font-variant:all-small-caps;letter-spacing:.12em;padding:3px 16px;
+    background:var(--card);border:1.5px solid var(--frame);border-radius:2px;color:var(--ink);cursor:pointer;
+    box-shadow:1.5px 2px 0 rgba(74,58,34,.35);transition:transform var(--t) var(--ease-pop),background .15s,color .15s}
+  .lensbtn:hover{transform:translateY(-2px)}
+  .lensbtn:active{transform:translateY(0) scale(.97)}
+  .lensbtn.on{background:var(--frame);color:var(--card)}
+  .world{position:relative;width:100%;aspect-ratio:1320/860;border:2px solid var(--frame);border-radius:2px;overflow:hidden;
+    background:#e9e4ca;box-shadow:inset 0 0 0 1px var(--paper),inset 0 0 60px rgba(74,58,34,.12),3px 5px 16px rgba(58,44,26,.22)}
+  .world svg.gscene{position:absolute;inset:0;width:100%;height:100%}
+  .caption{text-align:center;font-size:12px;font-variant:all-small-caps;letter-spacing:.3em;color:var(--ink2);margin-top:9px}
+  .camlayer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .25s;z-index:5}
+  .camlayer line{stroke:var(--frame);stroke-width:.4;stroke-dasharray:1 1.4;stroke-linecap:round;opacity:.75}
+  .camlayer line.aff{stroke:var(--moss);stroke-dasharray:.5 1.6;stroke-width:.35;opacity:.7}
+  .world[data-lens="caminos"] .camlayer{opacity:1}
+  .queen{position:absolute;transform:translate(-50%,-50%);z-index:20;text-align:center;cursor:pointer;
+    transition:transform var(--t) var(--ease-pop),opacity .25s}
+  .queen .qb{margin:0 auto;animation:breathe 3.6s ease-in-out infinite}
+  .queen .qb svg{width:100%;display:block;filter:drop-shadow(1px 2.5px 2px rgba(58,44,26,.45))}
+  .queen:hover{transform:translate(-50%,-50%) scale(1.15);z-index:30}
+  .queen.air .qb{animation:floatb 5s ease-in-out infinite}
+  .qlab{display:inline-block;background:var(--card);border:1px solid var(--frame);border-radius:2px;padding:1px 9px;margin-top:2px;
+    font-size:11.5px;font-variant:all-small-caps;letter-spacing:.07em;font-weight:600;color:var(--ink);white-space:nowrap;
+    rotate:-1deg;box-shadow:2px 2px 0 rgba(74,58,34,.28)}
+  .qlab .fn{display:block;font-variant:normal;font-style:italic;font-weight:400;font-size:9.5px;color:var(--sepia);letter-spacing:0;rotate:0deg}
+  .qlab .cnt{color:var(--sepia)}
+  .qbadge{display:none;margin-left:4px;font-weight:700}
+  .world[data-lens="comedero"] .queen:not(.has-hungry){opacity:.14}
+  .world[data-lens="comedero"] .qb-hungry{display:inline}
+  .world[data-lens="compost"] .queen:not(.has-dead){opacity:.14}
+  .world[data-lens="compost"] .qb-dead{display:inline}
+  .world[data-lens="caminos"] .queen:not(.in-camino){opacity:.2}
+  /* ---- colonia (lámina de corte) ---- */
+  .colony{position:fixed;inset:0;z-index:150;display:none;flex-direction:column;background:var(--paper);padding:12px 16px 12px}
+  .colony::before{content:"";position:absolute;inset:0;background-image:var(--grain);pointer-events:none}
+  .colony.show{display:flex;animation:colonyin .26s var(--ease-pop)}
+  .coplate{flex:1;display:flex;flex-direction:column;min-height:0;border:1.5px solid var(--frame);outline:1px solid var(--frame);outline-offset:3px;padding:10px 14px 8px}
+  .cohead{display:flex;align-items:center;gap:13px;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .cohead .qoval{flex:0 0 60px;width:60px;height:60px;border:1.5px solid var(--frame);border-radius:50%;background:var(--card);
+    box-shadow:inset 0 0 0 2.5px var(--paper);display:flex;align-items:center;justify-content:center}
+  .cohead .qoval svg{width:46px;display:block}
+  .cohead .lam{font-variant:all-small-caps;letter-spacing:.25em;font-size:11px;color:var(--sepia)}
+  .cohead h2{margin:0;font-size:19px;font-weight:600;letter-spacing:.12em;font-variant:all-small-caps;color:var(--ink)}
+  .cohead .fn{font-size:12px;color:var(--ink2);font-style:italic}
+  .cohead .meta{font-size:11px;color:var(--sepia);font-style:italic}
+  .cohead .cnt{font-size:12px;font-variant:all-small-caps;letter-spacing:.1em;color:var(--ink);border:1px solid var(--line);border-radius:2px;padding:2px 10px;background:var(--card)}
+  .back,.anatbtn{font:inherit;font-size:13px;font-variant:all-small-caps;letter-spacing:.1em;padding:4px 14px;cursor:pointer;border-radius:2px;
+    transition:transform var(--t) var(--ease-pop),box-shadow .15s}
+  .back{border:1.5px solid var(--frame);background:var(--frame);color:var(--card);box-shadow:1.5px 2px 0 rgba(74,58,34,.35)}
+  .anatbtn{border:1.5px solid var(--frame);background:var(--card);color:var(--ink);margin-left:auto;box-shadow:1.5px 2px 0 rgba(74,58,34,.35)}
+  .back:hover,.anatbtn:hover{transform:translateY(-2px);box-shadow:1.5px 4px 0 rgba(74,58,34,.4)}
+  .back:active,.anatbtn:active{transform:translateY(0)}
+  .conest{position:relative;flex:1;margin-top:8px;min-height:0}
+  .conest svg.scene{width:100%;height:100%;display:block}
+  .sbug{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform var(--t) var(--ease-pop)}
+  .sbug:hover{transform:scale(1.35)}
+  .chlabel .t{fill:var(--ink);font-weight:600;font-size:15.5px;letter-spacing:1.5px;paint-order:stroke;stroke:#efe5c8;stroke-width:3.5px}
+  .chlabel .s{fill:var(--ink2);font-style:italic;font-size:11px;paint-order:stroke;stroke:#efe5c8;stroke-width:2.6px}
+  .cohint{font-size:11.5px;color:var(--ink2);font-style:italic;text-align:center;margin-top:6px}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  @keyframes floatb{0%,100%{margin-top:0}50%{margin-top:-9px}}
+  @keyframes colonyin{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+  /* ---- ficha (etiqueta de espécimen) ---- */
+  .scrim,.anatscrim{position:fixed;inset:0;background:rgba(46,36,18,.5);backdrop-filter:blur(2px);display:none;
+    align-items:center;justify-content:center;z-index:240;padding:18px}
+  .scrim.show,.anatscrim.show{display:flex}.anatscrim{z-index:250}
+  .bubble{position:relative;max-width:500px;width:100%;background:var(--card);border:1.5px solid var(--frame);border-radius:2px;
+    box-shadow:inset 0 0 0 1px var(--card),0 0 0 1px var(--card),4px 7px 0 rgba(58,44,26,.32);
+    padding:20px 22px 18px;rotate:-.8deg;animation:pop .2s ease;max-height:92vh;overflow:auto}
+  .bubble::before{content:"";position:absolute;inset:5px;border:1px solid var(--line);pointer-events:none}
+  .pin{position:absolute;top:-13px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;z-index:3;
+    background:radial-gradient(circle at 35% 30%,#e3e3e3,#7c7c84);border:1px solid #4f4f57;box-shadow:1px 2px 2px rgba(0,0,0,.35)}
+  .pin::after{content:"";position:absolute;left:5px;top:11px;width:1.5px;height:14px;background:linear-gradient(#9a9aa2,#55555d)}
+  @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+  .bubble .bigbug{width:96px;height:96px;float:right;margin:0 -2px 4px 10px;border:1px solid var(--line);border-radius:50%;
+    background:var(--paper);box-shadow:inset 0 0 0 2.5px var(--card);padding:8px}
+  .bubble .bigbug svg{width:100%;height:100%}
+  .bubble h3{margin:2px 0 1px;font-size:17px;letter-spacing:.03em;color:var(--ink)}
+  .bubble .casta{font-size:12.5px;color:var(--sepia);font-style:italic;margin:0 0 8px}
+  .bubble .st{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-variant:all-small-caps;letter-spacing:.1em;font-weight:700;
+    border-radius:2px;padding:2px 9px;color:#fff;margin:0 4px 8px 0;box-shadow:1px 1px 0 rgba(58,44,26,.3)}
+  .bubble dl{margin:6px 0 0;font-size:13px}
+  .bubble dt{font-weight:700;color:var(--sepia);margin-top:7px;font-size:10.5px;font-variant:all-small-caps;letter-spacing:.18em}
+  .bubble dd{margin:1px 0 0;color:var(--ink)}
+  .tg{display:inline-block;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:1px 7px;font-size:11px;margin:3px 3px 0 0;color:var(--ink2)}
+  .x{position:absolute;top:-12px;right:-10px;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--frame);
+    background:var(--card);cursor:pointer;font-weight:700;color:var(--frame);z-index:4;transition:transform var(--t) var(--ease-pop)}
+  .x:hover{transform:scale(1.18) rotate(90deg)}
+  /* ---- anatomía ---- */
+  .anatcard{position:relative;max-width:580px;width:100%;background:var(--card);border:1.5px solid var(--frame);border-radius:2px;
+    padding:16px 20px 18px;box-shadow:4px 7px 0 rgba(58,44,26,.32);animation:pop .2s ease;max-height:92vh;overflow:auto}
+  .anatcard::before{content:"";position:absolute;inset:5px;border:1px solid var(--line);pointer-events:none}
+  .anatcard h3{margin:2px 0 6px;font-size:16px;font-variant:all-small-caps;letter-spacing:.15em;color:var(--ink)}
+  .anatchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;position:relative}
+  .achip{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:3px 9px;font-size:12px;color:var(--ink2)}
+  .achip b{color:var(--ink);font-variant:all-small-caps;letter-spacing:.08em}
+  .anatnote{font-size:12px;color:var(--sepia);font-style:italic;margin:10px 0 0;position:relative}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+    .sbug:hover{transform:scale(1.18)}
+    .queen:hover{transform:translate(-50%,-50%) scale(1.08)}
+  }
+  /*__FONDOS__*/
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="top">
+  <div class="orn">❦ ❦ ❦</div>
+  <h1>El Terrario de los Proyectos</h1>
+  <p class="hint">Gabinete del naturalista — cada <b>colonia</b> es un área, cada <b>bicho</b> un proyecto.
+  Forma = utilidad · color = estado · tamaño = actividad · postura = vital · 🍴/❓ = necesidad.
+  Toca una reina para bajar a su nido; dentro, pulsa <b>🔬 anatomía</b>.</p>
+  <div class="rule"></div>
+</div>
+<div class="legend">
+  <span class="lz"><i style="background:#4e9a3a"></i>activa</span>
+  <span class="lz"><i style="background:#d98326"></i>pendiente</span>
+  <span class="lz"><i style="background:#c0392b"></i>atascada</span>
+  <span class="lz"><i style="background:#a3957c"></i>hibernando 💤</span>
+  <span class="lz"><i style="background:#b7b1a5"></i>relevada 💀</span>
+  <span class="lz">🍴 hambre</span><span class="lz">❓ no sabe</span>
+  <span class="lz"><i style="background:radial-gradient(#8fdc8f,#fff0)"></i>halo = corriendo</span>
+</div>
+<div class="lenses" id="lenses">
+  <button class="lensbtn on" data-lens="todo">el jardín</button>
+  <button class="lensbtn" data-lens="comedero">🍴 comedero</button>
+  <button class="lensbtn" data-lens="compost">🍂 compost</button>
+  <button class="lensbtn" data-lens="caminos">🧵 caminos</button>
+</div>
+<div class="world" id="ov" data-lens="todo">
+  <svg class="gscene" id="gscene" viewBox="0 0 1320 860" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+        <line x1="0" y1="0" x2="0" y2="7" stroke="#4a3a22" stroke-width=".8" opacity=".22"/>
+      </pattern>
+      <g id="tuft"><path d="M0 0 C-3 -9 -7 -11 -9 -15 M0 0 C-1 -10 0 -13 1 -18 M0 0 C4 -9 7 -11 10 -14" stroke="#4a3a22" fill="none" stroke-width="1.2" opacity=".5" stroke-linecap="round"/></g>
+      <g id="flor"><path d="M0 0 C-1 -12 0 -18 1 -26" stroke="#4a3a22" fill="none" stroke-width="1.3" opacity=".6"/><circle cx="1" cy="-30" r="4.5" fill="none" stroke="#4a3a22" stroke-width="1.2" opacity=".6"/><circle cx="1" cy="-30" r="1.4" fill="#4a3a22" opacity=".55"/></g>
+    </defs>
+    <rect width="1320" height="860" fill="#eae5cb"/>
+    <path d="M0 250 C300 232 520 262 760 246 C1000 230 1180 252 1320 240 L1320 860 L0 860 Z" fill="#dcdfba"/>
+    <path d="M0 600 C260 580 540 622 820 600 C1060 582 1200 608 1320 596 L1320 860 L0 860 Z" fill="#d6bf92"/>
+    <path d="M0 600 C260 580 540 622 820 600 C1060 582 1200 608 1320 596" fill="none" stroke="#4a3a22" stroke-width="1.4" opacity=".3"/>
+    <path d="M0 250 C300 232 520 262 760 246 C1000 230 1180 252 1320 240" fill="none" stroke="#4a3a22" stroke-width="1.4" opacity=".3"/>
+    <path d="M120 250 C220 196 360 188 470 244" fill="url(#hatch)" stroke="#4a3a22" stroke-width="1.2" opacity=".5"/>
+    <path d="M760 246 C880 186 1060 182 1190 238" fill="url(#hatch)" stroke="#4a3a22" stroke-width="1.2" opacity=".5"/>
+    <g transform="translate(1175,92)" opacity=".75">
+      <circle r="44" fill="#f0d98c" stroke="#4a3a22" stroke-width="1.4" opacity=".9"/>
+      <g stroke="#4a3a22" stroke-width="1.3" opacity=".6">
+        <line x1="0" y1="-54" x2="0" y2="-68"/><line x1="0" y1="54" x2="0" y2="68"/>
+        <line x1="-54" y1="0" x2="-68" y2="0"/><line x1="54" y1="0" x2="68" y2="0"/>
+        <line x1="-38" y1="-38" x2="-48" y2="-48"/><line x1="38" y1="-38" x2="48" y2="-48"/>
+        <line x1="-38" y1="38" x2="-48" y2="48"/><line x1="38" y1="38" x2="48" y2="48"/>
+      </g>
+    </g>
+    <g fill="none" stroke="#4a3a22" stroke-width="1.1" opacity=".3">
+      <path d="M180 110 q20 -22 52 -14 q14 -20 44 -10 q26 -8 36 12 q-10 16 -42 12 q-22 12 -50 4 q-30 6 -40 -4 Z"/>
+      <path d="M650 70 q24 -20 56 -10 q18 -16 46 -4 q22 -6 30 12 q-14 14 -44 8 q-24 12 -52 4 q-28 4 -36 -10 Z"/>
+    </g>
+    <g id="deco"></g>
+    <g id="mounds"></g>
+  </svg>
+  <svg class="camlayer" id="camlayer" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+</div>
+<div class="caption" id="ovcaption">Lámina I · el jardín de las colonias</div>
+</div>
+
+<div class="colony" id="colony">
+ <div class="coplate">
+  <div class="cohead">
+    <button class="back" onclick="closeColony()">← jardín</button>
+    <div class="qoval"><div class="qb" id="coqb"></div></div>
+    <div><div class="lam" id="colam"></div><h2 id="coname"></h2><div class="fn" id="cofn"></div><div class="meta" id="cometa"></div></div>
+    <button class="anatbtn" onclick="openAnat()">🔬 anatomía</button>
+    <div class="cnt" id="cocnt"></div>
+  </div>
+  <div class="conest" id="conest"></div>
+  <div class="cohint">Corte transversal del nido: cada bicho vive en la cámara de la memoria que le toca · halo = corriendo · boca arriba = relevado</div>
+ </div>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="bubble">
+    <div class="pin"></div>
+    <button class="x" onclick="document.getElementById('scrim').classList.remove('show')">✕</button>
+    <div class="bigbug" id="bigbug"></div>
+    <h3 id="bt"></h3><p class="casta" id="bc"></p><div id="bst"></div>
+    <div id="bchips" style="margin:4px 0 2px"></div>
+    <dl><dt>De qué va</dt><dd id="bd"></dd><dt>Último avance</dt><dd id="bu"></dd><dt>Próximo paso</dt><dd id="bp"></dd></dl>
+    <div id="brel" style="margin-top:6px"></div>
+    <div id="btg" style="margin-top:6px"></div>
+  </div>
+</div>
+
+<div class="anatscrim" id="anatscrim">
+  <div class="anatcard">
+    <button class="x" onclick="document.getElementById('anatscrim').classList.remove('show')">✕</button>
+    <h3 id="anattitle"></h3>
+    <div id="anatbody"></div>
+    <div class="anatchips" id="anatchips"></div>
+    <p class="anatnote" id="anatnote"></p>
+  </div>
+</div>
+
+<script>/*__CRITTERS__*/</script>
+<script>
+const TERR = /*__DATA__*/;
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");}
+function asvg(key,o){return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'+critV2(key,o)+'</svg>';}
+const ROMAN=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"];
+const byArea={}; TERR.areas.forEach(a=>byArea[a]=[]);
+const byId={};
+TERR.projects.forEach(p=>{byArea[p.area].push(p); if(p.id) byId[p.id]=p;});
+function queenHTML(s){return asvg(s.key,{color:s.c,caste:s.queenCaste,vital:'ok'});}
+function mkRnd(seed){let s=seed;return ()=>{s=(s*1103515245+12345)%2147483648;return s/2147483648;};}
+function blobPath(cx,cy,rx,ry,seed){
+  const rnd=mkRnd(seed),N=12,pts=[];
+  for(let i=0;i<N;i++){const a=i/N*2*Math.PI,j=0.86+rnd()*0.26;
+    pts.push([cx+Math.cos(a)*rx*j,cy+Math.sin(a)*ry*j]);}
+  const mid=(p,q)=>((p[0]+q[0])/2).toFixed(1)+' '+((p[1]+q[1])/2).toFixed(1);
+  let d='M'+mid(pts[N-1],pts[0]);
+  for(let i=0;i<N;i++){const p=pts[i],q=pts[(i+1)%N];d+=' Q'+p[0].toFixed(1)+' '+p[1].toFixed(1)+' '+mid(p,q);}
+  return d+' Z';
+}
+
+// ---------- JARDÍN (overview) ----------
+const ov=document.getElementById('ov'), camlayer=document.getElementById('camlayer');
+const deco=document.getElementById('deco'), mounds=document.getElementById('mounds');
+(function scatter(){
+  const rnd=mkRnd(77); let g='';
+  for(let i=0;i<34;i++){const x=(20+rnd()*1280).toFixed(0),y=(300+rnd()*520).toFixed(0);
+    const s=(0.7+rnd()*0.9).toFixed(2);
+    g+='<use href="#tuft" transform="translate('+x+' '+y+') scale('+s+')"/>';}
+  for(let i=0;i<7;i++){const x=(60+rnd()*1200).toFixed(0),y=(330+rnd()*480).toFixed(0);
+    g+='<use href="#flor" transform="translate('+x+' '+y+') scale('+(0.8+rnd()*0.7).toFixed(2)+')"/>';}
+  for(let i=0;i<6;i++){const x=(50+rnd()*1220).toFixed(0),y=(640+rnd()*190).toFixed(0),r=(5+rnd()*9).toFixed(1);
+    g+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+r+'" ry="'+(r*0.62).toFixed(1)+'" fill="#c4ac80" stroke="#4a3a22" stroke-width="1" opacity=".55"/>';}
+  deco.innerHTML=g;
+})();
+TERR.areas.forEach(area=>{
+  const s=TERR.species[area]; const arr=byArea[area]; const n=arr.length;
+  const hungry=arr.filter(p=>p.need==='hambre').length;
+  const dead=arr.filter(p=>p.vital!=='ok').length;
+  const qsize=Math.round(46+Math.min(46,n*1.4));
+  const ax=s.anchor[0]*13.2, ay=s.anchor[1]*8.6;
+  const w=qsize*1.25, h=qsize*0.6, my=ay+qsize*0.42;
+  if(s.air){
+    mounds.insertAdjacentHTML('beforeend','<use href="#flor" transform="translate('+(ax-w*0.5).toFixed(0)+' '+(my+6).toFixed(0)+') scale(1.4)"/>'+
+      '<use href="#tuft" transform="translate('+(ax+w*0.4).toFixed(0)+' '+(my+6).toFixed(0)+') scale(1.3)"/>'+
+      '<ellipse cx="'+ax.toFixed(0)+'" cy="'+(my+4).toFixed(0)+'" rx="'+(w*0.5).toFixed(0)+'" ry="5" fill="#4a3a22" opacity=".10"/>');
+  }else{
+    mounds.insertAdjacentHTML('beforeend',
+      '<g><path d="M'+(ax-w).toFixed(0)+' '+my.toFixed(0)+' Q'+ax.toFixed(0)+' '+(my-h).toFixed(0)+' '+(ax+w).toFixed(0)+' '+my.toFixed(0)+' Z" fill="#cfb285" stroke="#4a3a22" stroke-width="1.4" opacity=".9"/>'+
+      '<path d="M'+(ax-w).toFixed(0)+' '+my.toFixed(0)+' Q'+ax.toFixed(0)+' '+(my-h).toFixed(0)+' '+(ax+w).toFixed(0)+' '+my.toFixed(0)+' Z" fill="url(#hatch)" opacity=".5"/>'+
+      '<ellipse cx="'+ax.toFixed(0)+'" cy="'+(my-h*0.32).toFixed(0)+'" rx="'+(w*0.16).toFixed(1)+'" ry="'+(h*0.2).toFixed(1)+'" fill="#3c2c18" opacity=".8"/>'+
+      '<use href="#tuft" transform="translate('+(ax-w*1.1).toFixed(0)+' '+(my+2).toFixed(0)+')"/>'+
+      '<use href="#tuft" transform="translate('+(ax+w*1.05).toFixed(0)+' '+(my+3).toFixed(0)+') scale(0.9)"/></g>');
+  }
+  ov.insertAdjacentHTML('beforeend',
+   '<div class="queen'+(s.air?' air':'')+(hungry?' has-hungry':'')+(dead?' has-dead':'')+'" style="left:'+s.anchor[0]+'%;top:'+s.anchor[1]+'%" data-area="'+area+'">'+
+   '<div class="qb" style="width:'+qsize+'px">'+queenHTML(s)+'</div>'+
+   '<div class="qlab">'+s.emo+' '+s.name+'<span class="cnt"> ·'+n+'</span>'+
+     '<span class="qbadge qb-hungry"> 🍴'+hungry+'</span><span class="qbadge qb-dead"> 💀'+dead+'</span>'+
+     '<span class="fn">'+s.fn+'</span></div></div>');
+});
+ov.addEventListener('click',e=>{const q=e.target.closest('.queen');if(q)openColony(q.dataset.area);});
+
+(function buildCaminos(){
+  const inv=new Set(); let lines=''; const seen=new Set();
+  TERR.caminos.filter(c=>c.cross&&c.fromArea&&c.toArea).forEach(c=>{
+    const a=TERR.species[c.fromArea].anchor,b=TERR.species[c.toArea].anchor;
+    lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'"/>';
+    inv.add(c.fromArea);inv.add(c.toArea);
+  });
+  const kw={};
+  TERR.projects.forEach(p=>{const k=norm(p.keyword);if(k&&k.length>2){(kw[k]=kw[k]||new Set()).add(p.area);}});
+  const aff=[];
+  Object.values(kw).forEach(set=>{const ar=[...set];for(let i=0;i<ar.length;i++)for(let j=i+1;j<ar.length;j++){const key=ar[i]<ar[j]?ar[i]+'|'+ar[j]:ar[j]+'|'+ar[i];if(!seen.has(key)){seen.add(key);aff.push([ar[i],ar[j]]);}}});
+  aff.slice(0,12).forEach(([x,y])=>{const a=TERR.species[x].anchor,b=TERR.species[y].anchor;
+    lines+='<line class="aff" x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'"/>';inv.add(x);inv.add(y);});
+  camlayer.innerHTML=lines;
+  ov.querySelectorAll('.queen').forEach(q=>{if(inv.has(q.dataset.area))q.classList.add('in-camino');});
+})();
+
+document.getElementById('lenses').addEventListener('click',e=>{
+  const b=e.target.closest('.lensbtn');if(!b)return;
+  document.querySelectorAll('.lensbtn').forEach(x=>x.classList.toggle('on',x===b));
+  ov.dataset.lens=b.dataset.lens;
+});
+
+// ---------- COLONIA (corte transversal) ----------
+const colony=document.getElementById('colony'),conest=document.getElementById('conest');
+let curArea=null;
+const CH=[
+  {id:'despensa', x:250,y:236,rx:120,ry:70},
+  {id:'granero',  x:780,y:248,rx:118,ry:66},
+  {id:'reina',    x:500,y:372,rx:134,ry:100},
+  {id:'guarderia',x:206,y:452,rx:116,ry:70},
+  {id:'vertedero',x:782,y:486,rx:142,ry:86},
+  {id:'tuneles',  x:330,y:566,rx:150,ry:48}
+];
+function packInto(ch,n){const pts=[];const G=2.399963;for(let i=0;i<n;i++){const t=(i+0.5)/n;const r=Math.sqrt(t);const a=i*G;pts.push([ch.x+Math.cos(a)*r*ch.rx*0.74,ch.y+Math.sin(a)*r*ch.ry*0.66]);}return pts;}
+function sceneDefs(){return '<defs>'+
+  '<pattern id="chatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="7" stroke="#4a3a22" stroke-width=".8" opacity=".18"/></pattern>'+
+  '<g id="ctuft"><path d="M0 0 C-3 -9 -7 -11 -9 -15 M0 0 C-1 -10 0 -13 1 -18 M0 0 C4 -9 7 -11 10 -14" stroke="#4a3a22" fill="none" stroke-width="1.2" opacity=".5" stroke-linecap="round"/></g>'+
+  '<radialGradient id="cohalo"><stop offset="0" stop-color="#6edc6e" stop-opacity=".55"/><stop offset="0.7" stop-color="#6edc6e" stop-opacity="0"/></radialGradient>'+
+  '<filter id="graydead"><feColorMatrix type="saturate" values="0.15"/><feComponentTransfer><feFuncA type="linear" slope="0.85"/></feComponentTransfer></filter>'+
+  '</defs>';}
+function bugScene(b,s,cx,cy){
+  const sz=Math.max(24,Math.min(56,b.size));
+  const deg=b.vital==='dead'?180:(b.vital==='sleep'?-10:0);
+  const halo=b.status==='running'?'<circle cx="'+cx+'" cy="'+cy+'" r="'+(sz*0.72)+'" fill="url(#cohalo)"/>':'';
+  const filt=b.vital==='dead'?' filter="url(#graydead)"':'';
+  const body='<g class="body" transform="rotate('+deg+' '+cx+' '+cy+')"'+filt+'>'+
+    '<svg x="'+(cx-sz/2)+'" y="'+(cy-sz/2)+'" width="'+sz+'" height="'+sz+'" viewBox="0 0 100 100" overflow="visible">'+
+    critV2(s.key,{color:b.color,caste:b.caste,vital:b.vital})+'</svg></g>';
+  const bx=cx+sz*0.42, by=cy-sz*0.4;
+  let bdg='';
+  if(b.need==='hambre') bdg='<circle cx="'+bx+'" cy="'+by+'" r="9" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.2"/><text x="'+bx+'" y="'+(by+3.5)+'" font-size="10.5" text-anchor="middle">🍴</text>';
+  else if(b.need==='confuso') bdg='<circle cx="'+bx+'" cy="'+by+'" r="9" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.2"/><text x="'+bx+'" y="'+(by+4.5)+'" font-size="13" font-weight="700" text-anchor="middle" fill="#7a5a20" font-family="Georgia,serif">?</text>';
+  else if(b.state==='pendiente') bdg='<circle cx="'+bx+'" cy="'+by+'" r="5.5" fill="#ff8a1e" stroke="#f8f1dd" stroke-width="1.5"/>';
+  else if(b.state==='atascada') bdg='<circle cx="'+bx+'" cy="'+by+'" r="5.5" fill="#c0392b" stroke="#f8f1dd" stroke-width="1.5"/>';
+  if(b.vital==='sleep') bdg+='<text x="'+(cx-sz*0.42)+'" y="'+(cy-sz*0.34)+'" font-size="14" fill="#5d6e8a" font-style="italic" font-weight="700" font-family="Georgia,serif" paint-order="stroke" stroke="#f2e9d2" stroke-width="2.4">z<tspan dy="-4" font-size="10">z</tspan></text>';
+  const hit='<circle cx="'+cx+'" cy="'+cy+'" r="'+(sz*0.62)+'" fill="none" pointer-events="all"/>';
+  return '<g class="sbug" data-id="'+(b.id||'')+'">'+halo+hit+body+bdg+'</g>';
+}
+function openColony(area){
+  curArea=area;
+  const s=TERR.species[area], list=byArea[area], cam=s.camaras||{};
+  document.getElementById('coqb').innerHTML=queenHTML(s);
+  document.getElementById('colam').textContent='Lámina '+(ROMAN[TERR.areas.indexOf(area)+1]||'·')+' · corte del nido';
+  document.getElementById('coname').textContent=s.emo+' '+s.name;
+  document.getElementById('cofn').textContent=s.fn;
+  document.getElementById('cometa').textContent=s.metafora||'';
+  document.getElementById('cocnt').textContent=list.length+' bichos';
+  const byCam={}; CH.forEach(c=>byCam[c.id]=[]);
+  list.forEach(b=>{(byCam[b.camara]||byCam.guarderia).push(b);});
+  let sc=sceneDefs();
+  sc+='<rect width="1000" height="640" fill="#eae5cb"/>';
+  sc+='<rect x="0" y="150" width="1000" height="490" fill="#d6bf92"/>';
+  sc+='<path d="M0 150 C200 142 420 158 640 148 C820 140 920 154 1000 148 L1000 168 C820 160 700 172 520 164 C320 158 140 166 0 162 Z" fill="#cdd2a8"/>'+
+      '<path d="M0 150 C200 142 420 158 640 148 C820 140 920 154 1000 148" fill="none" stroke="#4a3a22" stroke-width="1.6" opacity=".45"/>';
+  sc+='<g stroke="#4a3a22" fill="none" opacity=".16"><path d="M0 300 C260 288 520 312 1000 296"/><path d="M0 440 C300 428 600 452 1000 438"/><path d="M0 560 C260 550 600 572 1000 558"/></g>';
+  for(let i=0;i<12;i++){sc+='<use href="#ctuft" transform="translate('+(40+i*84)+' '+(146+(i%3)*3)+') scale('+(0.8+(i%4)*0.18).toFixed(2)+')"/>';}
+  sc+='<circle cx="892" cy="56" r="34" fill="#f0d98c" stroke="#4a3a22" stroke-width="1.2" opacity=".7"/>';
+  sc+='<text x="20" y="138" fill="#5a4a26" font-size="13" font-style="italic" font-family="Georgia,serif" paint-order="stroke" stroke="#eae5cb" stroke-width="3">la superficie · '+(s.metafora||'la colonia')+'</text>';
+  let tun='';
+  CH.filter(c=>c.id!=='reina').forEach(c=>{tun+='<path d="M500 372 Q'+((500+c.x)/2)+' '+((372+c.y)/2+18)+' '+c.x+' '+c.y+'" fill="none"/>';});
+  tun+='<path d="M500 372 Q470 250 500 161" fill="none"/>';
+  sc+='<g stroke="#5a3f22" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.8">'+tun+'</g>';
+  sc+='<g stroke="#e8d6a8" stroke-width="11" stroke-linecap="round" fill="none">'+tun+'</g>';
+  CH.forEach((c,ci)=>{
+    const d1=blobPath(c.x,c.y,c.rx,c.ry,101+ci*17);
+    sc+='<path d="'+blobPath(c.x,c.y+4,c.rx*1.04,c.ry*1.06,101+ci*17)+'" fill="#5a3f22" opacity=".28"/>';
+    sc+='<path d="'+d1+'" fill="#e8d6a8" stroke="#6b4f2a" stroke-width="2.4"/>';
+    sc+='<ellipse cx="'+c.x+'" cy="'+(c.y+c.ry*0.45)+'" rx="'+(c.rx*0.82)+'" ry="'+(c.ry*0.4)+'" fill="url(#chatch)"/>';
+  });
+  const rch=CH.find(c=>c.id==='reina'), qs=120;
+  sc+='<g><circle cx="'+rch.x+'" cy="'+rch.y+'" r="'+(qs*0.5)+'" fill="url(#cohalo)" opacity=".5"/>'+
+      '<svg x="'+(rch.x-qs/2)+'" y="'+(rch.y-qs/2)+'" width="'+qs+'" height="'+qs+'" viewBox="0 0 100 100" overflow="visible">'+
+      critV2(s.key,{color:s.c,caste:s.queenCaste,vital:'ok'})+'</svg></g>';
+  CH.forEach(c=>{const arr=byCam[c.id]||[];const pts=packInto(c,arr.length);arr.forEach((b,i)=>{sc+=bugScene(b,s,pts[i][0],pts[i][1]);});});
+  CH.forEach(c=>{const name=cam[c.id]||c.id;
+    sc+='<g class="chlabel"><line x1="'+c.x+'" y1="'+(c.y-c.ry-22)+'" x2="'+c.x+'" y2="'+(c.y-c.ry+2)+'" stroke="#4a3a22" stroke-width="1" opacity=".5"/>'+
+    '<circle cx="'+c.x+'" cy="'+(c.y-c.ry+2)+'" r="2" fill="#4a3a22" opacity=".6"/>'+
+    '<text class="t" x="'+c.x+'" y="'+(c.y-c.ry-28)+'" text-anchor="middle" font-family="Georgia,serif">'+name+'</text></g>';});
+  conest.innerHTML='<svg class="scene" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">'+sc+'</svg>';
+  colony.classList.add('show');
+}
+function closeColony(){colony.classList.remove('show');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  var a=document.getElementById('anatscrim'); if(a&&a.classList.contains('show')){a.classList.remove('show');return;}
+  var s=document.getElementById('scrim'); if(s&&s.classList.contains('show')){s.classList.remove('show');return;}
+  var c=document.getElementById('colony'); if(c&&c.classList.contains('show')){closeColony();return;}
+});
+conest.addEventListener('click',e=>{const el=e.target.closest('.sbug');if(!el)return;const b=byId[el.dataset.id];if(b)openBug(b,b.area);});
+
+// ---------- ANATOMÍA ----------
+function openAnat(){
+  if(!curArea)return;
+  const s=TERR.species[curArea], flie=s.air;
+  document.getElementById('anattitle').textContent='Lámina anatómica · '+s.emo+' '+s.name;
+  const crit=critV2(s.key,{color:s.c,caste:s.queenCaste,vital:'ok'});
+  const labels=[
+    {n:'Antenas',lx:300,ly:38,tx:300,ty:120},
+    {n:'Cabeza',lx:120,ly:120,tx:252,ty:178},
+    {n:'Ojos',lx:482,ly:120,tx:350,ty:182},
+    {n:'Patas',lx:118,ly:300,tx:248,ty:255},
+    {n:(flie?'Alas':'Sin alas'),lx:484,ly:300,tx:356,ty:240},
+    {n:'Abdomen',lx:300,ly:408,tx:300,ty:300}
+  ];
+  let lab='';
+  labels.forEach(L=>{lab+='<line x1="'+L.lx+'" y1="'+(L.ly+6)+'" x2="'+L.tx+'" y2="'+L.ty+'" stroke="#8a7350" stroke-width="1.2" stroke-dasharray="4 3"/>'+
+    '<circle cx="'+L.tx+'" cy="'+L.ty+'" r="2.6" fill="#8a7350"/>'+
+    '<text x="'+L.lx+'" y="'+L.ly+'" text-anchor="middle" font-size="16" font-family="Georgia,serif" font-weight="600" letter-spacing="2" fill="#3a2c1a">'+L.n.toUpperCase()+'</text>';});
+  document.getElementById('anatbody').innerHTML='<svg viewBox="0 0 600 440" style="width:100%;height:auto">'+
+    '<svg x="205" y="120" width="190" height="190" viewBox="0 0 100 100" overflow="visible">'+crit+'</svg>'+lab+'</svg>';
+  const meanings=[['Antenas','percepción · inputs'],['Cabeza','🧠 la sesera (memoria)'],['Ojos','estado · observabilidad'],
+    ['Patas','conexiones = tu LAN'],(flie?['Alas','internet · la net (vuela)']:['Sin alas','local-first (no sale del PC)']),
+    ['Abdomen / gáster','identidad + actividad']];
+  document.getElementById('anatchips').innerHTML=meanings.map(m=>'<span class="achip"><b>'+m[0]+'</b> · '+m[1]+'</span>').join('');
+  document.getElementById('anatnote').textContent=((s.anatomia?s.anatomia+'  ':'')+(s.metafora||'')).trim();
+  document.getElementById('anatscrim').classList.add('show');
+}
+document.getElementById('anatscrim').addEventListener('click',e=>{if(e.target.id==='anatscrim')e.currentTarget.classList.remove('show');});
+
+// ---------- FICHA ----------
+const scrim=document.getElementById('scrim');
+scrim.addEventListener('click',e=>{if(e.target===scrim)scrim.classList.remove('show');});
+function titleOf(ref){return (byId[ref]&&byId[ref].title)||ref;}
+const CAMARA_GLOSA={reina:'núcleo · identidad',despensa:'contexto activo',granero:'memoria almacenada · lo hecho',guarderia:'en construcción',vertedero:'archivo muerto',tuneles:'enlaces'};
+const WAIT_GLOSA={user:'te espera a ti',system:'espera al sistema (el PC)',internet:'espera a la red (alas)',physical:'espera algo físico',external_person:'espera a otra persona'};
+function openBug(b,area){
+  const s=TERR.species[area];
+  document.getElementById('bigbug').innerHTML=asvg(s.key,{color:b.color,caste:b.caste,vital:b.vital});
+  document.getElementById('bt').textContent=b.title;
+  const util=b.casteUtil?(' — '+b.casteUtil):'';
+  document.getElementById('bc').textContent=s.emo+' '+b.casteName+(b.casteSp?(' · '+b.casteSp):'')+util;
+  const nd=b.need==='hambre'?' · 🍴 hambre':b.need==='confuso'?' · ❓ no sabe qué hacer':'';
+  document.getElementById('bst').innerHTML='<span class="st" style="background:'+b.color+'">'+b.stateName+nd+'</span><span class="st" style="background:#8a7350">actividad '+(b.act||'—')+'</span>';
+  const camName=(s.camaras&&s.camaras[b.camara])||b.camara||'';
+  const camG=CAMARA_GLOSA[b.camara]?(' · '+CAMARA_GLOSA[b.camara]):'';
+  const rastro=(b.msgs===0)?'sin rastro':(b.msgs+' msgs');
+  let chips='<span class="tg">'+s.emo+' '+s.name+'</span><span class="tg">🏠 '+camName+camG+'</span><span class="tg">💬 '+rastro+'</span>';
+  if(b.waiting_on&&WAIT_GLOSA[b.waiting_on]) chips+='<span class="tg">⏳ '+WAIT_GLOSA[b.waiting_on]+'</span>';
+  document.getElementById('bchips').innerHTML=chips;
+  document.getElementById('bd').textContent=b.deque||'—';
+  document.getElementById('bu').textContent=b.ultimo||'—';
+  document.getElementById('bp').textContent=b.proximo||'—';
+  let rel='';
+  if(b.superseded_by) rel+='<span class="tg">↳ relevado por: '+titleOf(b.superseded_by)+'</span>';
+  (b.depends_on||[]).forEach(t=>rel+='<span class="tg">⛓ depende de: '+titleOf(t)+'</span>');
+  (b.related||[]).forEach(t=>rel+='<span class="tg">🧵 '+titleOf(t)+'</span>');
+  (b.links||[]).forEach(t=>rel+='<span class="tg">🔗 '+t+'</span>');
+  document.getElementById('brel').innerHTML=rel;
+  document.getElementById('btg').innerHTML=(b.temas||[]).map(t=>'<span class="tg">'+t+'</span>').join('');
+  scrim.classList.add('show');
+}
+</script>
+</body>
+</html>

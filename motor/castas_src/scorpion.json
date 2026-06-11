@@ -1,0 +1,146 @@
+{
+ "key": "scorpion",
+ "metafora": "El exoesqueleto blindado ES la precisión del instrumento — pinzas que sujetan la señal, aguijón que inyecta la medida.",
+ "vuela": false,
+ "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera, pinzas=precision/medida, aguijon=instrumentacion, entorno=el ordenador.",
+ "camaras": {
+  "reina": "Camara real (nucleo de la colonia)",
+  "despensa": "Despensa de veneno (contexto activo, señales vivas)",
+  "granero": "Guarida (memoria almacenada, documentacion)",
+  "guarderia": "Madriguera (en construccion, wip)",
+  "vertedero": "Muda (archivo muerto, exoesqueleto viejo)",
+  "tuneles": "Tunel sensorial (enlaces, integraciones)"
+ },
+ "casta_base": {
+  "id": "imperial",
+  "nombre": "Imperial generico",
+  "sp": "Pandinus imperator",
+  "camara": "madriguera"
+ },
+ "castas": [
+  {
+   "id": "emperador",
+   "nombre": "Emperador",
+   "sp": "Pandinus imperator",
+   "camara": "despensa",
+   "utilidad": "sensing / deteccion inalambrica (WiFi RSSI, RF, presencia)",
+   "keywords": [
+    "nodemcu",
+    "esp8266",
+    "esp32",
+    "rssi",
+    "rf sensing",
+    "rf",
+    "sensing",
+    "presencia",
+    "presence",
+    "deteccion",
+    "detection",
+    "wifi",
+    "inalambrico",
+    "wireless",
+    "radio"
+   ]
+  },
+  {
+   "id": "corteza",
+   "nombre": "Corteza",
+   "sp": "Centruroides exilicauda",
+   "camara": "guarderia",
+   "utilidad": "microcontroladores / firmware / hardware embebido",
+   "keywords": [
+    "nodemcu",
+    "esp8266",
+    "esp32",
+    "esp32-s3",
+    "arduino",
+    "microcontrolador",
+    "microcontroller",
+    "firmware",
+    "embebido",
+    "embedded",
+    "arduino ide",
+    "blink",
+    "driver",
+    "flash",
+    "gpio"
+   ]
+  },
+  {
+   "id": "dorado",
+   "nombre": "Dorado",
+   "sp": "Opistophthalmus glabrifrons",
+   "camara": "despensa",
+   "utilidad": "medir / instrumentar / osciloscopio",
+   "keywords": [
+    "rigol",
+    "dho804",
+    "osciloscopio",
+    "oscilloscope",
+    "pyvisa",
+    "scpi",
+    "medicion",
+    "medida",
+    "measure",
+    "señal",
+    "signal",
+    "scs",
+    "bus scs",
+    "tegui",
+    "bticino",
+    "señal cuadrada",
+    "usb conexion",
+    "lan",
+    "scope"
+   ]
+  },
+  {
+   "id": "vinagrillo",
+   "nombre": "Vinagrillo",
+   "sp": "Mastigoproctus giganteus",
+   "camara": "tuneles",
+   "utilidad": "software EDA / simulacion de circuitos / integracion herramientas",
+   "keywords": [
+    "kicad",
+    "eda",
+    "simulacion circuitos",
+    "simulador circuitos",
+    "circuit simulation",
+    "simulacion",
+    "simulation",
+    "mcp osciloscopio",
+    "mcp",
+    "pyvisa",
+    "python",
+    "arquitectura",
+    "cloud",
+    "integracion",
+    "integration",
+    "comparativa",
+    "software"
+   ]
+  },
+  {
+   "id": "imperial",
+   "nombre": "Imperial",
+   "sp": "Pandinus dictator",
+   "camara": "guarderia",
+   "utilidad": "documentacion tecnica / organizacion / referencia",
+   "keywords": [
+    "documentacion",
+    "documentation",
+    "referencia",
+    "reference",
+    "organiz",
+    "memoria del proyecto",
+    "scpi",
+    "manual",
+    "prompt ia",
+    "hogar",
+    "agente ia",
+    "virtualiz",
+    "arquitectura del agente"
+   ]
+  }
+ ]
+}

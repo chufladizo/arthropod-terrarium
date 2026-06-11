@@ -1,0 +1,119 @@
+{
+ "key": "ladybug",
+ "metafora": "El ordenador ES el habitat de la mariquita: los élitros guardan lo casero, las patas recorren la LAN.",
+ "vuela": false,
+ "anatomia": "patas=LAN; alas bajo élitros (puede volar pero es lo casero/personal); cabeza=sesera; puntos=pequeños recuerdos personales; entorno=el ordenador.",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (lo hecho)",
+  "guarderia": "Guardería (en construcción)",
+  "vertedero": "Vertedero (archivo)",
+  "tuneles": "Túneles (enlaces)"
+ },
+ "casta_base": {
+  "id": "siete-puntos",
+  "nombre": "Siete Puntos",
+  "sp": "Coccinella septempunctata",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "siete-puntos",
+   "nombre": "Siete Puntos",
+   "sp": "Coccinella septempunctata",
+   "camara": "despensa",
+   "utilidad": "receta / guia paso a paso",
+   "keywords": [
+    "receta",
+    "recipe",
+    "guia",
+    "guide",
+    "paso a paso",
+    "step by step",
+    "tecnica",
+    "technique",
+    "instrucciones",
+    "instructions",
+    "tutorial",
+    "como hacer",
+    "how to",
+    "gastronomia",
+    "gastronomy",
+    "cocina",
+    "cooking",
+    "tortilla",
+    "patatas",
+    "cebolla",
+    "ingredientes",
+    "ingredients"
+   ]
+  },
+  {
+   "id": "arlequin",
+   "nombre": "Arlequín",
+   "sp": "Harmonia axyridis",
+   "camara": "granero",
+   "utilidad": "nota personal / hobby / salud",
+   "keywords": [
+    "personal",
+    "nota",
+    "note",
+    "hobby",
+    "salud",
+    "health",
+    "diario",
+    "journal",
+    "bienestar",
+    "wellness",
+    "deporte",
+    "sport",
+    "ejercicio",
+    "exercise",
+    "aficion",
+    "aficiones",
+    "pasatiempo",
+    "pasatiempos"
+   ]
+  },
+  {
+   "id": "dos-puntos",
+   "nombre": "Dos Puntos",
+   "sp": "Adalia bipunctata",
+   "camara": "tuneles",
+   "utilidad": "historia / cultura / investigacion personal",
+   "keywords": [
+    "historia",
+    "history",
+    "cultura",
+    "culture",
+    "origen",
+    "origin",
+    "debate",
+    "region",
+    "regions",
+    "espanola",
+    "espanol",
+    "spanish",
+    "tradicional",
+    "traditional",
+    "variantes",
+    "variants",
+    "investigacion",
+    "research"
+   ]
+  }
+ ],
+ "cobertura": {
+  "proyectos_total": 1,
+  "proyectos_cubiertos": 1,
+  "detalle": [
+   {
+    "id": "local_1d454631-a5f7-493c-91a2-9779357fb709",
+    "title": "Tortilla de patatas guide",
+    "casta_asignada": "siete-puntos",
+    "match_keywords": ["receta", "guia", "gastronomia", "tortilla", "patatas", "historia"]
+   }
+  ]
+ }
+}

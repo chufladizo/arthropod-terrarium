@@ -1,0 +1,108 @@
+{
+ "key": "dragonfly",
+ "metafora": "La libélula vuela entre redes: sus alas cruzan el aire (internet), sus patas tocan la LAN, sus ojos compuestos lo ven todo.",
+ "vuela": true,
+ "anatomia": "patas=LAN, alas=internet/conectividad exterior (vuela=true), cabeza/ojos enormes=sesera/observabilidad; entorno=el ordenador.",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Estanque activo (contexto activo)",
+  "granero": "Orilla seca (lo hecho)",
+  "guarderia": "Larvas (en construcción)",
+  "vertedero": "Cieno (archivo muerto)",
+  "tuneles": "Corrientes (enlaces)"
+ },
+ "casta_base": {
+  "id": "damsel",
+  "nombre": "Damselfly",
+  "sp": "Zygoptera",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "emperor",
+   "nombre": "Emperor",
+   "sp": "Anax imperator",
+   "camara": "despensa",
+   "utilidad": "auditar / asegurar router o firewall",
+   "keywords": [
+    "audit",
+    "auditoria",
+    "seguridad",
+    "security",
+    "firewall",
+    "router",
+    "backup cifrado",
+    "cifrado",
+    "encrypted",
+    "config",
+    "wifi 7",
+    "movistar",
+    "panel del router"
+   ]
+  },
+  {
+   "id": "hawk",
+   "nombre": "Hawker",
+   "sp": "Aeshna cyanea",
+   "camara": "despensa",
+   "utilidad": "diagnosticar / escanear red",
+   "keywords": [
+    "ssh",
+    "arp",
+    "diagnostic",
+    "diagnosticar",
+    "diagnostico",
+    "scan",
+    "invisible",
+    "client isolation",
+    "2.4ghz",
+    "5ghz",
+    "wifi",
+    "ping",
+    "traceroute",
+    "nmap",
+    "mini pc",
+    "asociados"
+   ]
+  },
+  {
+   "id": "damsel",
+   "nombre": "Damselfly",
+   "sp": "Zygoptera",
+   "camara": "tuneles",
+   "utilidad": "conectar / vincular dispositivos locales",
+   "keywords": [
+    "conectar",
+    "connect",
+    "pairing",
+    "enlazar",
+    "link",
+    "vpn",
+    "tunnel",
+    "tunel",
+    "proxy",
+    "dns",
+    "lan",
+    "local network",
+    "dispositivo",
+    "device"
+   ]
+  }
+ ],
+ "cobertura": [
+  {
+   "proyecto_id": "local_f263eede-d8e0-457b-850b-f56a9ad4f62b",
+   "titulo": "SSH connection options for mini PC",
+   "casta_asignada": "hawk",
+   "keywords_match": ["ssh", "arp", "wifi", "mini pc", "client isolation"],
+   "X": true
+  },
+  {
+   "proyecto_id": "local_f678be9d-d8e0-40a4-a3b7-83666019e8bd",
+   "titulo": "Audit Wi-Fi 7 router security configuration",
+   "casta_asignada": "emperor",
+   "keywords_match": ["audit", "seguridad", "router", "wifi 7", "backup cifrado", "movistar"],
+   "X": true
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+# ============================================================
+#  PRIVACIDAD
+#  Tus datos personales viven FUERA del repo, en carpetas
+#  hermanas: ../tierra/ (datos + terrario) y ../colonias/ (seseras).
+#  Estas reglas son una red de seguridad por si alguna vez las
+#  copias DENTRO del repo: nunca se subirán.
+# ============================================================
+tierra/
+colonias/
+legacy/
+mis-datos/
+salida/
+*.privado.json
+*.local.json
+
+# Terrario generado con datos reales (el del repo es demo/index.html)
+/terrario.html
+
+# --- Dependencias y basura ---------------------------------
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.log
+
+# Duplicado consolidado en assets/images/arthropods (borrar la carpeta vieja)
+assets/arthropods/
+
+# Scripts de publicación (uso local)
+subir-a-github.*

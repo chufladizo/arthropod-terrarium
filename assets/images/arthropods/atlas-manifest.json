@@ -1,0 +1,207 @@
+{
+  "version": "0.1",
+  "grid": { "columns": 4, "rows": 4, "cells": 16, "order": "left-to-right top-to-bottom" },
+  "recommended_dir": "assets/images/arthropods/transparent",
+  "sprites_dir": "assets/images/arthropods/sprites",
+  "raw_dir": "assets/images/arthropods/raw",
+  "atlas": [
+    {
+      "id": "generic-ant-workers",
+      "file": "generic-ant-workers.png",
+      "type": "generic",
+      "species": "ant",
+      "purpose": "Worker ant variety for future Claude/automation projects."
+    },
+    {
+      "id": "generic-ant-castes",
+      "file": "generic-ant-castes.png",
+      "type": "generic",
+      "species": "ant",
+      "purpose": "Specialist ant castes: leafcutter, army, carpenter, weaver, honeypot, queen, etc."
+    },
+    {
+      "id": "generic-ant-future",
+      "file": "generic-ant-future.png",
+      "type": "generic",
+      "species": "ant",
+      "purpose": "Unusual ant silhouettes for future utility classes."
+    },
+    {
+      "id": "generic-beetle-orders",
+      "file": "generic-beetle-orders.png",
+      "type": "generic",
+      "species": "beetle",
+      "purpose": "Broad beetle forms for Windows/system projects."
+    },
+    {
+      "id": "generic-beetle-armored",
+      "file": "generic-beetle-armored.png",
+      "type": "generic",
+      "species": "beetle",
+      "purpose": "Armored/tool-like beetles for infrastructure, repair and legacy work."
+    },
+    {
+      "id": "generic-beetle-systems",
+      "file": "generic-beetle-systems.png",
+      "type": "generic",
+      "species": "beetle",
+      "purpose": "System/infrastructure beetles with technical silhouettes."
+    },
+    {
+      "id": "generic-mantis-forms",
+      "file": "generic-mantis-forms.png",
+      "type": "generic",
+      "species": "mantis",
+      "purpose": "Mantis forms for meta/design and planning projects."
+    },
+    {
+      "id": "generic-bee-wasp-forms",
+      "file": "generic-bee-wasp-forms.png",
+      "type": "generic",
+      "species": "bee",
+      "purpose": "Bee/wasp forms for business, ideas and opportunity projects."
+    },
+    {
+      "id": "generic-butterfly-moth-forms",
+      "file": "generic-butterfly-moth-forms.png",
+      "type": "generic",
+      "species": "butterfly",
+      "purpose": "Butterfly and moth forms for visual/artifact projects."
+    },
+    {
+      "id": "projects-ants-claude-automation",
+      "file": "projects-ants-claude-automation.png",
+      "type": "project-specific",
+      "species": "ant",
+      "colony": "Claude/Skills/Automatización",
+      "cells": [
+        { "cell": 1, "project_id": "local_b2dfedf4-68fc-485b-bd12-028c239b24a2", "title": "Dynamic workflows 24h agents", "cue": "24h clock plus agent orchestration." },
+        { "cell": 2, "project_id": "local_710b55a5-162a-4148-8c37-608ab93dd147", "title": "Obsidian dynamic workflows vault", "cue": "Obsidian crystal vault and memory cards." },
+        { "cell": 3, "project_id": "local_a02698b7-0bfd-4ddf-964d-c348080a40bf", "title": "Skills and tools summary", "cue": "Tool icons and connector plugs." },
+        { "cell": 4, "project_id": "local_cdce375b-48cb-4010-8e4a-307385659b72", "title": "Claude session history audit", "cue": "Audit scrolls and memory trail." },
+        { "cell": 5, "project_id": "local_5459d3d7-eeb7-4ac8-ace5-ac0bc612cf1d", "title": "Autonomous Claude Code overnight development", "cue": "Style guide page and tiny hammer." },
+        { "cell": 6, "project_id": "local_c3b5ee5e-a0d4-452e-9d4b-db8f1aba1e7c", "title": "AI conversation analysis lab", "cue": "Conversation bubbles under magnifying glass." },
+        { "cell": 7, "project_id": "local_1888576b-36da-4546-8709-331789258ad0", "title": "Project synchronization across Claude apps", "cue": "Threads bridging app islands." },
+        { "cell": 8, "project_id": "local_c429e669-6360-4c4b-8a38-e646d3d9c94a", "title": "Claude configuration optimization", "cue": "Configuration gears." },
+        { "cell": 9, "project_id": "local_f5cd4790-3476-42b5-ac0c-1808513ea930", "title": "Skill-pipeline orchestrator development", "cue": "Pipeline machine with arrows." },
+        { "cell": 10, "project_id": "local_e6a1898a-eaa6-4ca6-87bd-af802e4e227a", "title": "Connector skills analysis", "cue": "Repairing overlapping skill pieces." },
+        { "cell": 11, "project_id": "local_473661f7-59eb-4c83-bfd9-49ae216dd810", "title": "Multi-skill task routing", "cue": "Two parallel workflow paths." },
+        { "cell": 12, "project_id": "local_e1dda15c-d231-4d6f-a776-225c81f7e88f", "title": "Skill pipeline project structure", "cue": "Home-technical ticket triage." },
+        { "cell": 13, "project_id": "local_167f3500-91fc-4379-a167-ee3af981657a", "title": "Project chat access confirmation", "cue": "Night scheduled task." },
+        { "cell": 14, "project_id": "local_8c7e2a53-c24b-4efc-ad65-eada9df3d638", "title": "Project analysis with Codex", "cue": "Token limit wall." },
+        { "cell": 15, "project_id": "local_3f16fc44-0b6a-4103-b8de-7347126dbc29", "title": "Claude skills unification", "cue": "Two skill cocoons merging." },
+        { "cell": 16, "project_id": "local_d20fdfe8-2fff-445c-b74f-6174073c82f3", "title": "Multi-agent workflow", "cue": "Empty workflow gate." }
+      ]
+    },
+    {
+      "id": "projects-beetles-windows-pc",
+      "file": "projects-beetles-windows-pc.png",
+      "type": "project-specific",
+      "species": "beetle",
+      "colony": "Sistemas/PC Windows",
+      "cells": [
+        { "cell": 1, "project_id": "local_3fc306e0-e6c7-4c58-bf63-bf1443cf0a69", "title": "Obsidian system setup with Claude", "cue": "Symlink bridge blocks into vault." },
+        { "cell": 2, "project_id": "local_9783b416-2036-4c7a-8f82-bd35ae0a4184", "title": "Visual Studio Code utility", "cue": "Blue editor panes and folders." },
+        { "cell": 3, "project_id": "local_18512ae9-07a1-47e0-9c85-0b8e70a5cfcd", "title": "List all active scheduled tasks", "cue": "Process, GPU and scheduled-task clock." },
+        { "cell": 4, "project_id": "local_240599b1-0dd1-4b04-bd8a-52e090186593", "title": "Compatibilidad gráfica GTX 1070 Ti ordenador", "cue": "Large graphics card and power cables." },
+        { "cell": 5, "project_id": "local_b89f1569-260d-42b0-b23f-e95a164e9184", "title": "Create fake technical work video", "cue": "Filming a technical desktop scene." },
+        { "cell": 6, "project_id": "local_857dbe1e-9bcd-4bc2-b365-96e44531d224", "title": "Troubleshoot black screen display issue", "cue": "Black monitor and BIOS chip." },
+        { "cell": 7, "project_id": "local_bee28ef3-bd48-4822-9cda-7967ecba94ea", "title": "Troubleshoot League of Legends error", "cue": "Cracked game controller and graphics shards." },
+        { "cell": 8, "project_id": "local_1b4844cc-99c7-4e71-8363-b8620462da6e", "title": "Fix intermittent screen timeout issue", "cue": "Energy saver, VRR and timeout dials." },
+        { "cell": 9, "project_id": "local_b84f0630-15a7-4991-8de1-8f4a99db5bcf", "title": "Windows mobile access setup", "cue": "Android phone to remote desktop monitor." },
+        { "cell": 10, "project_id": "local_1b164899-7110-4965-9d8c-d77ae9602ddb", "title": "GitHub Windows synchronization", "cue": "Git branches and repository box." },
+        { "cell": 11, "project_id": "local_324c2b29-d75e-4089-a686-6d0a863bfc14", "title": "Turn off screen and LED lights", "cue": "Monitor and keyboard LEDs off." },
+        { "cell": 12, "project_id": "local_e1c2b1f1-3f3f-4136-b5c7-665351060ce2", "title": "Format external storage devices", "cue": "External storage disks." },
+        { "cell": 13, "project_id": "local_c211f16b-39b8-4196-b8d2-c2bedd9bc537", "title": "Identify disconnected storage devices", "cue": "Disconnected drives mapped as stones." },
+        { "cell": 14, "project_id": "local_c7020c5c-4326-4e90-a5f0-ea3a2c397ad6", "title": "Optimize PC restructuring with Hyper-V setup", "cue": "Nested virtual-machine cubes." },
+        { "cell": 15, "project_id": "local_e660ba23-f0b9-4f36-ad8c-aaf12cb75cbf", "title": "Bitlocker check", "cue": "Encryption lock and key." },
+        { "cell": 16, "project_id": "local_c4e12425-0bc8-421e-8927-f73b0854d5f6", "title": "Check system access and computer information", "cue": "Magnifying glass over motherboard." }
+      ]
+    },
+    {
+      "id": "projects-mantis-arthropod-meta",
+      "file": "projects-mantis-arthropod-meta.png",
+      "type": "project-specific",
+      "species": "mantis",
+      "colony": "Arthropod Design (meta)",
+      "cells": [
+        { "cell": 1, "project_id": "local_8c332b5e-fee5-400e-b8f8-5ad1fe0cc03f", "title": "Sesera content configuration", "cue": "Ant anatomy blueprint and state dots." },
+        { "cell": 2, "project_id": "local_eabb2856-8723-4a63-80c7-8f6c5a864a65", "title": "Arthropod design project", "cue": "Fan-out ring of species files." },
+        { "cell": 3, "project_id": "local_1f7137d6-f104-43e1-981f-6cac2496f829", "title": "Visual chat artifact display", "cue": "Setup checklist and project folder." },
+        { "cell": 4, "project_id": "local_60dc882b-82cc-40df-96cc-51b8b80efcde", "title": "Arthropod design project", "cue": "3D arthropod carousel and inspection pins." },
+        { "cell": 5, "project_id": "local_029662d9-e136-41e6-8e4b-a6db9f060854", "title": "Update backlog artifact panel", "cue": "Backlog panel cards and floating query orb." },
+        { "cell": 6, "project_id": "local_413a65b6-ac4f-4586-b148-d2b2faa33304", "title": "Digital audit capacity check", "cue": "Publishing master map artifact." },
+        { "cell": 7, "project_id": "local_a9e87fe6-5fa3-4d28-aabb-ab61d748ee73", "title": "Skill creator", "cue": "Draggable floating AI query button." },
+        { "cell": 8, "project_id": "local_17cb0b6d-4052-4851-884c-bffc7f044c49", "title": "Claude interactive audit panel", "cue": "Sidebar panel and UI rulers." },
+        { "cell": 9, "project_id": "local_ae10746b-978f-4165-ad14-a9c1e6d52763", "title": "Nuevo artefacto en tiempo real", "cue": "Parser wires and tool traces." },
+        { "cell": 10, "project_id": "local_c0b86470-c9a2-44f9-865a-0c681a110cc0", "title": "Qué necesita mi atención", "cue": "Attention-status dashboard beacon." },
+        { "cell": 11, "project_id": "local_51e09385-e706-4b1a-9182-a264404bdacb", "title": "Real-time process dashboard", "cue": "Real-time process graphs." },
+        { "cell": 12, "project_id": "local_caa64384-b60c-4937-8629-8650344926fd", "title": "Multi-agent information factory", "cue": "Six-chamber multi-agent factory." },
+        { "cell": 13, "project_id": "local_b901903c-d877-4caf-a978-65cdefc0dcd7", "title": "Claude environment and projects overview", "cue": "Environment overview map." },
+        { "cell": 14, "project_id": "local_48d103a6-794c-47a1-811e-27db9e1c4a6d", "title": "Agent work visualization", "cue": "Pixel-art worker rooms." },
+        { "cell": 15, "project_id": "local_e2b88869-2f9b-4343-914d-1979971e0e1e", "title": "Live artifacts generation process", "cue": "Live artifact slider." },
+        { "cell": 16, "project_id": "local_4a06336a-008e-443d-a67e-f9f2c4b137e8", "title": "Prompt optimizer setup", "cue": "Prompt optimizer crystal." }
+      ]
+    },
+    {
+      "id": "projects-spiders-raspberry-servers",
+      "file": "projects-spiders-raspberry-servers.png",
+      "type": "project-specific-plus-future",
+      "species": "spider",
+      "colony": "Raspberry/Servidores caseros",
+      "purpose": "Cells 1-10 cover current projects; cells 11-16 are future server/self-hosted slots."
+    },
+    {
+      "id": "projects-scorpions-electronics",
+      "file": "projects-scorpions-electronics.png",
+      "type": "project-specific-plus-future",
+      "species": "scorpion",
+      "colony": "Electrónica/Instrumentación",
+      "purpose": "Cells 1-9 cover current projects; cells 10-16 are future electronics/instrumentation slots."
+    },
+    {
+      "id": "projects-bees-business-ideas",
+      "file": "projects-bees-business-ideas.png",
+      "type": "project-specific-plus-future",
+      "species": "bee",
+      "colony": "Negocio/Ideas",
+      "purpose": "Cells 1-9 cover current projects; cells 10-16 are future business/opportunity slots."
+    },
+    {
+      "id": "projects-centipedes-vpostal-data",
+      "file": "projects-centipedes-vpostal-data.png",
+      "type": "project-specific-plus-future",
+      "species": "centipede",
+      "colony": "Comunidades/Datos (VPostal)",
+      "purpose": "Cells 1-8 cover current projects; cells 9-16 are future data/community slots."
+    },
+    {
+      "id": "projects-mixed-visual-work-personal",
+      "file": "projects-mixed-visual-work-personal.png",
+      "type": "mixed-project-specific",
+      "species": ["butterfly", "dung", "ladybug", "mite"],
+      "colonies": ["Visualización/Artefactos", "Trabajo/Fichaje", "Recetas/Personal", "Otros"],
+      "purpose": "Mixed atlas for smaller colonies: visual artifacts, time tracking, personal and misc projects."
+    },
+    {
+      "id": "projects-mixed-linux-network",
+      "file": "projects-mixed-linux-network.png",
+      "type": "mixed-project-specific-plus-future",
+      "species": ["snail", "dragonfly"],
+      "colonies": ["Linux/Migración SO", "Redes/Conectividad"],
+      "purpose": "Cells 1-5 cover current Linux/network projects; cells 6-16 are future migration/connectivity slots."
+    },
+    {
+      "id": "subarthropods-eggs-larvae",
+      "file": "subarthropods-eggs-larvae.png",
+      "type": "subproject",
+      "purpose": "Eggs, larvae, pupae, nymphs and tiny forms for subtasks and project children."
+    },
+    {
+      "id": "future-insect-orders",
+      "file": "future-insect-orders.png",
+      "type": "future-repertoire",
+      "purpose": "Grasshopper, cricket, true bug, cicada, lacewing, earwig, termite, silverfish, springtail, flea, booklouse, stick insect, leaf insect, cockroach, assassin bug and water strider."
+    }
+  ]
+}

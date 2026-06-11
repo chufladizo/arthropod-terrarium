@@ -1,0 +1,17 @@
+{
+  "name": "arthropod-terrarium",
+  "version": "0.5.0",
+  "description": "Motor del Terrario Vivo: convierte proyectos en una colonia de artropodos como HTML estatico autocontenido.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "python3 motor/build.py",
+    "build:personal": "python3 motor/build.py ../tierra/datos ../tierra/terrario.html",
+    "verify": "node motor/verificar.js demo/index.html",
+    "verify:personal": "node motor/verificar.js ../tierra/terrario.html",
+    "todo": "npm run build && npm run verify"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

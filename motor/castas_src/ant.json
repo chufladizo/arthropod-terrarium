@@ -1,0 +1,149 @@
+{
+ "key": "ant",
+ "metafora": "El hormiguero subterráneo ES la memoria de la colonia.",
+ "vuela": false,
+ "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la reina es la única alada (el origen).",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (memoria almacenada)",
+  "guarderia": "Guardería (en construcción)",
+  "vertedero": "Vertedero (archivo muerto)",
+  "tuneles": "Túneles (enlaces)"
+ },
+ "casta_base": {
+  "id": "obrera",
+  "nombre": "Obrera",
+  "sp": "Formica fusca",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "legionaria",
+   "nombre": "Legionaria",
+   "sp": "Eciton burchellii",
+   "camara": "despensa",
+   "utilidad": "orquestar / multi-agente",
+   "keywords": [
+    "multi-agent",
+    "multiagente",
+    "multi-agente",
+    "dynamic workflow",
+    "dynamic-workflows",
+    "orquesta",
+    "orchestrat",
+    "pipeline",
+    "fan-out",
+    "multi-skill"
+   ]
+  },
+  {
+   "id": "melifera",
+   "nombre": "Melífera",
+   "sp": "Myrmecocystus mexicanus",
+   "camara": "granero",
+   "utilidad": "memoria / almacenar",
+   "keywords": [
+    "memoria",
+    "memory",
+    "sesera",
+    "obsidian",
+    "vault",
+    "consolidation",
+    "consolidacion",
+    "knowledge",
+    "retencion",
+    "mem0"
+   ]
+  },
+  {
+   "id": "cortadora",
+   "nombre": "Cortadora de hojas",
+   "sp": "Atta cephalotes",
+   "camara": "guarderia",
+   "utilidad": "resumir / procesar",
+   "keywords": [
+    "resumen",
+    "resumir",
+    "summary",
+    "summaries",
+    "sintesis",
+    "sintetiz",
+    "condensar",
+    "extracto"
+   ]
+  },
+  {
+   "id": "carpintera",
+   "nombre": "Carpintera",
+   "sp": "Camponotus",
+   "camara": "guarderia",
+   "utilidad": "crear / empaquetar skills",
+   "keywords": [
+    "skill creation",
+    "crear skill",
+    "skill-creator",
+    "skill.md",
+    "empaquet",
+    "build skill",
+    "construir skill",
+    "plugin"
+   ]
+  },
+  {
+   "id": "tejedora",
+   "nombre": "Tejedora",
+   "sp": "Oecophylla smaragdina",
+   "camara": "tuneles",
+   "utilidad": "sincronizar / conectar",
+   "keywords": [
+    "sincroniz",
+    "synchroniz",
+    "integr",
+    "mcp",
+    "bridge",
+    "webhook",
+    "screen sharing",
+    "real-time",
+    "tiempo real",
+    "github",
+    "google drive"
+   ]
+  },
+  {
+   "id": "cosechadora",
+   "nombre": "Cosechadora",
+   "sp": "Pogonomyrmex barbatus",
+   "camara": "guarderia",
+   "utilidad": "auditar / investigar",
+   "keywords": [
+    "auditoria",
+    "audit",
+    "recopil",
+    "investiga",
+    "research",
+    "diagnostic",
+    "codex",
+    "inventario",
+    "fact-check",
+    "optimization"
+   ]
+  },
+  {
+   "id": "bala",
+   "nombre": "Bala",
+   "sp": "Paraponera clavata",
+   "camara": "despensa",
+   "utilidad": "límites / tokens / bloqueos",
+   "keywords": [
+    "out of tokens",
+    "limite de sesion",
+    "limite de uso",
+    "monitor token",
+    "token-monitor",
+    "sin tokens",
+    "tope de"
+   ]
+  }
+ ]
+}

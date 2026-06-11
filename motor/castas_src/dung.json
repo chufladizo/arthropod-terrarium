@@ -1,0 +1,119 @@
+{
+ "key": "dung",
+ "metafora": "El pelotero empuja su bola (la jornada laboral) cada dia desde que sale el sol. El ordenador es su entorno; las patas son la LAN; la cabeza es la sesera.",
+ "vuela": false,
+ "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la bola=tarea/jornada que se empuja; entorno=el ordenador.",
+ "camaras": {
+  "reina": "Camara real (nucleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (lo hecho)",
+  "guarderia": "Guarderia (en construccion)",
+  "vertedero": "Vertedero (archivo muerto)",
+  "tuneles": "Tuneles (enlaces)"
+ },
+ "casta_base": {
+  "id": "rodador",
+  "nombre": "Rodador",
+  "sp": "Scarabaeus laticollis",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "minotauro",
+   "nombre": "Minotauro",
+   "sp": "Minotauros typhoeus",
+   "camara": "despensa",
+   "utilidad": "capturar API / investigar opciones tecnicas",
+   "keywords": [
+    "devtools captura",
+    "captura api",
+    "fichaje api",
+    "access employee",
+    "raspberry pi",
+    "analisis de",
+    "12 opciones",
+    "opciones de automatizacion",
+    "employee management dashboard"
+   ]
+  },
+  {
+   "id": "rodador",
+   "nombre": "Rodador",
+   "sp": "Scarabaeus laticollis",
+   "camara": "despensa",
+   "utilidad": "fichar / registrar jornada",
+   "keywords": [
+    "fichar",
+    "fichaje",
+    "clock in",
+    "clock-in",
+    "desfichar",
+    "desfichaje",
+    "clock out",
+    "clock-out",
+    "registrar jornada",
+    "registro entrada",
+    "registro salida",
+    "time tracking",
+    "jornada",
+    "turno",
+    "shift",
+    "timestamp",
+    "horario"
+   ]
+  },
+  {
+   "id": "sagrado",
+   "nombre": "Sagrado",
+   "sp": "Scarabaeus sacer",
+   "camara": "granero",
+   "utilidad": "documentos / formularios / facturas",
+   "keywords": [
+    "formulario",
+    "form",
+    "factura",
+    "invoice",
+    "plantilla",
+    "template",
+    "pdf",
+    "excel",
+    "documento",
+    "document",
+    "nomina",
+    "payroll",
+    "contrato",
+    "contract",
+    "reserva",
+    "booking",
+    "shipment",
+    "carga",
+    "transporte",
+    "balearia"
+   ]
+  },
+  {
+   "id": "tunelador",
+   "nombre": "Tunelador",
+   "sp": "Typhaeus typhoeus",
+   "camara": "tuneles",
+   "utilidad": "tareas programadas / infraestructura background",
+   "keywords": [
+    "tarea programada",
+    "scheduled task",
+    "schedule",
+    "windows-mcp",
+    "windows mcp",
+    "extension chrome",
+    "chrome extension",
+    "automatizacion fichaje",
+    "background",
+    "cron",
+    "trigger",
+    "reconfigurar",
+    "reconfigure",
+    "reescribir",
+    "rewrite"
+   ]
+  }
+ ]
+}

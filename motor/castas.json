@@ -1,0 +1,1853 @@
+{
+ "ant": {
+  "key": "ant",
+  "metafora": "El hormiguero subterráneo ES la memoria de la colonia.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la reina es la única alada (el origen).",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (memoria almacenada)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "obrera",
+   "nombre": "Obrera",
+   "sp": "Formica fusca",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "legionaria",
+    "nombre": "Legionaria",
+    "sp": "Eciton burchellii",
+    "camara": "despensa",
+    "utilidad": "orquestar / multi-agente",
+    "keywords": [
+     "multi-agent",
+     "multiagente",
+     "multi-agente",
+     "dynamic workflow",
+     "dynamic-workflows",
+     "orquesta",
+     "orchestrat",
+     "pipeline",
+     "fan-out",
+     "multi-skill"
+    ]
+   },
+   {
+    "id": "melifera",
+    "nombre": "Melífera",
+    "sp": "Myrmecocystus mexicanus",
+    "camara": "granero",
+    "utilidad": "memoria / almacenar",
+    "keywords": [
+     "memoria",
+     "memory",
+     "sesera",
+     "obsidian",
+     "vault",
+     "consolidation",
+     "consolidacion",
+     "knowledge",
+     "retencion",
+     "mem0"
+    ]
+   },
+   {
+    "id": "cortadora",
+    "nombre": "Cortadora de hojas",
+    "sp": "Atta cephalotes",
+    "camara": "guarderia",
+    "utilidad": "resumir / procesar",
+    "keywords": [
+     "resumen",
+     "resumir",
+     "summary",
+     "summaries",
+     "sintesis",
+     "sintetiz",
+     "condensar",
+     "extracto"
+    ]
+   },
+   {
+    "id": "carpintera",
+    "nombre": "Carpintera",
+    "sp": "Camponotus",
+    "camara": "guarderia",
+    "utilidad": "crear / empaquetar skills",
+    "keywords": [
+     "skill creation",
+     "crear skill",
+     "skill-creator",
+     "skill.md",
+     "empaquet",
+     "build skill",
+     "construir skill",
+     "plugin"
+    ]
+   },
+   {
+    "id": "tejedora",
+    "nombre": "Tejedora",
+    "sp": "Oecophylla smaragdina",
+    "camara": "tuneles",
+    "utilidad": "sincronizar / conectar",
+    "keywords": [
+     "sincroniz",
+     "synchroniz",
+     "integr",
+     "mcp",
+     "bridge",
+     "webhook",
+     "screen sharing",
+     "real-time",
+     "tiempo real",
+     "github",
+     "google drive"
+    ]
+   },
+   {
+    "id": "cosechadora",
+    "nombre": "Cosechadora",
+    "sp": "Pogonomyrmex barbatus",
+    "camara": "guarderia",
+    "utilidad": "auditar / investigar",
+    "keywords": [
+     "auditoria",
+     "audit",
+     "recopil",
+     "investiga",
+     "research",
+     "diagnostic",
+     "codex",
+     "inventario",
+     "fact-check",
+     "optimization"
+    ]
+   },
+   {
+    "id": "bala",
+    "nombre": "Bala",
+    "sp": "Paraponera clavata",
+    "camara": "despensa",
+    "utilidad": "límites / tokens / bloqueos",
+    "keywords": [
+     "out of tokens",
+     "limite de sesion",
+     "limite de uso",
+     "monitor token",
+     "token-monitor",
+     "sin tokens",
+     "tope de"
+    ]
+   }
+  ]
+ },
+ "bee": {
+  "key": "bee",
+  "metafora": "La colmena aérea ES el motor de negocio: vuela a la red, trae néctar (datos, dinero, ideas), lo procesa en celdas.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet (vuela a la red), cabeza=sesera; la reina es la identidad de la colonia.",
+  "camaras": {
+   "reina": "Cámara real (núcleo de la colonia)",
+   "despensa": "Despensa (contexto activo / en vuelo)",
+   "granero": "Granero (cosecha almacenada / entregado)",
+   "guarderia": "Guardería (en construcción / larva)",
+   "vertedero": "Vertedero (celda sellada / archivo muerto)",
+   "tuneles": "Túneles (enlaces / rutas de vuelo)"
+  },
+  "casta_base": {
+   "id": "obrera-melifera",
+   "nombre": "Obrera melífera",
+   "sp": "Apis mellifera",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "exploradora",
+    "nombre": "Exploradora",
+    "sp": "Apis mellifera — abeja exploradora",
+    "camara": "despensa",
+    "utilidad": "explorar oportunidades / investigar / hacer research",
+    "keywords": [
+     "research",
+     "investiga",
+     "analisis",
+     "análisis",
+     "analysis",
+     "analizar",
+     "viabilidad",
+     "mercado",
+     "market",
+     "competencia",
+     "competitive",
+     "comparacion",
+     "comparison",
+     "comparativa",
+     "estudio",
+     "prediccion",
+     "predicciones",
+     "elecciones",
+     "explor",
+     "reclamacion",
+     "reclamación",
+     "google business",
+     "ficha google",
+     "hermes",
+     "independencia digital",
+     "openrouter",
+     "usos de",
+     "use cases",
+     "divulgacion",
+     "divulgación",
+     "analogia",
+     "analogía",
+     "legal",
+     "rgpd",
+     "ley ia",
+     "tpv"
+    ]
+   },
+   {
+    "id": "obrera-melifera",
+    "nombre": "Obrera melífera",
+    "sp": "Apis mellifera",
+    "camara": "granero",
+    "utilidad": "producir / entregar / ejecutar",
+    "keywords": [
+     "entrega",
+     "deliver",
+     "produccion",
+     "producción",
+     "construccion",
+     "construcción",
+     "web empresa",
+     "web inmersiva",
+     "inmersiva",
+     "scroll",
+     "gruas",
+     "grúas",
+     "completar",
+     "pasivo",
+     "ingreso pasivo",
+     "passive income",
+     "micro-herramienta",
+     "herramienta web",
+     "calculadora",
+     "overnight",
+     "variantes entregadas",
+     "agentes en paralelo",
+     "multi-agente",
+     "multi-agent",
+     "claude code"
+    ]
+   },
+   {
+    "id": "zangano",
+    "nombre": "Zángano",
+    "sp": "Apis mellifera — dron",
+    "camara": "vertedero",
+    "utilidad": "idea sin currar / concepto en bruto / sin siguiente paso claro",
+    "keywords": [
+     "idea",
+     "concepto",
+     "conceptual",
+     "reflexivo",
+     "reflexion",
+     "texto reflexivo",
+     "one piece",
+     "nautica",
+     "náutica",
+     "analogia nautica",
+     "sin siguiente paso",
+     "proximo paso",
+     "decidir uso",
+     "pendiente de definir",
+     "brief de una pagina",
+     "mvp",
+     "concepto mvp",
+     "definir concepto",
+     "quick business",
+     "setup rapido",
+     "brainstorm",
+     "esbozo"
+    ]
+   },
+   {
+    "id": "carpintera",
+    "nombre": "Carpintera",
+    "sp": "Xylocopa violacea",
+    "camara": "guarderia",
+    "utilidad": "montar producto / construir / empaquetar para vender",
+    "keywords": [
+     "producto digital",
+     "kit",
+     "kit prompts",
+     "kit digital",
+     "prompts ia",
+     "payhip",
+     "vender",
+     "venta",
+     "oficios",
+     "negocios de oficios",
+     "empaquet",
+     "build",
+     "construir",
+     "montar",
+     "web noticias",
+     "predictor",
+     "marcador",
+     "traspaso proyecto",
+     "agente ia",
+     "telecomunicaciones",
+     "instaladores",
+     "sistema de comandas",
+     "comandas por voz",
+     "tpv voz",
+     "hosteleria",
+     "hostelería",
+     "bar alcatraz",
+     "gestion local",
+     "gestión local"
+    ]
+   }
+  ]
+ },
+ "beetle": {
+  "key": "beetle",
+  "metafora": "El PC es el entorno: su caparazon blindado protege los circuitos de la colonia.",
+  "vuela": false,
+  "anatomia": "patas=LAN; sin alas=local-first (no vuela); cabeza=la sesera (memoria del PC); el entorno=el ordenador fisico.",
+  "camaras": {
+   "reina": "Camara del Nucleo (identidad del sistema)",
+   "despensa": "Despensa de Circuitos (contexto activo)",
+   "granero": "Granero de Datos (almacen/lo hecho)",
+   "guarderia": "Galeria de Larvas (en construccion)",
+   "vertedero": "Vertedero de Restos (archivo muerto)",
+   "tuneles": "Tuneles de Cableado (enlaces/conexiones)"
+  },
+  "casta_base": {
+   "id": "base",
+   "nombre": "Escarabajo sin casta",
+   "sp": "Coleoptera gen.",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "rinoceronte",
+    "nombre": "Rinoceronte",
+    "sp": "Dynastes hercules",
+    "camara": "granero",
+    "utilidad": "almacenamiento / hardware fisico / git/sync",
+    "keywords": [
+     "almacenamiento",
+     "storage",
+     "formateo",
+     "format",
+     "dispositivos externos",
+     "external storage",
+     "mapeo",
+     "analisis hardware",
+     "github",
+     "sync",
+     "repositorio",
+     "gpu",
+     "gtx",
+     "z890",
+     "ollama",
+     "linux servidor"
+    ]
+   },
+   {
+    "id": "ciervo",
+    "nombre": "Ciervo Volante",
+    "sp": "Lucanus cervus",
+    "camara": "guarderia",
+    "utilidad": "configuracion / drivers / herramientas IDE",
+    "keywords": [
+     "vs code",
+     "visual studio code",
+     "settings.json",
+     "driver",
+     "bios",
+     "xmp",
+     "ddr5",
+     "directx",
+     "dxgi",
+     "vanguard",
+     "mcp",
+     "uv command",
+     "configuracion",
+     "code-workspace",
+     "artifacts html",
+     "skills"
+    ]
+   },
+   {
+    "id": "tigre",
+    "nombre": "Escarabajo Tigre",
+    "sp": "Cicindela campestris",
+    "camara": "despensa",
+    "utilidad": "acceso remoto / virtualizacion / red",
+    "keywords": [
+     "escritorio remoto",
+     "rdp",
+     "acceso movil",
+     "remote desktop",
+     "chrome remote desktop",
+     "vmware",
+     "hyper-v",
+     "virtualizacion",
+     "virtual",
+     "android"
+    ]
+   },
+   {
+    "id": "gorgojo",
+    "nombre": "Gorgojo",
+    "sp": "Curculio elephas",
+    "camara": "despensa",
+    "utilidad": "diagnostico / monitoreo / perifericos",
+    "keywords": [
+     "diagnostico",
+     "diagnostics",
+     "tareas programadas",
+     "scheduled tasks",
+     "procesos windows",
+     "pantalla negra",
+     "black screen",
+     "screen going black",
+     "timeout pantalla",
+     "screen timeout",
+     "energy saver",
+     "vrr",
+     "freesync",
+     "monitor",
+     "led",
+     "leds",
+     "teclado",
+     "raton",
+     "perifericos",
+     "hardware",
+     "audit",
+     "system audit",
+     "improvement",
+     "computer improvement",
+     "check system",
+     "system access",
+     "verify your access",
+     "diagnose system"
+    ]
+   },
+   {
+    "id": "bombardero",
+    "nombre": "Bombardero",
+    "sp": "Brachinus crepitans",
+    "camara": "guarderia",
+    "utilidad": "automatizacion / scripts / tareas",
+    "keywords": [
+     "automatizacion",
+     "automation",
+     "apagado pantalla",
+     "apagado de pantalla",
+     "microfono",
+     "tft",
+     "juego",
+     "game",
+     "computer use",
+     "script",
+     "powershell",
+     "task scheduler"
+    ]
+   },
+   {
+    "id": "joya",
+    "nombre": "Escarabajo Joya",
+    "sp": "Chrysochroa fulminans",
+    "camara": "tuneles",
+    "utilidad": "seguridad / enlaces / integracion de herramientas",
+    "keywords": [
+     "bitlocker",
+     "seguridad",
+     "cifrado",
+     "security",
+     "obsidian",
+     "symlinks",
+     "junctions",
+     "vault",
+     "memoria claude",
+     "windows junctions",
+     "enlace",
+     "link"
+    ]
+   }
+  ]
+ },
+ "butterfly": {
+  "key": "butterfly",
+  "metafora": "Las mariposas son el escaparate visual de la colonia: transforman datos e ideas en artefactos que se pueden ver, tocar y compartir.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet/la net (especie voladora), cabeza=sesera; el entorno es el ordenador.",
+  "camaras": {
+   "reina": "Galería real (núcleo)",
+   "despensa": "Paleta activa (contexto activo)",
+   "granero": "Archivo de diseño (lo hecho)",
+   "guarderia": "Cocón (en construcción)",
+   "vertedero": "Crisálida muerta (archivo)",
+   "tuneles": "Corrientes de aire (enlaces)"
+  },
+  "casta_base": {
+   "id": "monarca",
+   "nombre": "Monarca",
+   "sp": "Danaus plexippus",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "morpho",
+    "nombre": "Morpho",
+    "sp": "Morpho peleides",
+    "camara": "despensa",
+    "utilidad": "artefacto interactivo / widget / HTML",
+    "keywords": [
+     "widget",
+     "artefacto",
+     "artifact",
+     "html",
+     "interactivo",
+     "interactive",
+     "panel",
+     "panel interactivo",
+     "calculadora",
+     "calculadoras",
+     "pwa",
+     "offline",
+     "navaja suiza"
+    ]
+   },
+   {
+    "id": "cometa",
+    "nombre": "Cometa",
+    "sp": "Graphium agamemnon",
+    "camara": "guarderia",
+    "utilidad": "animacion / canvas / efectos visuales",
+    "keywords": [
+     "animado",
+     "animacion",
+     "animation",
+     "canvas",
+     "glow",
+     "efecto",
+     "effect",
+     "neuroanatomia",
+     "cerebro",
+     "surcos",
+     "region"
+    ]
+   },
+   {
+    "id": "polilla",
+    "nombre": "Polilla",
+    "sp": "Manduca sexta",
+    "camara": "granero",
+    "utilidad": "analisis / diagnostico visual / lectura de datos",
+    "keywords": [
+     "analisis",
+     "analytic",
+     "diagnostico",
+     "diagnostic",
+     "disco",
+     "carpetas",
+     "archivos",
+     "swimming",
+     "natacion",
+     "contenido"
+    ]
+   },
+   {
+    "id": "pavon",
+    "nombre": "Pavo real",
+    "sp": "Inachis io",
+    "camara": "granero",
+    "utilidad": "diseno de producto / diseño visual / infografia",
+    "keywords": [
+     "diseno",
+     "diseno producto",
+     "design",
+     "infografia",
+     "infographic",
+     "svg",
+     "tablero",
+     "board",
+     "monopoly",
+     "juego",
+     "game",
+     "personalizado",
+     "custom",
+     "visual"
+    ]
+   },
+   {
+    "id": "monarca",
+    "nombre": "Monarca",
+    "sp": "Danaus plexippus",
+    "camara": "tuneles",
+    "utilidad": "compartir / exportar / enviar artefacto",
+    "keywords": [
+     "exportar",
+     "export",
+     "enviar",
+     "whatsapp",
+     "png",
+     "compartir",
+     "share",
+     "respuesta visual",
+     "respuesta amigo",
+     "visual response"
+    ]
+   }
+  ]
+ },
+ "centipede": {
+  "key": "centipede",
+  "render_pendiente": false,
+  "metafora": "El ciempiés recorre la red local: cada par de patas es un enlace LAN, la cabeza es la sesera, el cuerpo entero ES el pipeline de datos.",
+  "vuela": false,
+  "anatomia": "patas=LAN (muchas patas → muy en red), sin alas=local-first, cabeza=sesera; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho / datos limpios)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Túneles (enlaces / despliegue)"
+  },
+  "casta_base": {
+   "id": "recolector",
+   "nombre": "Recolector",
+   "sp": "Scolopendra cingulata",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "rastreador",
+    "nombre": "Rastreador",
+    "sp": "Lithobius forficatus",
+    "camara": "despensa",
+    "utilidad": "scraping / extraccion de mensajes",
+    "keywords": [
+     "whatsapp",
+     "extraccion mensajes",
+     "extraccion",
+     "extraction",
+     "reparseo",
+     "parse",
+     "chat",
+     "chats",
+     "exported",
+     "exportado",
+     "archivos zip",
+     "zip"
+    ]
+   },
+   {
+    "id": "indexador",
+    "nombre": "Indexador",
+    "sp": "Scutigera coleoptrata",
+    "camara": "granero",
+    "utilidad": "indexar / catalogar comunidades y portales",
+    "keywords": [
+     "vpostal",
+     "comunidades",
+     "portales",
+     "461 comunidades",
+     "545 comunidades",
+     "553 comunidades",
+     "2113 portales",
+     "codigos portal",
+     "portal",
+     "callejero",
+     "callejero zaragoza",
+     "direcciones",
+     "verificadas",
+     "verificacion"
+    ]
+   },
+   {
+    "id": "fusionador",
+    "nombre": "Fusionador",
+    "sp": "Cryptops hortensis",
+    "camara": "guarderia",
+    "utilidad": "ETL / fusion y limpieza de datos",
+    "keywords": [
+     "fusion chats",
+     "fusionar",
+     "fusion",
+     "merge",
+     "cleanup",
+     "data cleanup",
+     "limpieza",
+     "reparseo",
+     "rebuild",
+     "csv",
+     "etl",
+     "correccion",
+     "fix"
+    ]
+   },
+   {
+    "id": "ensamblador",
+    "nombre": "Ensamblador",
+    "sp": "Geophilus carpophagus",
+    "camara": "guarderia",
+    "utilidad": "construir panel HTML / app de datos",
+    "keywords": [
+     "panel html",
+     "panel",
+     "html",
+     "pestanas",
+     "5 pestanas",
+     "app operativa",
+     "panel v2",
+     "badges",
+     "garantia",
+     "reincidencia",
+     "tabla",
+     "busqueda portal",
+     "busqueda"
+    ]
+   },
+   {
+    "id": "mensajero",
+    "nombre": "Mensajero",
+    "sp": "Strigamia acuminata",
+    "camara": "despensa",
+    "utilidad": "mensajeria / atribucion de mensajes a comunidades",
+    "keywords": [
+     "atribucion",
+     "atribucion mensajes",
+     "mensajes",
+     "message",
+     "whatsapp",
+     "tecnicos",
+     "comunidad",
+     "community"
+    ]
+   },
+   {
+    "id": "segador",
+    "nombre": "Segador",
+    "sp": "Necrophloeophagus longicornis",
+    "camara": "vertedero",
+    "utilidad": "localizar / recuperar archivos perdidos o recursos",
+    "keywords": [
+     "missing",
+     "localizar",
+     "localizacion",
+     "recursos",
+     "archivos zip",
+     "archivo original",
+     "confirmation",
+     "confirmacion",
+     "perdido"
+    ]
+   },
+   {
+    "id": "desplegador",
+    "nombre": "Desplegador",
+    "sp": "Scolopendra morsitans",
+    "camara": "tuneles",
+    "utilidad": "despliegue / publicacion en la nube",
+    "keywords": [
+     "cloudflare",
+     "cloudflare pages",
+     "despliegue",
+     "deploy",
+     "subir",
+     "upload",
+     "pipeline",
+     "vplostal",
+     "entrega",
+     "v2",
+     "zip"
+    ]
+   },
+   {
+    "id": "alcantarillero",
+    "nombre": "Alcantarillero",
+    "sp": "Himantarium gabrielis",
+    "camara": "despensa",
+    "utilidad": "decision de alcance / planificacion de rebuild",
+    "keywords": [
+     "alcance",
+     "scope",
+     "rebuild",
+     "rebuild completo",
+     "decisiones",
+     "proximo paso",
+     "planificacion",
+     "pipeline completo"
+    ]
+   }
+  ]
+ },
+ "dragonfly": {
+  "key": "dragonfly",
+  "metafora": "La libélula vuela entre redes: sus alas cruzan el aire (internet), sus patas tocan la LAN, sus ojos compuestos lo ven todo.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet/conectividad exterior (vuela=true), cabeza/ojos enormes=sesera/observabilidad; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Estanque activo (contexto activo)",
+   "granero": "Orilla seca (lo hecho)",
+   "guarderia": "Larvas (en construcción)",
+   "vertedero": "Cieno (archivo muerto)",
+   "tuneles": "Corrientes (enlaces)"
+  },
+  "casta_base": {
+   "id": "damsel",
+   "nombre": "Damselfly",
+   "sp": "Zygoptera",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "emperor",
+    "nombre": "Emperor",
+    "sp": "Anax imperator",
+    "camara": "despensa",
+    "utilidad": "auditar / asegurar router o firewall",
+    "keywords": [
+     "audit",
+     "auditoria",
+     "seguridad",
+     "security",
+     "firewall",
+     "router",
+     "backup cifrado",
+     "cifrado",
+     "encrypted",
+     "config",
+     "wifi 7",
+     "movistar",
+     "panel del router"
+    ]
+   },
+   {
+    "id": "hawk",
+    "nombre": "Hawker",
+    "sp": "Aeshna cyanea",
+    "camara": "despensa",
+    "utilidad": "diagnosticar / escanear red",
+    "keywords": [
+     "ssh",
+     "arp",
+     "diagnostic",
+     "diagnosticar",
+     "diagnostico",
+     "scan",
+     "invisible",
+     "client isolation",
+     "2.4ghz",
+     "5ghz",
+     "wifi",
+     "ping",
+     "traceroute",
+     "nmap",
+     "mini pc",
+     "asociados"
+    ]
+   },
+   {
+    "id": "damsel",
+    "nombre": "Damselfly",
+    "sp": "Zygoptera",
+    "camara": "tuneles",
+    "utilidad": "conectar / vincular dispositivos locales",
+    "keywords": [
+     "conectar",
+     "connect",
+     "pairing",
+     "enlazar",
+     "link",
+     "vpn",
+     "tunnel",
+     "tunel",
+     "proxy",
+     "dns",
+     "lan",
+     "local network",
+     "dispositivo",
+     "device"
+    ]
+   }
+  ],
+  "cobertura": [
+   {
+    "proyecto_id": "local_f263eede-d8e0-457b-850b-f56a9ad4f62b",
+    "titulo": "SSH connection options for mini PC",
+    "casta_asignada": "hawk",
+    "keywords_match": [
+     "ssh",
+     "arp",
+     "wifi",
+     "mini pc",
+     "client isolation"
+    ],
+    "X": true
+   },
+   {
+    "proyecto_id": "local_f678be9d-d8e0-40a4-a3b7-83666019e8bd",
+    "titulo": "Audit Wi-Fi 7 router security configuration",
+    "casta_asignada": "emperor",
+    "keywords_match": [
+     "audit",
+     "seguridad",
+     "router",
+     "wifi 7",
+     "backup cifrado",
+     "movistar"
+    ],
+    "X": true
+   }
+  ]
+ },
+ "dung": {
+  "key": "dung",
+  "metafora": "El pelotero empuja su bola (la jornada laboral) cada dia desde que sale el sol. El ordenador es su entorno; las patas son la LAN; la cabeza es la sesera.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la bola=tarea/jornada que se empuja; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guarderia (en construccion)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Tuneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "rodador",
+   "nombre": "Rodador",
+   "sp": "Scarabaeus laticollis",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "minotauro",
+    "nombre": "Minotauro",
+    "sp": "Minotauros typhoeus",
+    "camara": "despensa",
+    "utilidad": "capturar API / investigar opciones tecnicas",
+    "keywords": [
+     "devtools captura",
+     "captura api",
+     "fichaje api",
+     "access employee",
+     "raspberry pi",
+     "analisis de",
+     "12 opciones",
+     "opciones de automatizacion",
+     "employee management dashboard"
+    ]
+   },
+   {
+    "id": "rodador",
+    "nombre": "Rodador",
+    "sp": "Scarabaeus laticollis",
+    "camara": "despensa",
+    "utilidad": "fichar / registrar jornada",
+    "keywords": [
+     "fichar",
+     "fichaje",
+     "clock in",
+     "clock-in",
+     "desfichar",
+     "desfichaje",
+     "clock out",
+     "clock-out",
+     "registrar jornada",
+     "registro entrada",
+     "registro salida",
+     "time tracking",
+     "jornada",
+     "turno",
+     "shift",
+     "timestamp",
+     "horario"
+    ]
+   },
+   {
+    "id": "sagrado",
+    "nombre": "Sagrado",
+    "sp": "Scarabaeus sacer",
+    "camara": "granero",
+    "utilidad": "documentos / formularios / facturas",
+    "keywords": [
+     "formulario",
+     "form",
+     "factura",
+     "invoice",
+     "plantilla",
+     "template",
+     "pdf",
+     "excel",
+     "documento",
+     "document",
+     "nomina",
+     "payroll",
+     "contrato",
+     "contract",
+     "reserva",
+     "booking",
+     "shipment",
+     "carga",
+     "transporte",
+     "balearia"
+    ]
+   },
+   {
+    "id": "tunelador",
+    "nombre": "Tunelador",
+    "sp": "Typhaeus typhoeus",
+    "camara": "tuneles",
+    "utilidad": "tareas programadas / infraestructura background",
+    "keywords": [
+     "tarea programada",
+     "scheduled task",
+     "schedule",
+     "windows-mcp",
+     "windows mcp",
+     "extension chrome",
+     "chrome extension",
+     "automatizacion fichaje",
+     "background",
+     "cron",
+     "trigger",
+     "reconfigurar",
+     "reconfigure",
+     "reescribir",
+     "rewrite"
+    ]
+   }
+  ]
+ },
+ "ladybug": {
+  "key": "ladybug",
+  "metafora": "El ordenador ES el habitat de la mariquita: los élitros guardan lo casero, las patas recorren la LAN.",
+  "vuela": false,
+  "anatomia": "patas=LAN; alas bajo élitros (puede volar pero es lo casero/personal); cabeza=sesera; puntos=pequeños recuerdos personales; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "siete-puntos",
+   "nombre": "Siete Puntos",
+   "sp": "Coccinella septempunctata",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "siete-puntos",
+    "nombre": "Siete Puntos",
+    "sp": "Coccinella septempunctata",
+    "camara": "despensa",
+    "utilidad": "receta / guia paso a paso",
+    "keywords": [
+     "receta",
+     "recipe",
+     "guia",
+     "guide",
+     "paso a paso",
+     "step by step",
+     "tecnica",
+     "technique",
+     "instrucciones",
+     "instructions",
+     "tutorial",
+     "como hacer",
+     "how to",
+     "gastronomia",
+     "gastronomy",
+     "cocina",
+     "cooking",
+     "tortilla",
+     "patatas",
+     "cebolla",
+     "ingredientes",
+     "ingredients"
+    ]
+   },
+   {
+    "id": "arlequin",
+    "nombre": "Arlequín",
+    "sp": "Harmonia axyridis",
+    "camara": "granero",
+    "utilidad": "nota personal / hobby / salud",
+    "keywords": [
+     "personal",
+     "nota",
+     "note",
+     "hobby",
+     "salud",
+     "health",
+     "diario",
+     "journal",
+     "bienestar",
+     "wellness",
+     "deporte",
+     "sport",
+     "ejercicio",
+     "exercise",
+     "aficion",
+     "aficiones",
+     "pasatiempo",
+     "pasatiempos"
+    ]
+   },
+   {
+    "id": "dos-puntos",
+    "nombre": "Dos Puntos",
+    "sp": "Adalia bipunctata",
+    "camara": "tuneles",
+    "utilidad": "historia / cultura / investigacion personal",
+    "keywords": [
+     "historia",
+     "history",
+     "cultura",
+     "culture",
+     "origen",
+     "origin",
+     "debate",
+     "region",
+     "regions",
+     "espanola",
+     "espanol",
+     "spanish",
+     "tradicional",
+     "traditional",
+     "variantes",
+     "variants",
+     "investigacion",
+     "research"
+    ]
+   }
+  ],
+  "cobertura": {
+   "proyectos_total": 1,
+   "proyectos_cubiertos": 1,
+   "detalle": [
+    {
+     "id": "local_1d454631-a5f7-493c-91a2-9779357fb709",
+     "title": "Tortilla de patatas guide",
+     "casta_asignada": "siete-puntos",
+     "match_keywords": [
+      "receta",
+      "guia",
+      "gastronomia",
+      "tortilla",
+      "patatas",
+      "historia"
+     ]
+    }
+   ]
+  }
+ },
+ "mantis": {
+  "key": "mantis",
+  "metafora": "La mantis observa el terrario desde dentro: es el ojo que diseña el ojo.",
+  "vuela": false,
+  "anatomia": "patas=LAN; cabeza triangular giratoria=observabilidad/sesera; patas raptoras=precision de diseno; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guarderia (en construccion)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Tuneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "religiosa",
+   "nombre": "Religiosa",
+   "sp": "Mantis religiosa",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "gigante",
+    "nombre": "Gigante africana",
+    "sp": "Sphodromantis viridis",
+    "camara": "despensa",
+    "utilidad": "motor / build / skill-pipeline / fan-out",
+    "keywords": [
+     "skill-pipeline",
+     "pipeline",
+     "fan-out",
+     "build",
+     "motor",
+     "skill creator",
+     "live artifact",
+     "live-artifact",
+     "artefacto",
+     "artifact",
+     "backlog",
+     "digital audit capacity",
+     "generation process",
+     "update backlog"
+    ]
+   },
+   {
+    "id": "orquidea",
+    "nombre": "Mantis orquidea",
+    "sp": "Hymenopus coronatus",
+    "camara": "guarderia",
+    "utilidad": "visualizacion / panel / dashboard / HTML interactivo",
+    "keywords": [
+     "visualizaci",
+     "visualization",
+     "panel",
+     "dashboard",
+     "html interactivo",
+     "interactive",
+     "interactivo",
+     "pixel art",
+     "carrusel",
+     "4 vistas",
+     "sidebar",
+     "ux",
+     "chart",
+     "chart.js",
+     "agent work",
+     "overview",
+     "display",
+     "real-time process",
+     "tiempo real",
+     "atencion"
+    ]
+   },
+   {
+    "id": "fantasma",
+    "nombre": "Mantis fantasma",
+    "sp": "Phyllocrania paradoxa",
+    "camara": "despensa",
+    "utilidad": "auditoria / debug / diagnostico / prompt",
+    "keywords": [
+     "audit",
+     "auditoria",
+     "auditori",
+     "debug",
+     "diagnostic",
+     "diagnostico",
+     "parsers",
+     "prompt optimizer",
+     "optimizador",
+     "prompt",
+     "multi-agent",
+     "multi-agente",
+     "information factory",
+     "fabrica",
+     "setup",
+     "chequeo",
+     "verificaci",
+     "verificacion"
+    ]
+   },
+   {
+    "id": "religiosa",
+    "nombre": "Religiosa",
+    "sp": "Mantis religiosa",
+    "camara": "reina",
+    "utilidad": "diseno del sistema / taxonomia / castas / identidad visual",
+    "keywords": [
+     "diseno",
+     "diseño",
+     "design",
+     "taxon",
+     "casta",
+     "castas",
+     "especies",
+     "species",
+     "caste.json",
+     "critters",
+     "12 especies",
+     "sistema",
+     "sesera content",
+     "antv2",
+     "boceto",
+     "colonia",
+     "arthropod design"
+    ]
+   },
+   {
+    "id": "espinosa",
+    "nombre": "Mantis espinosa",
+    "sp": "Pseudocreobotra wahlbergii",
+    "camara": "granero",
+    "utilidad": "identidad visual / 3D / render / artefacto espectacular",
+    "keywords": [
+     "carrusel 3d",
+     "3d",
+     "47 puntos",
+     "acordeon",
+     "inspeccion",
+     "render",
+     "visual chat",
+     "artifact display",
+     "47",
+     "vistas"
+    ]
+   }
+  ],
+  "asignaciones": [
+   {
+    "id": "local_caa64384-b60c-4937-8629-8650344926fd",
+    "casta": "fantasma",
+    "razon": "multi-agente + auditoria historial + fabrica"
+   },
+   {
+    "id": "local_48d103a6-794c-47a1-811e-27db9e1c4a6d",
+    "casta": "orquidea",
+    "razon": "visualizacion agentes + HTML interactivo + pixel art"
+   },
+   {
+    "id": "local_413a65b6-ac4f-4586-b148-d2b2faa33304",
+    "casta": "gigante",
+    "razon": "skill-pipeline + artefactos HTML + panel visual"
+   },
+   {
+    "id": "local_b901903c-d877-4caf-a978-65cdefc0dcd7",
+    "casta": "orquidea",
+    "razon": "panel proyectos + entorno Claude + HTML interactivo"
+   },
+   {
+    "id": "local_17cb0b6d-4052-4851-884c-bffc7f044c49",
+    "casta": "orquidea",
+    "razon": "panel auditoria + sidebar + UX + visualizacion"
+   },
+   {
+    "id": "local_4a06336a-008e-443d-a67e-f9f2c4b137e8",
+    "casta": "fantasma",
+    "razon": "optimizador prompts + auditoria + activacion skill"
+   },
+   {
+    "id": "local_a9e87fe6-5fa3-4d28-aabb-ab61d748ee73",
+    "casta": "gigante",
+    "razon": "skill creator + live artifact + panel flotante"
+   },
+   {
+    "id": "local_e2b88869-2f9b-4343-914d-1979971e0e1e",
+    "casta": "gigante",
+    "razon": "live artifact + verificacion + show_widget + build"
+   },
+   {
+    "id": "local_029662d9-e136-41e6-8e4b-a6db9f060854",
+    "casta": "gigante",
+    "razon": "update backlog artifact + panel IA + optimizador"
+   },
+   {
+    "id": "local_51e09385-e706-4b1a-9182-a264404bdacb",
+    "casta": "orquidea",
+    "razon": "dashboard tiempo real + chart.js + tareas programadas"
+   },
+   {
+    "id": "local_ae10746b-978f-4165-ad14-a9c1e6d52763",
+    "casta": "fantasma",
+    "razon": "debug + parsers + diagnostico + tiempo real"
+   },
+   {
+    "id": "local_c0b86470-c9a2-44f9-865a-0c681a110cc0",
+    "casta": "orquidea",
+    "razon": "dashboard atencion + herramientas conectadas + estado"
+   },
+   {
+    "id": "local_8c332b5e-fee5-400e-b8f8-5ad1fe0cc03f",
+    "casta": "religiosa",
+    "razon": "diseno v2 + castas + antV2 + boceto sistema"
+   },
+   {
+    "id": "local_1f7137d6-f104-43e1-981f-6cac2496f829",
+    "casta": "fantasma",
+    "razon": "setup + auditoria + repo + prompt de chequeo"
+   },
+   {
+    "id": "local_eabb2856-8723-4a63-80c7-8f6c5a864a65",
+    "casta": "religiosa",
+    "razon": "fan-out 12 especies + caste.json + critters v2 + arthropod design"
+   },
+   {
+    "id": "local_60dc882b-82cc-40df-96cc-51b8b80efcde",
+    "casta": "espinosa",
+    "razon": "carrusel 3D + 4 vistas + 47 puntos + acordeon"
+   }
+  ]
+ },
+ "mite": {
+  "key": "mite",
+  "metafora": "Los ácaros son omnipresentes e invisibles — lo diminuto y suelto que vive en el ordenador.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; diminutos y omnipresentes, viven en el entorno del ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "polvo",
+   "nombre": "Ácaro del polvo",
+   "sp": "Dermatophagoides pteronyssinus",
+   "camara": "vertedero"
+  },
+  "castas": [
+   {
+    "id": "garrapata",
+    "nombre": "Garrapata",
+    "sp": "Ixodes ricinus",
+    "camara": "despensa",
+    "utilidad": "tareas pendientes / cosas que se enganchan",
+    "keywords": [
+     "schedule",
+     "appointment",
+     "cita",
+     "agenda",
+     "reminder",
+     "recordatorio",
+     "pending",
+     "pendiente",
+     "todo",
+     "tarea",
+     "task"
+    ]
+   },
+   {
+    "id": "arana-roja",
+    "nombre": "Araña roja",
+    "sp": "Tetranychus urticae",
+    "camara": "guarderia",
+    "utilidad": "bugs / problemas / algo que irrita",
+    "keywords": [
+     "bug",
+     "error",
+     "fix",
+     "fallo",
+     "problema",
+     "issue",
+     "crash",
+     "broken",
+     "roto",
+     "debug",
+     "troubleshoot"
+    ]
+   },
+   {
+    "id": "agua",
+    "nombre": "Ácaro de agua",
+    "sp": "Hydrachna globosa",
+    "camara": "guarderia",
+    "utilidad": "extraer / revisar / procesar contenido",
+    "keywords": [
+     "extract",
+     "extrae",
+     "extraccion",
+     "review",
+     "revision",
+     "revisión",
+     "pack",
+     "content",
+     "contenido",
+     "tisfera",
+     "parse",
+     "proceso",
+     "process",
+     "import",
+     "exporta",
+     "export",
+     "download",
+     "descargar"
+    ]
+   },
+   {
+    "id": "polvo",
+    "nombre": "Ácaro del polvo",
+    "sp": "Dermatophagoides pteronyssinus",
+    "camara": "vertedero",
+    "utilidad": "restos / misc / sesiones sin contenido",
+    "keywords": [
+     "chat",
+     "session",
+     "sesion",
+     "sin contenido",
+     "empty",
+     "vacio",
+     "misc",
+     "other",
+     "otro",
+     "map",
+     "mapa",
+     "zarapoly",
+     "untitled",
+     "sin titulo"
+    ]
+   }
+  ]
+ },
+ "scorpion": {
+  "key": "scorpion",
+  "metafora": "El exoesqueleto blindado ES la precisión del instrumento — pinzas que sujetan la señal, aguijón que inyecta la medida.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera, pinzas=precision/medida, aguijon=instrumentacion, entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo de la colonia)",
+   "despensa": "Despensa de veneno (contexto activo, señales vivas)",
+   "granero": "Guarida (memoria almacenada, documentacion)",
+   "guarderia": "Madriguera (en construccion, wip)",
+   "vertedero": "Muda (archivo muerto, exoesqueleto viejo)",
+   "tuneles": "Tunel sensorial (enlaces, integraciones)"
+  },
+  "casta_base": {
+   "id": "imperial",
+   "nombre": "Imperial generico",
+   "sp": "Pandinus imperator",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "emperador",
+    "nombre": "Emperador",
+    "sp": "Pandinus imperator",
+    "camara": "despensa",
+    "utilidad": "sensing / deteccion inalambrica (WiFi RSSI, RF, presencia)",
+    "keywords": [
+     "nodemcu",
+     "esp8266",
+     "esp32",
+     "rssi",
+     "rf sensing",
+     "rf",
+     "sensing",
+     "presencia",
+     "presence",
+     "deteccion",
+     "detection",
+     "wifi",
+     "inalambrico",
+     "wireless",
+     "radio"
+    ]
+   },
+   {
+    "id": "corteza",
+    "nombre": "Corteza",
+    "sp": "Centruroides exilicauda",
+    "camara": "guarderia",
+    "utilidad": "microcontroladores / firmware / hardware embebido",
+    "keywords": [
+     "nodemcu",
+     "esp8266",
+     "esp32",
+     "esp32-s3",
+     "arduino",
+     "microcontrolador",
+     "microcontroller",
+     "firmware",
+     "embebido",
+     "embedded",
+     "arduino ide",
+     "blink",
+     "driver",
+     "flash",
+     "gpio"
+    ]
+   },
+   {
+    "id": "dorado",
+    "nombre": "Dorado",
+    "sp": "Opistophthalmus glabrifrons",
+    "camara": "despensa",
+    "utilidad": "medir / instrumentar / osciloscopio",
+    "keywords": [
+     "rigol",
+     "dho804",
+     "osciloscopio",
+     "oscilloscope",
+     "pyvisa",
+     "scpi",
+     "medicion",
+     "medida",
+     "measure",
+     "señal",
+     "signal",
+     "scs",
+     "bus scs",
+     "tegui",
+     "bticino",
+     "señal cuadrada",
+     "usb conexion",
+     "lan",
+     "scope"
+    ]
+   },
+   {
+    "id": "vinagrillo",
+    "nombre": "Vinagrillo",
+    "sp": "Mastigoproctus giganteus",
+    "camara": "tuneles",
+    "utilidad": "software EDA / simulacion de circuitos / integracion herramientas",
+    "keywords": [
+     "kicad",
+     "eda",
+     "simulacion circuitos",
+     "simulador circuitos",
+     "circuit simulation",
+     "simulacion",
+     "simulation",
+     "mcp osciloscopio",
+     "mcp",
+     "pyvisa",
+     "python",
+     "arquitectura",
+     "cloud",
+     "integracion",
+     "integration",
+     "comparativa",
+     "software"
+    ]
+   },
+   {
+    "id": "imperial",
+    "nombre": "Imperial",
+    "sp": "Pandinus dictator",
+    "camara": "guarderia",
+    "utilidad": "documentacion tecnica / organizacion / referencia",
+    "keywords": [
+     "documentacion",
+     "documentation",
+     "referencia",
+     "reference",
+     "organiz",
+     "memoria del proyecto",
+     "scpi",
+     "manual",
+     "prompt ia",
+     "hogar",
+     "agente ia",
+     "virtualiz",
+     "arquitectura del agente"
+    ]
+   }
+  ]
+ },
+ "snail": {
+  "key": "snail",
+  "metafora": "La concha que cargas ES el SO que migras; el entorno es el ordenador donde vives.",
+  "vuela": false,
+  "anatomia": "pie=LAN, sin alas=local-first, cabeza/tentáculos=sesera; la concha es el SO portátil que te llevas a cuestas.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "babosa",
+   "nombre": "Babosa",
+   "sp": "Arion ater",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "babosa",
+    "nombre": "Babosa",
+    "sp": "Arion ater",
+    "camara": "guarderia",
+    "utilidad": "migrar SO / evaluar distro",
+    "keywords": [
+     "migracion",
+     "migration",
+     "migrar",
+     "distro",
+     "linux",
+     "fedora",
+     "cachyos",
+     "windows vs linux",
+     "os migration",
+     "dual boot",
+     "windows",
+     "omarchy",
+     "recopilacion digital",
+     "auditoria digital",
+     "panel interactivo"
+    ]
+   },
+   {
+    "id": "mar",
+    "nombre": "Caracol de Mar",
+    "sp": "Helix pomatia",
+    "camara": "despensa",
+    "utilidad": "configurar entorno / virtualizar",
+    "keywords": [
+     "gpu",
+     "kvm",
+     "vm",
+     "virtual machine",
+     "virtualizacion",
+     "virtualization",
+     "passthrough",
+     "setup",
+     "entorno",
+     "graphics card",
+     "linux vm",
+     "linux setup",
+     "computer-use",
+     "conectores",
+     "mcp"
+    ]
+   }
+  ]
+ },
+ "spider": {
+  "key": "spider",
+  "metafora": "La telaraña ES la red local: cada hilo un cable, cada nudo un servicio always-on.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; el entorno es el ordenador.",
+  "camaras": {
+   "reina": "Cámara-orb (núcleo de la colonia)",
+   "despensa": "Despensa sedosa (contexto activo)",
+   "granero": "Granero envuelto (memoria almacenada)",
+   "guarderia": "Guardería de capullos (en construcción)",
+   "vertedero": "Vertedero de mudas (archivo muerto)",
+   "tuneles": "Túneles de seda (enlaces)"
+  },
+  "casta_base": {
+   "id": "orbweaver",
+   "nombre": "Orbweaver",
+   "sp": "Araneus diadematus",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "crab",
+    "nombre": "Crab spider (cangrejo)",
+    "sp": "Misumena vatia",
+    "camara": "granero",
+    "utilidad": "análisis / arquitectura / auditoría pasiva",
+    "keywords": [
+     "arquitectura",
+     "architecture",
+     "analisis",
+     "analiz",
+     "analys",
+     "server architecture",
+     "server status",
+     "audit export",
+     "system audit",
+     "estado"
+    ]
+   },
+   {
+    "id": "orbweaver",
+    "nombre": "Orbweaver",
+    "sp": "Araneus diadematus",
+    "camara": "guarderia",
+    "utilidad": "infraestructura / self-hosting / red doméstica",
+    "keywords": [
+     "self-hosted",
+     "self-hosting",
+     "servidor propio",
+     "infraestructura",
+     "infrastructure",
+     "independencia digital",
+     "prompt unificador",
+     "homelab",
+     "home server",
+     "servidor casero"
+    ]
+   },
+   {
+    "id": "jumper",
+    "nombre": "Jumper (saltarina)",
+    "sp": "Phidippus regius",
+    "camara": "despensa",
+    "utilidad": "acceso remoto / SSH / conexión directa / instalación",
+    "keywords": [
+     "ssh",
+     "acceso remoto",
+     "remote",
+     "conexion",
+     "connect",
+     "ethernet",
+     "dhcp",
+     "ip",
+     "169.254",
+     "mini pc",
+     "tisferadesign",
+     "tisferade",
+     "antix",
+     "anti-x",
+     "linux",
+     "instalacion",
+     "install",
+     "script",
+     "32 bits",
+     "setup"
+    ]
+   },
+   {
+    "id": "wolf",
+    "nombre": "Wolf spider (lobo)",
+    "sp": "Lycosa tarantula",
+    "camara": "despensa",
+    "utilidad": "monitoreo / estado / diagnóstico / logs",
+    "keywords": [
+     "monitor",
+     "log",
+     "preflight",
+     "error",
+     "errores",
+     "500",
+     "diagnostic",
+     "check",
+     "audit",
+     "auditoria",
+     "export",
+     "limite tokens",
+     "limite de tokens",
+     "token"
+    ]
+   },
+   {
+    "id": "widow",
+    "nombre": "Widow (viuda)",
+    "sp": "Latrodectus mactans",
+    "camara": "vertedero",
+    "utilidad": "migración / virtualización / operaciones críticas",
+    "keywords": [
+     "migracion",
+     "migrar",
+     "migrate",
+     "vmware",
+     "virtualizacion",
+     "vm",
+     "contenedor",
+     "container",
+     "docker",
+     "raspberry pi",
+     "raspberrypi"
+    ]
+   }
+  ]
+ }
+}

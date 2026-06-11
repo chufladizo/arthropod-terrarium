@@ -1,0 +1,112 @@
+{
+ "key": "mite",
+ "metafora": "Los ácaros son omnipresentes e invisibles — lo diminuto y suelto que vive en el ordenador.",
+ "vuela": false,
+ "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; diminutos y omnipresentes, viven en el entorno del ordenador.",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (lo hecho)",
+  "guarderia": "Guardería (en construcción)",
+  "vertedero": "Vertedero (archivo)",
+  "tuneles": "Túneles (enlaces)"
+ },
+ "casta_base": {
+  "id": "polvo",
+  "nombre": "Ácaro del polvo",
+  "sp": "Dermatophagoides pteronyssinus",
+  "camara": "vertedero"
+ },
+ "castas": [
+  {
+   "id": "garrapata",
+   "nombre": "Garrapata",
+   "sp": "Ixodes ricinus",
+   "camara": "despensa",
+   "utilidad": "tareas pendientes / cosas que se enganchan",
+   "keywords": [
+    "schedule",
+    "appointment",
+    "cita",
+    "agenda",
+    "reminder",
+    "recordatorio",
+    "pending",
+    "pendiente",
+    "todo",
+    "tarea",
+    "task"
+   ]
+  },
+  {
+   "id": "arana-roja",
+   "nombre": "Araña roja",
+   "sp": "Tetranychus urticae",
+   "camara": "guarderia",
+   "utilidad": "bugs / problemas / algo que irrita",
+   "keywords": [
+    "bug",
+    "error",
+    "fix",
+    "fallo",
+    "problema",
+    "issue",
+    "crash",
+    "broken",
+    "roto",
+    "debug",
+    "troubleshoot"
+   ]
+  },
+  {
+   "id": "agua",
+   "nombre": "Ácaro de agua",
+   "sp": "Hydrachna globosa",
+   "camara": "guarderia",
+   "utilidad": "extraer / revisar / procesar contenido",
+   "keywords": [
+    "extract",
+    "extrae",
+    "extraccion",
+    "review",
+    "revision",
+    "revisión",
+    "pack",
+    "content",
+    "contenido",
+    "tisfera",
+    "parse",
+    "proceso",
+    "process",
+    "import",
+    "exporta",
+    "export",
+    "download",
+    "descargar"
+   ]
+  },
+  {
+   "id": "polvo",
+   "nombre": "Ácaro del polvo",
+   "sp": "Dermatophagoides pteronyssinus",
+   "camara": "vertedero",
+   "utilidad": "restos / misc / sesiones sin contenido",
+   "keywords": [
+    "chat",
+    "session",
+    "sesion",
+    "sin contenido",
+    "empty",
+    "vacio",
+    "misc",
+    "other",
+    "otro",
+    "map",
+    "mapa",
+    "zarapoly",
+    "untitled",
+    "sin titulo"
+   ]
+  }
+ ]
+}

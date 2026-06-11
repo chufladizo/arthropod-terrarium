@@ -1,0 +1,70 @@
+{
+ "key": "snail",
+ "metafora": "La concha que cargas ES el SO que migras; el entorno es el ordenador donde vives.",
+ "vuela": false,
+ "anatomia": "pie=LAN, sin alas=local-first, cabeza/tentáculos=sesera; la concha es el SO portátil que te llevas a cuestas.",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (lo hecho)",
+  "guarderia": "Guardería (en construcción)",
+  "vertedero": "Vertedero (archivo)",
+  "tuneles": "Túneles (enlaces)"
+ },
+ "casta_base": {
+  "id": "babosa",
+  "nombre": "Babosa",
+  "sp": "Arion ater",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "babosa",
+   "nombre": "Babosa",
+   "sp": "Arion ater",
+   "camara": "guarderia",
+   "utilidad": "migrar SO / evaluar distro",
+   "keywords": [
+    "migracion",
+    "migration",
+    "migrar",
+    "distro",
+    "linux",
+    "fedora",
+    "cachyos",
+    "windows vs linux",
+    "os migration",
+    "dual boot",
+    "windows",
+    "omarchy",
+    "recopilacion digital",
+    "auditoria digital",
+    "panel interactivo"
+   ]
+  },
+  {
+   "id": "mar",
+   "nombre": "Caracol de Mar",
+   "sp": "Helix pomatia",
+   "camara": "despensa",
+   "utilidad": "configurar entorno / virtualizar",
+   "keywords": [
+    "gpu",
+    "kvm",
+    "vm",
+    "virtual machine",
+    "virtualizacion",
+    "virtualization",
+    "passthrough",
+    "setup",
+    "entorno",
+    "graphics card",
+    "linux vm",
+    "linux setup",
+    "computer-use",
+    "conectores",
+    "mcp"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,170 @@
+{
+  "key": "beetle",
+  "metafora": "El PC es el entorno: su caparazon blindado protege los circuitos de la colonia.",
+  "vuela": false,
+  "anatomia": "patas=LAN; sin alas=local-first (no vuela); cabeza=la sesera (memoria del PC); el entorno=el ordenador fisico.",
+  "camaras": {
+    "reina": "Camara del Nucleo (identidad del sistema)",
+    "despensa": "Despensa de Circuitos (contexto activo)",
+    "granero": "Granero de Datos (almacen/lo hecho)",
+    "guarderia": "Galeria de Larvas (en construccion)",
+    "vertedero": "Vertedero de Restos (archivo muerto)",
+    "tuneles": "Tuneles de Cableado (enlaces/conexiones)"
+  },
+  "casta_base": {
+    "id": "base",
+    "nombre": "Escarabajo sin casta",
+    "sp": "Coleoptera gen.",
+    "camara": "guarderia"
+  },
+  "castas": [
+    {
+      "id": "rinoceronte",
+      "nombre": "Rinoceronte",
+      "sp": "Dynastes hercules",
+      "camara": "granero",
+      "utilidad": "almacenamiento / hardware fisico / git/sync",
+      "keywords": [
+        "almacenamiento",
+        "storage",
+        "formateo",
+        "format",
+        "dispositivos externos",
+        "external storage",
+        "mapeo",
+        "analisis hardware",
+        "github",
+        "sync",
+        "repositorio",
+        "gpu",
+        "gtx",
+        "z890",
+        "ollama",
+        "linux servidor"
+      ]
+    },
+    {
+      "id": "ciervo",
+      "nombre": "Ciervo Volante",
+      "sp": "Lucanus cervus",
+      "camara": "guarderia",
+      "utilidad": "configuracion / drivers / herramientas IDE",
+      "keywords": [
+        "vs code",
+        "visual studio code",
+        "settings.json",
+        "driver",
+        "bios",
+        "xmp",
+        "ddr5",
+        "directx",
+        "dxgi",
+        "vanguard",
+        "mcp",
+        "uv command",
+        "configuracion",
+        "code-workspace",
+        "artifacts html",
+        "skills"
+      ]
+    },
+    {
+      "id": "tigre",
+      "nombre": "Escarabajo Tigre",
+      "sp": "Cicindela campestris",
+      "camara": "despensa",
+      "utilidad": "acceso remoto / virtualizacion / red",
+      "keywords": [
+        "escritorio remoto",
+        "rdp",
+        "acceso movil",
+        "remote desktop",
+        "chrome remote desktop",
+        "vmware",
+        "hyper-v",
+        "virtualizacion",
+        "virtual",
+        "android"
+      ]
+    },
+    {
+      "id": "gorgojo",
+      "nombre": "Gorgojo",
+      "sp": "Curculio elephas",
+      "camara": "despensa",
+      "utilidad": "diagnostico / monitoreo / perifericos",
+      "keywords": [
+        "diagnostico",
+        "diagnostics",
+        "tareas programadas",
+        "scheduled tasks",
+        "procesos windows",
+        "pantalla negra",
+        "black screen",
+        "screen going black",
+        "timeout pantalla",
+        "screen timeout",
+        "energy saver",
+        "vrr",
+        "freesync",
+        "monitor",
+        "led",
+        "leds",
+        "teclado",
+        "raton",
+        "perifericos",
+        "hardware",
+        "audit",
+        "system audit",
+        "improvement",
+        "computer improvement",
+        "check system",
+        "system access",
+        "verify your access",
+        "diagnose system"
+      ]
+    },
+    {
+      "id": "bombardero",
+      "nombre": "Bombardero",
+      "sp": "Brachinus crepitans",
+      "camara": "guarderia",
+      "utilidad": "automatizacion / scripts / tareas",
+      "keywords": [
+        "automatizacion",
+        "automation",
+        "apagado pantalla",
+        "apagado de pantalla",
+        "microfono",
+        "tft",
+        "juego",
+        "game",
+        "computer use",
+        "script",
+        "powershell",
+        "task scheduler"
+      ]
+    },
+    {
+      "id": "joya",
+      "nombre": "Escarabajo Joya",
+      "sp": "Chrysochroa fulminans",
+      "camara": "tuneles",
+      "utilidad": "seguridad / enlaces / integracion de herramientas",
+      "keywords": [
+        "bitlocker",
+        "seguridad",
+        "cifrado",
+        "security",
+        "obsidian",
+        "symlinks",
+        "junctions",
+        "vault",
+        "memoria claude",
+        "windows junctions",
+        "enlace",
+        "link"
+      ]
+    }
+  ]
+}

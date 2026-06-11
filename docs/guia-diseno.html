@@ -1,0 +1,3649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Terrario Vivo · guía de diseño para colaboradores</title>
+<style>
+  :root{color-scheme:light;
+    --paper:#f2e9d2;--paper2:#e9dcb8;--card:#f8f1dd;--ink:#3a2c1a;--ink2:#6b5638;--sepia:#8a7350;
+    --frame:#4a3a22;--line:#bca97c;--moss:#5d7a3a;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E")}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:15.5px/1.65 Georgia,'Palatino Linotype','Book Antiqua',serif}
+  body::before{content:"";position:fixed;inset:0;background-image:var(--grain);pointer-events:none;z-index:1000}
+  .sheet{max-width:1020px;margin:16px auto 40px;padding:18px 30px 30px;border:1.5px solid var(--frame);outline:1px solid var(--frame);outline-offset:4px}
+  header{text-align:center;padding:8px 0 2px}
+  header .orn{color:var(--sepia);letter-spacing:.5em;font-size:13px;margin-left:.5em}
+  h1{margin:4px 0 0;font-size:27px;font-weight:600;letter-spacing:.26em;font-variant:all-small-caps}
+  header .sub{font-style:italic;color:var(--ink2);font-size:14px;margin:3px 0 0}
+  .rule{height:5px;border-top:1px solid var(--frame);border-bottom:1px solid var(--frame);margin:12px 14%}
+  nav{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:4px 0 8px}
+  nav a{font-size:12.5px;font-variant:all-small-caps;letter-spacing:.1em;color:var(--ink);text-decoration:none;
+    border:1px solid var(--frame);border-radius:2px;background:var(--card);padding:2px 12px;box-shadow:1.5px 1.5px 0 rgba(74,58,34,.3)}
+  nav a:hover{background:var(--frame);color:var(--card)}
+  h2{font-size:19px;font-weight:600;letter-spacing:.18em;font-variant:all-small-caps;margin:38px 0 4px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  h2 .lam{color:var(--sepia);font-size:13px;letter-spacing:.25em;margin-right:10px}
+  h3{font-size:15.5px;font-variant:all-small-caps;letter-spacing:.12em;margin:20px 0 4px;color:var(--ink)}
+  p{margin:7px 0}
+  .note{font-style:italic;color:var(--ink2);font-size:13.5px}
+  .voc{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sepia);padding:8px 14px;font-size:13.5px;margin:10px 0}
+  iframe.demo{width:100%;aspect-ratio:1320/1000;border:1.5px solid var(--frame);border-radius:2px;background:#fff;
+    box-shadow:3px 4px 10px rgba(58,44,26,.25);margin:8px 0 2px}
+  .cap{text-align:center;font-size:12px;font-variant:all-small-caps;letter-spacing:.22em;color:var(--ink2);margin:2px 0 10px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:5px 10px;text-align:left;vertical-align:top}
+  th{font-variant:all-small-caps;letter-spacing:.1em;background:var(--card)}
+  code{font:13px/1.5 Consolas,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:2px;padding:0 4px}
+  pre{font:12.5px/1.55 Consolas,Menlo,monospace;background:var(--card);border:1px solid var(--line);
+    border-left:4px solid var(--frame);padding:10px 14px;overflow:auto;margin:8px 0}
+  .gal{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:8px 0;padding:12px;border:1px solid var(--line);background:var(--card)}
+  .spec{text-align:center;width:96px}
+  .spec svg{display:block;margin:0 auto}
+  .spec .n{font-size:11px;font-variant:all-small-caps;letter-spacing:.08em}
+  .spec .s{font-size:10px;font-style:italic;color:var(--sepia)}
+  .spbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .spbtn{font:inherit;font-size:12px;font-variant:all-small-caps;letter-spacing:.08em;padding:2px 11px;cursor:pointer;
+    background:var(--card);border:1.5px solid var(--frame);border-radius:2px;box-shadow:1.5px 1.5px 0 rgba(74,58,34,.3)}
+  .spbtn.on{background:var(--frame);color:var(--card)}
+  .sw{display:inline-block;width:104px;border:1px solid var(--line);background:var(--card);margin:3px;vertical-align:top;text-align:center;font-size:11px;padding-bottom:3px}
+  .sw i{display:block;height:34px;margin:4px;border:1px solid rgba(74,58,34,.4)}
+  .sw b{font-variant:all-small-caps;letter-spacing:.06em}
+  .reto{border:1px solid var(--line);border-left:4px solid var(--moss);background:var(--card);padding:8px 14px;margin:8px 0;font-size:14px}
+  .reto b{font-variant:all-small-caps;letter-spacing:.1em}
+  .reto .dnd{color:var(--sepia);font-size:12.5px;font-style:italic}
+  .axes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.axes{grid-template-columns:1fr}}
+  footer{text-align:center;font-size:12px;font-variant:all-small-caps;letter-spacing:.25em;color:var(--ink2);margin-top:36px;border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<div class="sheet">
+<header>
+  <div class="orn">❦ ❦ ❦</div>
+  <h1>Terrario Vivo · Guía de diseño</h1>
+  <p class="sub">v0.5 «gabinete del naturalista» — dossier para colaboradores: qué es, cómo funciona por dentro y dónde mejorar el diseño</p>
+  <div class="rule"></div>
+  <nav>
+    <a href="#que">qué es</a><a href="#ejes">los 6 ejes</a><a href="#flujo">el flujo</a><a href="#arq">arquitectura</a>
+    <a href="#fn">funciones clave</a><a href="#visual">sistema visual</a><a href="#estado">estado</a><a href="#retos">retos de diseño</a><a href="#run">cómo ejecutarlo</a>
+  </nav>
+</header>
+
+<h2 id="que"><span class="lam">Lámina I</span>Qué es esto</h2>
+<p>Un panel <b>HTML estático y autocontenido</b> (un solo archivo, sin servidor, sin conexión) que pinta
+todos los proyectos de una persona como <b>artrópodos en colonias</b>. Cada área de trabajo es una
+<b>especie</b> con su <b>reina</b>; cada proyecto, un <b>bicho</b>. La regla de oro: <i>el estado se lee en el
+dibujo, no en el texto</i>. Nada de tablas, cuadrículas ni "ventanas": el lenguaje es el de una lámina
+de historia natural.</p>
+<div class="voc"><b>Vocabulario del autor</b> (aparece por todo el código y los textos):
+<b>entorno</b> = el ordenador · <b>alas</b> = internet ("la net") · <b>patas</b> = la LAN ·
+<b>sesera</b> = la memoria/cerebro de un proyecto · <b>sin alas</b> = local-first (no sale del PC).</div>
+<iframe class="demo" src="../demo/index.html" title="demo del terrario" loading="lazy"></iframe>
+<div class="cap">la demo, viva — toca una reina para bajar al nido, un bicho para abrir su ficha
+(si no carga, abre <a href="../demo/index.html">demo/index.html</a>)</div>
+
+<h2 id="ejes"><span class="lam">Lámina II</span>Cómo se lee el dibujo: los 6 ejes</h2>
+<p>Todo el sistema de información visual se apoya en seis ejes ortogonales. Las muestras de abajo están
+<b>dibujadas en vivo</b> por el mismo motor (<code>critters.js</code>) que usa el terrario.</p>
+
+<h3>Eje 1 · Silueta = la colonia (el área)</h3>
+<p>Trece especies, una por área de trabajo. Generadores paramétricos: <code>crit_&lt;especie&gt;({color, caste, vital})</code>.</p>
+<div class="gal" id="gal-species"></div>
+
+<h3>Eje 2 · Forma/casta = la utilidad del proyecto</h3>
+<p>Dentro de una especie, la <b>casta</b> (el tipo real de bicho) dice <i>para qué sirve</i> el proyecto.
+Se asigna por palabras clave ponderadas (título ×3, temas ×2, descripción ×1) definidas en
+<code>motor/castas.json</code>. Elige especie:</p>
+<div class="spbtns" id="spbtns"></div>
+<div class="gal" id="gal-castes"></div>
+
+<div class="axes">
+<div>
+<h3>Eje 3 · Color = el estado</h3>
+<div class="gal" id="gal-states"></div>
+</div>
+<div>
+<h3>Eje 5 · Postura = el vital</h3>
+<div class="gal" id="gal-vitals"></div>
+</div>
+<div>
+<h3>Eje 4 · Tamaño = la actividad</h3>
+<div class="gal" id="gal-sizes"></div>
+</div>
+<div>
+<h3>Eje 6 · Badge = la necesidad</h3>
+<div class="gal" id="gal-badges"></div>
+</div>
+</div>
+<p class="note">Además: <b>halo verde</b> = corriendo ahora mismo; los voladores (mariposa, abeja, libélula) flotan
+en el jardín en vez de tener montículo.</p>
+<h2 id="flujo"><span class="lam">Lámina III</span>El flujo de uso: jardín → colonia → ficha</h2>
+<table>
+<tr><th>Nivel</th><th>Qué se ve</th><th>Interacción</th></tr>
+<tr><td><b>Jardín</b> (overview)</td><td>las reinas con montículo y etiqueta; tamaño de reina ∝ nº de proyectos</td><td>tocar una reina baja a su colonia; 4 <b>lentes</b> filtran: <i>el jardín</i> (todo), <i>🍴 comedero</i> (qué espera de ti), <i>🍂 compost</i> (dormidos/relevados), <i>🧵 caminos</i> (relaciones entre colonias)</td></tr>
+<tr><td><b>Colonia</b> (corte del nido)</td><td>corte transversal con 6 <b>cámaras</b>: cámara real, despensa (contexto activo), granero (lo hecho), guardería (en construcción), vertedero (archivo muerto), túneles (enlaces). Cada cámara tiene nombre propio por especie</td><td>tocar un bicho abre su ficha; botón <b>🔬 anatomía</b> abre la lámina anatómica de la especie</td></tr>
+<tr><td><b>Ficha</b> (etiqueta de espécimen)</td><td>tarjeta con alfiler: casta y utilidad, estado, cámara, de qué va, último avance, próximo paso, relaciones, temas</td><td>Escape cierra siempre el nivel más profundo</td></tr>
+</table>
+<p>La metáfora de fondo: <b>el nido es la memoria de la colonia</b>. La cámara en la que vive un bicho dice
+en qué fase de la memoria está su proyecto (en uso, almacenado, en construcción, muerto…). Cada bicho puede
+tener además su «sesera»: una carpeta de notas Markdown en <code>colonias/&lt;especie&gt;/bichos/</code> (capa personal, fuera de este repo).</p>
+
+<h2 id="arq"><span class="lam">Lámina IV</span>Arquitectura del motor</h2>
+<svg viewBox="0 0 980 330" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg" font-family="Georgia,serif">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4a3a22"/></marker></defs>
+  <g font-size="13" fill="#3a2c1a">
+    <rect x="20" y="30" width="200" height="84" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.5"/>
+    <text x="120" y="52" text-anchor="middle" font-weight="700">DATOS (json)</text>
+    <text x="120" y="74" text-anchor="middle" font-size="12">species.json · taxonomía</text>
+    <text x="120" y="92" text-anchor="middle" font-size="12">projects_data.json · proyectos</text>
+    <rect x="20" y="150" width="200" height="56" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.5"/>
+    <text x="120" y="172" text-anchor="middle" font-weight="700">motor/castas.json</text>
+    <text x="120" y="192" text-anchor="middle" font-size="12">utilidad → casta (keywords)</text>
+    <rect x="330" y="80" width="220" height="110" fill="#e9dcb8" stroke="#4a3a22" stroke-width="2"/>
+    <text x="440" y="106" text-anchor="middle" font-weight="700">motor/build.py</text>
+    <text x="440" y="128" text-anchor="middle" font-size="12">valida el contrato de datos</text>
+    <text x="440" y="146" text-anchor="middle" font-size="12">deriva los 6 ejes + cámara</text>
+    <text x="440" y="164" text-anchor="middle" font-size="12">dedup → «relevados» · caminos</text>
+    <rect x="330" y="226" width="220" height="74" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.5"/>
+    <text x="440" y="250" text-anchor="middle" font-weight="700">plantilla + dibujo</text>
+    <text x="440" y="270" text-anchor="middle" font-size="12">motor/template.html (CSS+JS)</text>
+    <text x="440" y="288" text-anchor="middle" font-size="12">motor/critters.js (13 especies)</text>
+    <rect x="660" y="80" width="190" height="110" fill="#f8f1dd" stroke="#4a3a22" stroke-width="1.5"/>
+    <text x="755" y="110" text-anchor="middle" font-weight="700">HTML final</text>
+    <text x="755" y="132" text-anchor="middle" font-size="12">demo/index.html</text>
+    <text x="755" y="150" text-anchor="middle" font-size="12">(o tu terrario privado)</text>
+    <text x="755" y="172" text-anchor="middle" font-size="12">autocontenido · ~140-250 KB</text>
+    <rect x="660" y="226" width="190" height="56" fill="#f8f1dd" stroke="#5d7a3a" stroke-width="2"/>
+    <text x="755" y="250" text-anchor="middle" font-weight="700" fill="#3f5a2f">motor/verificar.js</text>
+    <text x="755" y="270" text-anchor="middle" font-size="12">jsdom · 14 comprobaciones</text>
+    <line x1="220" y1="72" x2="330" y2="110" stroke="#4a3a22" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="220" y1="178" x2="330" y2="150" stroke="#4a3a22" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="440" y1="226" x2="440" y2="190" stroke="#4a3a22" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="550" y1="135" x2="660" y2="135" stroke="#4a3a22" stroke-width="1.5" marker-end="url(#arr)"/>
+    <line x1="755" y1="226" x2="755" y2="190" stroke="#5d7a3a" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="600" y="125" text-anchor="middle" font-size="11" font-style="italic" fill="#6b5638">inyecta</text>
+    <text x="770" y="212" text-anchor="middle" font-size="11" font-style="italic" fill="#3f5a2f">audita</text>
+  </g>
+</svg>
+<p>La plantilla lleva tres marcadores que <code>build.py</code> sustituye: <code>/*__CRITTERS__*/</code>
+(el dibujante), <code>/*__DATA__*/</code> (el objeto <code>TERR</code> con todo derivado) y
+<code>/*__FONDOS__*/</code> (CSS opcional, hoy vacío). El resultado no tiene dependencias externas.</p>
+<table>
+<tr><th>Carpeta</th><th>Qué hay</th></tr>
+<tr><td><code>motor/</code></td><td>build.py · template.html · critters.js · castas.json (+ fuentes por especie en castas_src/) · verificar.js · seseras.py</td></tr>
+<tr><td><code>ejemplo/</code></td><td>datos de ejemplo (8 colonias, 22 proyectos) — el contrato de datos documentado</td></tr>
+<tr><td><code>demo/</code></td><td>index.html generado desde ejemplo/ — ábrelo y juega</td></tr>
+<tr><td><code>docs/</code></td><td>COMO-EMPEZAR · DISENO · ESQUEMA-DATOS · TAXONOMIA · esta guía</td></tr>
+<tr><td><code>skill/</code></td><td>la skill de Claude que regenera el terrario a partir de sesiones</td></tr>
+<tr><td><code>legacy/v04/</code> (capa privada del autor)</td><td>la v0.4 jubilada: sprites fotográficos y fondos base64 que se retiraron en v0.5</td></tr>
+</table>
+
+<h2 id="fn"><span class="lam">Lámina V</span>Las funciones clave (para tocar el diseño)</h2>
+<p>Si quieres mejorar el aspecto, el 95% de lo que te interesa vive en <b>dos archivos</b>:
+<code>motor/template.html</code> (escena, CSS, interacción) y <code>motor/critters.js</code> (los bichos).</p>
+
+<h3>critters.js — el dibujante</h3>
+<pre>critV2(key, {color, caste, vital})  → string SVG (contenido de un viewBox 0 0 100 100)
+  key   : 'ant' | 'beetle' | 'butterfly' | 'spider' | 'bee' | 'scorpion' | 'centipede'
+          | 'dung' | 'snail' | 'dragonfly' | 'ladybug' | 'mite' | 'mantis'
+  color : el color del ESTADO (tiñe el cuerpo)         caste : variante de forma (utilidad)
+  vital : 'ok' | 'sleep' (ojos cerrados) | 'dead' (se pinta apagado y además se rota 180°)</pre>
+<p>Cada especie es una función paramétrica (<code>crit_beetle</code>, <code>crit_mantis</code>…) de ~100 líneas
+que compone paths a mano: cuerpo, patas, antenas, y los rasgos de cada casta. Helpers:
+<code>shade(hex,f)</code> oscurece/aclara, <code>legs(paths,col)</code>, <code>eye(x,y,r)</code>.
+<b>Regla:</b> toda casta nueva debe producir SVG distinto — el verificador lo comprueba.</p>
+
+<h3>build.py — la derivación (la convención, no se improvisa)</h3>
+<pre># estado y vital de cada proyecto (derivar):
+relevado (dup/superseded) → dead   ·   msgs==0 → dead «sin rastro»
+status=='running'         → activa (verde)
+próximo paso + palabra de bloqueo  → atascada (rojo)
+próximo paso              → pendiente (naranja)
+nada                      → hibernando (gris, dormido)
+
+# casta (caste_of): puntúa keywords de castas.json
+score = 3·(hit en título) + 2·(hit en temas) + 1·(hit en descripción)  → mejor casta, si no casta_base
+
+# cámara (camara_of): override explícito &gt; vital/actividad &gt; cámara de la casta
+# necesidad (need_of): waiting_on manda (user/external/physical → 🍴);
+#   si no: sin próximo paso → ❓ · próximo paso que te menciona → 🍴</pre>
+
+<h3>template.html — la escena</h3>
+<pre>blobPath(cx,cy,rx,ry,seed)   cámara orgánica: 12 puntos con jitter determinista unidos por Q-curvas
+packInto(chamber,n)          coloca n bichos dentro de una cámara en espiral filotáctica (ángulo áureo)
+bugScene(b,s,cx,cy)          compone un bicho: halo (si corre) + círculo de impacto invisible
+                             + cuerpo critV2 rotado por vital + badge (🍴/❓/punto naranja/rojo/"z")
+openColony(area)             monta el corte: superficie, estratos, túneles a dos trazos, blobs,
+                             reina con halo, bichos por cámara, rótulos con línea guía
+buildCaminos()               lente 🧵: relaciones explícitas entre colonias + afinidades por keyword
+openAnat()                   lámina anatómica: leader-lines fijas + significados (antenas=inputs,
+                             cabeza=sesera, patas=LAN, alas=internet / sin alas=local-first)</pre>
+<p class="note">Gotcha del jardín: las reinas son HTML posicionado en %, pero montículos y flora se pintan
+en el SVG de fondo (viewBox 1320×860, <code>preserveAspectRatio="none"</code>) — conversión x=anchor·13.2, y=anchor·8.6.</p>
+<h2 id="visual"><span class="lam">Lámina VI</span>El sistema visual v0.5 «gabinete del naturalista»</h2>
+<p>En v0.4 convivían fotos WEBP de bichos reales con escenario dibujado y Comic Sans: se retiró todo.
+La v0.5 apuesta por <b>una sola estética</b>: lámina de historia natural del XIX.</p>
+<div>
+  <span class="sw"><i style="background:#f2e9d2"></i><b>--paper</b><br>#f2e9d2</span>
+  <span class="sw"><i style="background:#f8f1dd"></i><b>--card</b><br>#f8f1dd</span>
+  <span class="sw"><i style="background:#3a2c1a"></i><b>--ink</b><br>#3a2c1a</span>
+  <span class="sw"><i style="background:#6b5638"></i><b>--ink2</b><br>#6b5638</span>
+  <span class="sw"><i style="background:#8a7350"></i><b>--sepia</b><br>#8a7350</span>
+  <span class="sw"><i style="background:#4a3a22"></i><b>--frame</b><br>#4a3a22</span>
+  <span class="sw"><i style="background:#bca97c"></i><b>--line</b><br>#bca97c</span>
+  <span class="sw"><i style="background:#5d7a3a"></i><b>--moss</b><br>#5d7a3a</span>
+</div>
+<div>
+  <span class="sw"><i style="background:#4e9a3a"></i><b>activa</b><br>#4e9a3a</span>
+  <span class="sw"><i style="background:#d98326"></i><b>pendiente</b><br>#d98326</span>
+  <span class="sw"><i style="background:#c0392b"></i><b>atascada</b><br>#c0392b</span>
+  <span class="sw"><i style="background:#a3957c"></i><b>hibernando</b><br>#a3957c</span>
+  <span class="sw"><i style="background:#b7b1a5"></i><b>relevada</b><br>#b7b1a5</span>
+</div>
+<table>
+<tr><th>Pieza</th><th>Decisión</th></tr>
+<tr><td>Tipografía</td><td>serif del sistema (Georgia/Palatino) — títulos en <b>versalitas</b> con tracking ancho (<code>font-variant:all-small-caps</code> + <code>letter-spacing</code>). Cursiva para glosas y subtítulos. Sin webfonts: el HTML debe seguir autocontenido</td></tr>
+<tr><td>Papel</td><td>grano de papel con <code>feTurbulence</code> en data-URI (var <code>--grain</code>), fijo sobre toda la página</td></tr>
+<tr><td>Marcos</td><td>doble línea de tinta (<code>border</code> + <code>outline</code> con offset); cada vista es una «lámina» numerada en romanos</td></tr>
+<tr><td>Trazo</td><td>tinta #4a3a22 con opacidades .2–.6; tramas de rayado con <code>&lt;pattern&gt;</code> rotado 35°; nada de degradados saturados</td></tr>
+<tr><td>Sombras</td><td>desplazadas y duras (<code>box-shadow: 2px 2px 0</code>) como impresión, no difusas</td></tr>
+<tr><td>Movimiento</td><td>respiración de reinas, flotación de voladores, hover con overshoot (<code>cubic-bezier(.34,1.56,.64,1)</code>), y <code>prefers-reduced-motion</code> respetado</td></tr>
+<tr><td>Prohibido</td><td>cuadrículas, tablas como UI, "ventanas", fotos mezcladas con dibujo, mucho texto en pantalla</td></tr>
+</table>
+
+<h2 id="estado"><span class="lam">Lámina VII</span>Estado actual y verificación</h2>
+<p><b>v0.5.0</b> (junio 2026). La demo pública dibuja 8 colonias / 22 proyectos. El terrario privado del autor
+(mismo motor, otros datos): 13 colonias / 142 proyectos / ~45 castas distintas / ~250 KB. Historial:
+v0.3 castas vivas → v0.4 motor único + cámaras + lentes → v0.4.2 sprites foto → <b>v0.5 rediseño total a lámina naturalista</b> (los sprites se jubilaron).</p>
+<p><code>node motor/verificar.js [html]</code> monta el HTML en jsdom y exige: reinas == colonias ·
+bichos pintados == proyectos · 6 cámaras por colonia · variedad mínima de castas · 4 lentes · capa de
+caminos · la ficha abre · la anatomía abre · las 13 especies × castas producen SVG distintos ·
+versión coherente con package.json · 0 errores JS. <b>Si tocas el diseño, esto es tu red de seguridad.</b></p>
+
+<h2 id="retos"><span class="lam">Lámina VIII</span>Dónde puedes ayudar: retos de diseño abiertos</h2>
+<div class="reto"><b>1 · Composición del jardín.</b> Los anclajes de colonias son fijos (species.json). ¿Mejor composición de profundidad (lejos=arriba=pequeño), senderos entre montículos, agrupar por afinidad? <span class="dnd">→ template.html, sección JARDÍN + species.json (anchor)</span></div>
+<div class="reto"><b>2 · Etiquetas en los bordes.</b> Las etiquetas de reinas pegadas al borde del marco se recortan (overflow:hidden del .world). Falta un clamp elegante. <span class="dnd">→ template.html, .qlab y bucle de reinas</span></div>
+<div class="reto"><b>3 · Mini-cámaras en el jardín.</b> Idea pendiente: que cada montículo insinúe su interior (cuántos bichos por cámara) sin entrar. <span class="dnd">→ bucle de reinas + datos byArea</span></div>
+<div class="reto"><b>4 · Anatomía con coordenadas reales.</b> Las leader-lines de la lámina anatómica usan puntos fijos genéricos; cada especie debería etiquetar SUS partes (élitros del escarabajo, telson del escorpión…). <span class="dnd">→ openAnat() + un mapa de puntos por especie en castas.json</span></div>
+<div class="reto"><b>5 · Castas del ciempiés.</b> Sus variantes SVG son las más pobres de las 13 especies. <span class="dnd">→ critters.js, crit_centipede</span></div>
+<div class="reto"><b>6 · La lente 🧵 caminos.</b> Hoy son líneas rectas punteadas entre reinas. ¿Curvas tipo rastro de feromonas, evitar cruces, grosor por nº de relaciones? <span class="dnd">→ buildCaminos() + .camlayer</span></div>
+<div class="reto"><b>7 · Modo nocturno del terrario.</b> ¿Una variante "linterna UV" (los escorpiones brillan de verdad bajo UV) manteniendo papel+tinta? <span class="dnd">→ CSS :root alternativo</span></div>
+<div class="reto"><b>8 · Densidad en colonias grandes.</b> Con 30+ bichos en una cámara la espiral filotáctica se aprieta. ¿Agrupar por casta, tamaño mínimo táctil, zoom? <span class="dnd">→ packInto() y bugScene()</span></div>
+<p class="note">Regla para cualquier propuesta: poco texto, mucha ilustración, nada de cuadrículas, y
+<code>verificar.js</code> en verde.</p>
+
+<h2 id="run"><span class="lam">Lámina IX</span>Cómo ejecutarlo</h2>
+<pre>git clone &lt;este-repo&gt; && cd arthropod-terrarium
+npm install                      # solo para verificar (jsdom)
+python3 motor/build.py           # ejemplo/ → demo/index.html
+node motor/verificar.js          # auditoría (debe decir VERIFY: PASS)
+# con tus propios datos:
+python3 motor/build.py mis-datos salida.html</pre>
+<p>El contrato de datos está en <code>docs/ESQUEMA-DATOS.md</code>; resumen mínimo por proyecto:
+<code>id, title, status (running|idle), categoria</code> + opcionales
+<code>deque, ultimo_avance, proximo_paso, temas[], msgs, actividad, waiting_on, camara, depends_on, related, superseded_by, links</code>.</p>
+
+<footer>terrario vivo · arthropod design · guía de diseño v0.5 — hecha para que la mejores</footer>
+</div>
+
+<script>
+// Arthropod Design — librería de bichos (SVG). Uso: bugSVG(tipo,colorHex)
+// v2: hormigas paramétricas -> antV2({color,caste,vital}). El resto de especies
+// se parametrizará en el fan-out por especie (silueta=colonia, forma=casta,
+// color=estado, tamaño=actividad).
+function shade(hex,f){let n=parseInt(hex.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  r=Math.max(0,Math.min(255,Math.round(r*f)));g=Math.max(0,Math.min(255,Math.round(g*f)));b=Math.max(0,Math.min(255,Math.round(b*f)));
+  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
+function legs(ps,col){return ps.map(p=>`<path d="${p}" stroke="${col}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`).join("");}
+function eye(x,y,r){return `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/><circle cx="${x+r*0.2}" cy="${y}" r="${r*0.5}" fill="#222"/>`;}
+
+// ---- HORMIGAS PARAMÉTRICAS -------------------------------------------------
+// o = { color:"#rrggbb"(estado), caste:"obrera|legionaria|cortadora|cosechadora|
+//       carpintera|tejedora|melifera|bala|reina", vital:"ok|sleep|dead" }
+function antV2(o){
+  const c=o.color||"#b4502e", caste=o.caste||"obrera", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+  let eyes;
+  if(vital==="dead")      eyes=`<path d="M66 44 l6 6 M72 44 l-6 6" stroke="${d}" stroke-width="2.1" stroke-linecap="round"/>`;
+  else if(vital==="sleep")eyes=`<path d="M66 47 q4 3 8 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>`;
+  else                    eyes=eye(70,46,3);
+  let legsArr=["M50 52 L34 40","M50 56 L32 56","M50 60 L36 74","M58 52 L74 40","M58 56 L76 56","M58 60 L72 74"];
+  let head   =`<circle cx="66" cy="48" r="10" fill="${c}"/>`;
+  let abd    =`<ellipse cx="34" cy="56" rx="15" ry="12" fill="${c}"/>`;
+  let petiole=`<ellipse cx="52" cy="54" rx="8" ry="8" fill="${c}"/>`;
+  let ant    =`<path d="M64 40 L74 30 M66 42 L80 36" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+  let wings="", stinger="", mand="", carry="", crown="";
+  switch(caste){
+    case "legionaria":
+      head=`<circle cx="67" cy="48" r="12" fill="${c}"/>`;
+      mand=`<path d="M78 43 q8 1 9 -4 M78 53 q8 1 9 7" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+      break;
+    case "cortadora":
+      carry=`<path d="M62 38 L72 24" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`+
+            `<g transform="translate(70,16) rotate(20)"><path d="M0 8 Q11 -7 24 1 Q13 13 0 8 Z" fill="#5bb04a" stroke="#3f7d33" stroke-width="1.4"/><path d="M3 7 L20 1" stroke="#3f7d33" stroke-width="1"/></g>`;
+      break;
+    case "cosechadora":
+      mand=`<path d="M75 46 l4 1 M75 52 l4 0" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+      carry=`<ellipse cx="84" cy="50" rx="6" ry="4.6" fill="#caa64e" stroke="#8f7327" stroke-width="1.2"/>`;
+      break;
+    case "carpintera":
+      head=`<circle cx="66" cy="48" r="11" fill="${c}"/>`;
+      carry=`<rect x="76" y="43" width="12" height="7" rx="1.5" fill="#9c6b3a" stroke="#6f4a25" stroke-width="1.2" transform="rotate(12 82 46)"/>`;
+      break;
+    case "tejedora":
+      carry=`<path d="M76 48 q12 -7 19 4 q-9 7 -15 -1" fill="none" stroke="#e9f1ff" stroke-width="2"/><circle cx="95" cy="52" r="2.6" fill="#e9f1ff"/>`;
+      break;
+    case "melifera":
+      abd=`<circle cx="29" cy="58" r="20" fill="${l}" opacity=".92"/><circle cx="29" cy="58" r="20" fill="none" stroke="${d}" stroke-width="1.6"/>`+
+          `<path d="M20 53 q9 5 18 0 M21 62 q8 4 16 0" stroke="${d}" stroke-width="1.1" fill="none" opacity=".45"/>`;
+      break;
+    case "bala":
+      head=`<circle cx="66" cy="48" r="11" fill="${c}"/>`;
+      stinger=`<path d="M21 62 l-7 4 M22 56 l-8 2" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>`;
+      mand=`<path d="M76 45 l6 -1 M76 51 l6 1" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>`;
+      break;
+    case "reina":
+      abd=`<ellipse cx="31" cy="58" rx="20" ry="15" fill="${c}"/>`;
+      wings=`<ellipse cx="46" cy="38" rx="22" ry="9" fill="#eef4ff" opacity=".55" transform="rotate(-18 46 38)"/>`+
+            `<ellipse cx="41" cy="47" rx="17" ry="7" fill="#eef4ff" opacity=".5" transform="rotate(-7 41 47)"/>`;
+      crown=`<path d="M59 39 l2 -8 l3 5 l3 -7 l3 6 l3 -5 l1 8 Z" fill="#f2c14e" stroke="${d}" stroke-width="1"/>`;
+      break;
+    default: break;
+  }
+  return `<g>${wings}${legs(legsArr,d)}${stinger}${ant}${abd}${petiole}${head}${carry}${mand}${crown}${eyes}</g>`;
+}
+
+
+const crit_ant=antV2;
+
+// ---- beetle ----
+// Arthropod Design — Escarabajos (Sistemas/PC Windows)
+// Castas: rinoceronte|ciervo|tigre|gorgojo|bombardero|joya|obrero
+// color base #3f7f9c · viewBox 100x100
+// Globales requeridos: shade(hex,f), legs(ps,col), eye(x,y,r)
+
+function crit_beetle(o){
+  const c=o.color||"#3f7f9c", caste=o.caste||"obrero", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos según estado vital
+  let eyeEl;
+  if(vital==="dead"){
+    eyeEl=`<path d="M43 30 l5 5 M48 30 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M57 30 l5 5 M62 30 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+  } else if(vital==="sleep"){
+    eyeEl=`<path d="M43 33 q2.5 3 7 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>
+            <path d="M57 33 q2.5 3 7 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>`;
+  } else {
+    eyeEl=eye(46,31,2.8)+eye(58,31,2.8);
+  }
+
+  // Patas base de escarabajo (3 pares, simétricas)
+  const legsArr=[
+    "M38 52 L22 42","M38 60 L20 60","M38 68 L22 78",
+    "M62 52 L78 42","M62 60 L80 60","M62 68 L78 78"
+  ];
+
+  // Cuerpo base: cabeza + élitros
+  let head  = `<circle cx="50" cy="32" r="11" fill="${d}"/>`;
+  let elytra= `<ellipse cx="50" cy="62" rx="26" ry="28" fill="${c}"/>`;
+  let sutura= `<path d="M50 35 L50 88" stroke="${d}" stroke-width="3" stroke-linecap="round"/>`;
+  // línea alar anterior (costura entre élitros y pronoto)
+  let collar= `<path d="M32 48 Q50 44 68 48" stroke="${d}" stroke-width="2.4" fill="none"/>`;
+
+  // Añadidos por casta
+  let extra="";
+
+  switch(caste){
+
+    // RINOCERONTE — Meclorhina torquata — hardware/infra/arranque/BIOS
+    // Seña: cuerno largo en la frente
+    case "rinoceronte":
+      extra=`<path d="M50 21 L50 4 Q50 0 53 2" stroke="${d}" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+             <ellipse cx="50" cy="22" rx="14" ry="12" fill="${d}"/>`;
+      head=`<ellipse cx="50" cy="30" rx="12" ry="11" fill="${d}"/>`;
+      break;
+
+    // CIERVO-VOLANTE — Lucanus cervus — drivers/BIOS/conflictos/DirectX
+    // Seña: dos mandíbulas ramificadas a los lados de la cabeza
+    case "ciervo":
+      extra=`<path d="M36 30 Q24 24 18 16 M24 22 Q22 14 26 10" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+             <path d="M64 30 Q76 24 82 16 M76 22 Q78 14 74 10" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+      head=`<circle cx="50" cy="31" r="12" fill="${d}"/>`;
+      break;
+
+    // TIGRE — Cicindela campestris — rendimiento/velocidad/GPU/optimización
+    // Seña: mandíbulas pequeñas en V + rayas en los élitros
+    case "tigre":
+      extra=`<path d="M37 38 Q30 34 27 30" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+             <path d="M63 38 Q70 34 73 30" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+             <path d="M36 56 Q50 52 64 56" stroke="${l}" stroke-width="2" fill="none" opacity=".7"/>
+             <path d="M34 66 Q50 62 66 66" stroke="${l}" stroke-width="2" fill="none" opacity=".7"/>
+             <path d="M36 76 Q50 72 64 76" stroke="${l}" stroke-width="2" fill="none" opacity=".5"/>`;
+      break;
+
+    // GORGOJO — Curculio nucum — bugs/errores/crashes/diagnóstico
+    // Seña: rostro/trompa larga en la cabeza
+    case "gorgojo":
+      head=`<circle cx="50" cy="33" r="10" fill="${d}"/>`;
+      extra=`<path d="M50 44 L50 58" stroke="${d}" stroke-width="5" stroke-linecap="round"/>
+             <ellipse cx="50" cy="60" rx="6" ry="4" fill="${d}"/>`;
+      elytra=`<ellipse cx="50" cy="68" rx="22" ry="22" fill="${c}"/>`;
+      sutura=`<path d="M50 50 L50 88" stroke="${d}" stroke-width="3" stroke-linecap="round"/>`;
+      collar=`<path d="M35 54 Q50 50 65 54" stroke="${d}" stroke-width="2.4" fill="none"/>`;
+      break;
+
+    // BOMBARDERO — Brachinus crepitans — seguridad/BitLocker/antivirus/cifrado
+    // Seña: abdomen abultado con "cañón" posterior + chorro
+    case "bombardero":
+      extra=`<ellipse cx="50" cy="74" rx="18" ry="12" fill="${d}" opacity=".7"/>
+             <path d="M50 86 L50 96" stroke="${d}" stroke-width="5" stroke-linecap="round"/>
+             <circle cx="50" cy="97" r="3.5" fill="${l}" opacity=".8"/>
+             <path d="M44 96 Q50 100 56 96" stroke="${l}" stroke-width="2" fill="none" opacity=".6"/>`;
+      break;
+
+    // JOYA — Chrysochroa fulminans — personalización/estética/LEDs/UI/temas
+    // Seña: élitros iridiscentes con puntos de brillo y reflejos
+    case "joya":
+      extra=`<ellipse cx="50" cy="62" rx="26" ry="28" fill="none" stroke="${l}" stroke-width="3" opacity=".7"/>
+             <circle cx="40" cy="60" r="3.5" fill="${l}" opacity=".85"/>
+             <circle cx="60" cy="60" r="3.5" fill="${l}" opacity=".85"/>
+             <circle cx="44" cy="74" r="2.8" fill="${l}" opacity=".7"/>
+             <circle cx="56" cy="74" r="2.8" fill="${l}" opacity=".7"/>
+             <circle cx="50" cy="50" r="2.2" fill="${l}" opacity=".6"/>`;
+      break;
+
+    // OBRERO — Bolitophagus reticulatus — cajón de sastre / diagnóstico genérico
+    default: break;
+  }
+
+  // Antenas
+  const antennae=`<path d="M42 22 Q34 14 28 10" stroke="${d}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                  <path d="M58 22 Q66 14 72 10" stroke="${d}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+
+  return `<g>${legs(legsArr,d)}${elytra}${sutura}${collar}${head}${extra}${antennae}${eyeEl}</g>`;
+}
+
+// ---- butterfly ----
+// Arthropod Design — Mariposas paramétricas (area: Visualización/Artefactos)
+// o = { color:"#rrggbb", caste:"monarca|morpho|cometa|polilla|pavon", vital:"ok|sleep|dead" }
+// Globals shade/legs/eye provided by critters.js environment
+
+function crit_butterfly(o){
+  const c=o.color||"#9a5cf0", caste=o.caste||"monarca", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos según vital
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M47 29 l5 5 M52 29 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M46 31 q4 3 8 0" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(50,30,2.6);
+
+  // Antenas base
+  const antenas=`<path d="M48 28 L42 18 M52 28 L58 18" stroke="${d}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="42" cy="17" r="2.2" fill="${d}"/><circle cx="58" cy="17" r="2.2" fill="${d}"/>`;
+
+  // Cuerpo (abdomem + torax) base
+  const cuerpo=`<ellipse cx="50" cy="52" rx="4.5" ry="22" fill="${d}"/>
+    <ellipse cx="50" cy="31" rx="4" ry="7" fill="${d}"/>`;
+
+  let alas_sup_izq, alas_sup_der, alas_inf_izq, alas_inf_der;
+  let marcas="", colas="";
+
+  switch(caste){
+
+    // MONARCA: alas grandes redondeadas, nervios marcados, manchas blancas en borde
+    // -> paneles grandes/artefactos vistosos
+    case "monarca":
+      alas_sup_izq =`<ellipse cx="28" cy="38" rx="22" ry="17" fill="${c}" opacity=".93"/>`;
+      alas_sup_der =`<ellipse cx="72" cy="38" rx="22" ry="17" fill="${c}" opacity=".93"/>`;
+      alas_inf_izq =`<ellipse cx="30" cy="62" rx="18" ry="14" fill="${c}" opacity=".88"/>`;
+      alas_inf_der =`<ellipse cx="70" cy="62" rx="18" ry="14" fill="${c}" opacity=".88"/>`;
+      // Nervios
+      marcas=`<path d="M46 34 Q28 38 18 52" stroke="${d}" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M54 34 Q72 38 82 52" stroke="${d}" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M46 40 Q30 62 26 74" stroke="${d}" stroke-width="1.3" fill="none" opacity=".5"/>
+        <path d="M54 40 Q70 62 74 74" stroke="${d}" stroke-width="1.3" fill="none" opacity=".5"/>`;
+      // Manchas blancas en bordes
+      marcas+=`<circle cx="18" cy="38" r="2.8" fill="#fff" opacity=".75"/>
+        <circle cx="18" cy="46" r="2.2" fill="#fff" opacity=".65"/>
+        <circle cx="82" cy="38" r="2.8" fill="#fff" opacity=".75"/>
+        <circle cx="82" cy="46" r="2.2" fill="#fff" opacity=".65"/>
+        <circle cx="24" cy="68" r="2.2" fill="#fff" opacity=".6"/>
+        <circle cx="76" cy="68" r="2.2" fill="#fff" opacity=".6"/>`;
+      break;
+
+    // MORPHO: alas anchas y redondeadas, lustre iridiscente (banda clara central)
+    // -> visual brillante/wow
+    case "morpho":
+      alas_sup_izq =`<ellipse cx="26" cy="37" rx="24" ry="18" fill="${c}" opacity=".95"/>`;
+      alas_sup_der =`<ellipse cx="74" cy="37" rx="24" ry="18" fill="${c}" opacity=".95"/>`;
+      alas_inf_izq =`<ellipse cx="28" cy="63" rx="19" ry="15" fill="${c}" opacity=".9"/>`;
+      alas_inf_der =`<ellipse cx="72" cy="63" rx="19" ry="15" fill="${c}" opacity=".9"/>`;
+      // Banda iridiscente central (lustre)
+      marcas=`<ellipse cx="50" cy="38" rx="18" ry="10" fill="${l}" opacity=".45"/>
+        <ellipse cx="50" cy="38" rx="10" ry="6" fill="#fff" opacity=".22"/>
+        <ellipse cx="50" cy="62" rx="14" ry="8" fill="${l}" opacity=".35"/>`;
+      // Ocelos (ojo de mariposa morpho)
+      marcas+=`<circle cx="26" cy="37" r="5.5" fill="${d}" opacity=".35"/>
+        <circle cx="26" cy="37" r="3" fill="${l}" opacity=".5"/>
+        <circle cx="74" cy="37" r="5.5" fill="${d}" opacity=".35"/>
+        <circle cx="74" cy="37" r="3" fill="${l}" opacity=".5"/>`;
+      break;
+
+    // COMETA (swallowtail): colas distintivas en alas inferiores, alas angulosas
+    // -> dashboards con estilo
+    case "cometa":
+      alas_sup_izq =`<path d="M46 36 Q22 24 16 42 Q20 54 46 56 Z" fill="${c}" opacity=".93"/>`;
+      alas_sup_der =`<path d="M54 36 Q78 24 84 42 Q80 54 54 56 Z" fill="${c}" opacity=".93"/>`;
+      alas_inf_izq =`<path d="M46 54 Q18 60 20 72 Q26 80 46 70 Z" fill="${c}" opacity=".88"/>`;
+      alas_inf_der =`<path d="M54 54 Q82 60 80 72 Q74 80 54 70 Z" fill="${c}" opacity=".88"/>`;
+      // Colas
+      colas=`<path d="M26 74 L20 90 Q24 93 28 88" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M74 74 L80 90 Q76 93 72 88" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+      // Marcas angulosas
+      marcas=`<path d="M22 38 L42 52" stroke="${d}" stroke-width="1.4" fill="none" opacity=".5"/>
+        <path d="M78 38 L58 52" stroke="${d}" stroke-width="1.4" fill="none" opacity=".5"/>
+        <circle cx="28" cy="68" r="3.5" fill="${d}" opacity=".4"/>
+        <circle cx="72" cy="68" r="3.5" fill="${d}" opacity=".4"/>`;
+      break;
+
+    // POLILLA: alas triangulares planas, patron discreto, sin brillo
+    // -> utilidades internas/discretas
+    case "polilla":
+      alas_sup_izq =`<path d="M46 38 Q18 28 16 46 Q22 56 46 58 Z" fill="${d}" opacity=".82"/>`;
+      alas_sup_der =`<path d="M54 38 Q82 28 84 46 Q78 56 54 58 Z" fill="${d}" opacity=".82"/>`;
+      alas_inf_izq =`<path d="M46 56 Q20 58 22 70 Q30 76 46 68 Z" fill="${d}" opacity=".72"/>`;
+      alas_inf_der =`<path d="M54 56 Q80 58 78 70 Q70 76 54 68 Z" fill="${d}" opacity=".72"/>`;
+      // Patron discreto — bandas suaves
+      marcas=`<path d="M18 42 Q32 50 46 50" stroke="${c}" stroke-width="1.8" fill="none" opacity=".45"/>
+        <path d="M82 42 Q68 50 54 50" stroke="${c}" stroke-width="1.8" fill="none" opacity=".45"/>
+        <circle cx="26" cy="52" r="3" fill="${c}" opacity=".3"/>
+        <circle cx="74" cy="52" r="3" fill="${c}" opacity=".3"/>`;
+      break;
+
+    // PAVO (pavon/peacock): ojo grande en cada ala superior, muy ornamental
+    // -> artefactos decorativos/juegos/diseño
+    case "pavon":
+      alas_sup_izq =`<ellipse cx="27" cy="36" rx="21" ry="16" fill="${c}" opacity=".95"/>`;
+      alas_sup_der =`<ellipse cx="73" cy="36" rx="21" ry="16" fill="${c}" opacity=".95"/>`;
+      alas_inf_izq =`<ellipse cx="29" cy="62" rx="17" ry="14" fill="${c}" opacity=".9"/>`;
+      alas_inf_der =`<ellipse cx="71" cy="62" rx="17" ry="14" fill="${c}" opacity=".9"/>`;
+      // Ocelo grande (ojo de pavoreal)
+      marcas=`<circle cx="27" cy="36" r="9" fill="${d}" opacity=".5"/>
+        <circle cx="27" cy="36" r="6" fill="${l}" opacity=".5"/>
+        <circle cx="27" cy="36" r="3.5" fill="${d}" opacity=".7"/>
+        <circle cx="27" cy="36" r="1.6" fill="${l}" opacity=".9"/>
+        <circle cx="73" cy="36" r="9" fill="${d}" opacity=".5"/>
+        <circle cx="73" cy="36" r="6" fill="${l}" opacity=".5"/>
+        <circle cx="73" cy="36" r="3.5" fill="${d}" opacity=".7"/>
+        <circle cx="73" cy="36" r="1.6" fill="${l}" opacity=".9"/>`;
+      // Manchas en inf
+      marcas+=`<circle cx="28" cy="64" r="3.5" fill="${d}" opacity=".35"/>
+        <circle cx="72" cy="64" r="3.5" fill="${d}" opacity=".35"/>`;
+      break;
+
+    default:
+      // default = monarca
+      alas_sup_izq =`<ellipse cx="28" cy="38" rx="22" ry="17" fill="${c}" opacity=".93"/>`;
+      alas_sup_der =`<ellipse cx="72" cy="38" rx="22" ry="17" fill="${c}" opacity=".93"/>`;
+      alas_inf_izq =`<ellipse cx="30" cy="62" rx="18" ry="14" fill="${c}" opacity=".88"/>`;
+      alas_inf_der =`<ellipse cx="70" cy="62" rx="18" ry="14" fill="${c}" opacity=".88"/>`;
+      marcas=`<circle cx="18" cy="38" r="2.8" fill="#fff" opacity=".75"/>
+        <circle cx="82" cy="38" r="2.8" fill="#fff" opacity=".75"/>`;
+      break;
+  }
+
+  return `<g>${colas}${alas_inf_izq}${alas_inf_der}${alas_sup_izq}${alas_sup_der}${marcas}${cuerpo}${antenas}${eyes}</g>`;
+}
+
+// ---- spider ----
+// Arthropod Design — Arañas paramétricas (Raspberry/Servidores caseros)
+// o = { color:"#rrggbb", caste:"orbweaver|jumper|wolf|widow|crab", vital:"ok|sleep|dead" }
+// Globals requeridos (definidos en critters.js): shade(hex,f), legs(ps,col), eye(x,y,r)
+
+function crit_spider(o){
+  const c=o.color||"#2f9b5e", caste=o.caste||"orbweaver", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos según vital
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M44 41 l5 5 M49 41 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`+
+         `<path d="M53 41 l5 5 M58 41 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M44 44 q3 3 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`+
+         `<path d="M53 44 q3 3 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(46,42,2.6)+eye(54,42,2.6);
+
+  // Cuerpo base: abdomen + cefalotórax + patas base
+  let legsArr=["M44 52 Q24 40 16 48","M44 58 Q22 56 14 62","M44 64 Q24 72 18 80","M44 68 Q26 80 22 88",
+                "M56 52 Q76 40 84 48","M56 58 Q78 56 86 62","M56 64 Q76 72 82 80","M56 68 Q74 80 78 88"];
+  let abd    =`<ellipse cx="50" cy="64" rx="19" ry="17" fill="${c}"/>`;
+  let ceph   =`<circle cx="50" cy="42" r="11" fill="${d}"/>`;
+  let pedicel=`<ellipse cx="50" cy="54" rx="5" ry="5" fill="${d}"/>`;
+  let spinnerets="", web="", marking="", extra="";
+
+  switch(caste){
+
+    // ORBE-TEJEDORA — Araneus diadematus
+    // Servicios web / servidores HTTP — construye redes/estructuras persistentes
+    case "orbweaver":
+      legsArr=["M44 52 Q24 40 16 48","M44 58 Q22 56 14 62","M44 64 Q24 72 18 80","M44 68 Q26 80 22 88",
+               "M56 52 Q76 40 84 48","M56 58 Q78 56 86 62","M56 64 Q76 72 82 80","M56 68 Q74 80 78 88"];
+      abd=`<ellipse cx="50" cy="65" rx="20" ry="18" fill="${c}"/>`;
+      // Cruz característica en el abdomen
+      marking=`<path d="M50 50 L50 80 M36 62 L64 62" stroke="${d}" stroke-width="2.4" opacity=".5" stroke-linecap="round"/>`;
+      // Tela de araña en esquina superior
+      web=`<path d="M12 12 L50 42 M12 12 L12 42 M12 12 L42 12" stroke="${d}" stroke-width="1.2" opacity=".45" fill="none"/>` +
+          `<path d="M14 26 Q31 24 44 42 M26 12 Q28 29 44 42" stroke="${d}" stroke-width="0.9" opacity=".35" fill="none"/>`;
+      spinnerets=`<path d="M44 82 l-4 7 M50 83 l0 7 M56 82 l4 7" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+      break;
+
+    // SALTARINA — Phidippus regius
+    // Scripts cortos / jobs / tareas one-shot — ágil, ejecuta y termina
+    case "jumper":
+      legsArr=["M44 52 Q32 44 26 48","M44 58 Q30 56 24 60","M44 64 Q32 70 28 76","M44 68 Q34 76 30 82",
+               "M56 52 Q68 44 74 48","M56 58 Q70 56 76 60","M56 64 Q68 70 72 76","M56 68 Q66 76 70 82"];
+      // Cefalotórax grande y cuadrado = rasgos de saltarina
+      ceph=`<rect x="38" y="30" width="24" height="20" rx="5" fill="${d}"/>`;
+      abd=`<ellipse cx="50" cy="63" rx="14" ry="13" fill="${c}"/>`;
+      pedicel=`<ellipse cx="50" cy="51" rx="4" ry="4" fill="${d}"/>`;
+      // Ojos anteriores medios muy grandes (trait definitorio)
+      eyes= vital==="dead"
+        ? `<path d="M44 36 l5 5 M49 36 l-5 5" stroke="${l}" stroke-width="2.2" stroke-linecap="round"/>`+
+          `<path d="M53 36 l5 5 M58 36 l-5 5" stroke="${l}" stroke-width="2.2" stroke-linecap="round"/>`
+        : vital==="sleep"
+        ? `<path d="M44 39 q3 3 6 0" stroke="${l}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`+
+          `<path d="M53 39 q3 3 6 0" stroke="${l}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
+        : `<circle cx="47" cy="37" r="4.5" fill="#fff"/><circle cx="47.8" cy="37" r="2.5" fill="#111"/>`+
+          `<circle cx="55" cy="37" r="4.5" fill="#fff"/><circle cx="55.8" cy="37" r="2.5" fill="#111"/>`;
+      marking=`<path d="M44 56 q6 4 12 0" stroke="${l}" stroke-width="1.6" fill="none" opacity=".55"/>`;
+      break;
+
+    // LOBO — Lycosa tarantula
+    // Monitorización / hunting de procesos — patrulla activa, caza en suelo
+    case "wolf":
+      legsArr=["M44 52 Q26 38 18 42","M44 58 Q22 54 14 58","M44 64 Q26 74 20 82","M44 68 Q28 82 24 90",
+               "M56 52 Q74 38 82 42","M56 58 Q78 54 86 58","M56 64 Q74 74 80 82","M56 68 Q72 82 76 90"];
+      abd=`<ellipse cx="50" cy="65" rx="17" ry="15" fill="${c}"/>`;
+      ceph=`<ellipse cx="50" cy="42" rx="13" ry="12" fill="${d}"/>`;
+      // Franja dorsal característica de lobo
+      marking=`<path d="M40 48 Q50 44 60 48 L58 78 Q50 82 42 78 Z" fill="${d}" opacity=".28"/>`;
+      // Saco de huevos en spinnerets (cargan sus crías)
+      spinnerets=`<circle cx="50" cy="80" r="6" fill="${l}" stroke="${d}" stroke-width="1.2"/>`;
+      // Hileras
+      extra=`<path d="M46 83 l-2 5 M54 83 l2 5" stroke="${d}" stroke-width="1.8" stroke-linecap="round"/>`;
+      break;
+
+    // VIUDA — Latrodectus mactans
+    // Seguridad / firewall / reglas de acceso — peligrosa, conspicua, control total
+    case "widow":
+      legsArr=["M44 52 Q22 36 14 40","M44 58 Q20 54 12 58","M44 64 Q22 76 16 84","M44 68 Q24 84 18 92",
+               "M56 52 Q78 36 86 40","M56 58 Q80 54 88 58","M56 64 Q78 76 84 84","M56 68 Q76 84 82 92"];
+      abd=`<ellipse cx="50" cy="66" rx="21" ry="20" fill="${c}"/>`;
+      ceph=`<circle cx="50" cy="43" r="10" fill="${d}"/>`;
+      // Marca roja en reloj de arena — seña inequívoca de viuda
+      marking=`<path d="M46 60 L54 60 L56 72 L50 75 L44 72 Z" fill="#c0392b" opacity=".88"/>` +
+               `<path d="M46 60 L50 57 L54 60" fill="#c0392b" opacity=".88"/>`;
+      spinnerets=`<path d="M46 85 l-3 6 M50 86 l0 6 M54 85 l3 6" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+      break;
+
+    // CANGREJO — Thomisus onustus
+    // Almacenamiento / NAS / backup — quieta, emboscada, patas laterales extendidas
+    case "crab":
+      // Patas I y II muy extendidas hacia los lados (rasgo cangrejo)
+      legsArr=["M44 50 Q26 34 10 32","M44 56 Q28 44 14 46","M44 64 Q32 72 26 78","M44 68 Q34 78 30 86",
+               "M56 50 Q74 34 90 32","M56 56 Q72 44 86 46","M56 64 Q68 72 74 78","M56 68 Q66 78 70 86"];
+      // Abdomen ancho y aplanado
+      abd=`<ellipse cx="50" cy="64" rx="22" ry="16" fill="${c}"/>`;
+      ceph=`<ellipse cx="50" cy="44" rx="14" ry="10" fill="${d}"/>`;
+      pedicel=`<ellipse cx="50" cy="55" rx="6" ry="4" fill="${d}"/>`;
+      // Marcas de camuflaje (almacenamiento = pasivo, quieto)
+      marking=`<ellipse cx="42" cy="64" rx="5" ry="7" fill="${d}" opacity=".22"/>` +
+               `<ellipse cx="58" cy="64" rx="5" ry="7" fill="${d}" opacity=".22"/>`;
+      // Cilindro de NAS / disco
+      extra=`<rect x="60" y="56" width="16" height="10" rx="3" fill="${l}" stroke="${d}" stroke-width="1.4"/>` +
+            `<rect x="60" y="58" width="16" height="2" fill="${d}" opacity=".3"/>` +
+            `<rect x="60" y="62" width="16" height="2" fill="${d}" opacity=".3"/>`;
+      break;
+
+    default: break;
+  }
+
+  return `<g>${web}${legs(legsArr,d)}${abd}${pedicel}${ceph}${marking}${spinnerets}${extra}${eyes}</g>`;
+}
+
+// ---- bee ----
+// sp_bee.js — Abejas paramétricas (área: Negocio/Ideas, color base #e6a417)
+// Castas basadas en tipos reales de abeja por utilidad de negocio:
+//   obrera-melifera  → ingresos directos / operativa establecida (Apis mellifera)
+//   exploradora      → scouting / nuevas ideas / investigación (Apis mellifera forager)
+//   zangano          → experimentos / apuestas / especulación (Apis mellifera drone)
+//   carpintera       → infra / montar el negocio / construcción (Xylocopa)
+//   reina            → modelo de negocio / estrategia central (Apis mellifera queen)
+//
+// Señas de forma (NUNCA por color):
+//   obrera-melifera  → cestillas de polen en patas traseras (bolas amarillas)
+//   exploradora      → alas más largas y prominentes, antenas alargadas
+//   zangano          → ojos compuestos grandes (toda la cabeza), sin aguijón, cuerpo robusto
+//   carpintera       → sin bandas, tórax peludo prominente, mandíbulas marcadas
+//   reina            → abdomen alargado, corona, alas simétricas grandes
+//
+// Globals esperados del entorno: shade(hex,f), legs(ps,col), eye(x,y,r)
+
+function crit_bee(o){
+  const c=o.color||"#e6a417", caste=o.caste||"obrera-melifera", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos según vital
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M44 33 l5 5 M49 33 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`+
+         `<path d="M55 33 l5 5 M60 33 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M44 35 q3 3 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`+
+         `<path d="M54 35 q3 3 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(47,34,2.8)+eye(57,34,2.8);
+
+  // Patas base (3 pares, abeja)
+  const legsArr=["M40 58 L26 68","M44 64 L36 78","M56 64 L64 78","M60 58 L74 68","M50 66 L50 80","M44 60 L30 56"];
+  let legsStr=legs(legsArr,d);
+
+  // Cuerpo base: tórax + abdomen + cabeza + antenas + alas base
+  let head    =`<circle cx="50" cy="34" r="10" fill="${c}"/>`;
+  let thorax  =`<ellipse cx="50" cy="52" rx="12" ry="10" fill="${c}"/>`;
+  let abdomen =`<ellipse cx="50" cy="68" rx="16" ry="14" fill="${c}"/>`;
+  // Bandas por defecto (obrera-melifera y exploradoras)
+  let bands   =`<path d="M36 62 Q50 59 64 62 M34 70 Q50 67 66 70" stroke="${d}" stroke-width="4.5" fill="none" opacity=".55"/>`;
+  let antennae=`<path d="M44 26 L38 16 M56 26 L62 16" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+  // Alas base
+  let wings   =`<ellipse cx="34" cy="40" rx="18" ry="10" fill="#eaf6ff" opacity=".82" transform="rotate(-14 34 40)"/>`+
+               `<ellipse cx="66" cy="40" rx="18" ry="10" fill="#eaf6ff" opacity=".82" transform="rotate(14 66 40)"/>`;
+
+  let extra="";
+
+  switch(caste){
+
+    case "obrera-melifera":
+      // Cestillas de polen en patas traseras: bolas naranjas cargadas
+      extra=`<circle cx="26" cy="68" r="5.5" fill="#f5c842" stroke="#c8962a" stroke-width="1.2" opacity=".95"/>`+
+            `<circle cx="74" cy="68" r="5.5" fill="#f5c842" stroke="#c8962a" stroke-width="1.2" opacity=".95"/>`;
+      break;
+
+    case "exploradora":
+      // Antenas extra largas, alas prominentes (más grandes), sin polen
+      antennae=`<path d="M44 26 L34 12 M56 26 L66 12" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>`;
+      wings=`<ellipse cx="30" cy="38" rx="23" ry="11" fill="#eaf6ff" opacity=".88" transform="rotate(-18 30 38)"/>`+
+            `<ellipse cx="70" cy="38" rx="23" ry="11" fill="#eaf6ff" opacity=".88" transform="rotate(18 70 38)"/>`;
+      extra=`<circle cx="34" cy="12" r="2.4" fill="${d}"/><circle cx="66" cy="12" r="2.4" fill="${d}"/>`;
+      break;
+
+    case "zangano":
+      // Ojos compuestos gigantes (casi toda la cabeza), cuerpo más rechoncho, sin aguijón, antenas cortas
+      head=`<circle cx="50" cy="34" r="12" fill="${c}"/>`+
+           `<ellipse cx="42" cy="32" rx="8" ry="9" fill="${d}" opacity=".7"/>`+
+           `<ellipse cx="58" cy="32" rx="8" ry="9" fill="${d}" opacity=".7"/>`;
+      // ojos sobrescritos abajo
+      if(vital==="dead")
+        eyes=`<path d="M39 32 l4 4 M43 32 l-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>`+
+             `<path d="M57 32 l4 4 M61 32 l-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>`;
+      else if(vital==="sleep")
+        eyes=`<path d="M38 34 q4 3 8 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>`+
+             `<path d="M54 34 q4 3 8 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+      else
+        eyes=`<circle cx="42" cy="31" r="3.5" fill="#fff" opacity=".85"/><circle cx="43" cy="31" r="1.8" fill="#111"/>`+
+             `<circle cx="58" cy="31" r="3.5" fill="#fff" opacity=".85"/><circle cx="59" cy="31" r="1.8" fill="#111"/>`;
+      abdomen=`<ellipse cx="50" cy="68" rx="18" ry="15" fill="${c}"/>`;
+      bands=`<path d="M33 65 Q50 62 67 65" stroke="${d}" stroke-width="4" fill="none" opacity=".45"/>`;
+      antennae=`<path d="M45 25 L41 17 M55 25 L59 17" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+      break;
+
+    case "carpintera":
+      // Sin bandas, tórax peludo prominente, mandíbulas marcadas, cuerpo más oscuro
+      bands="";
+      thorax=`<ellipse cx="50" cy="52" rx="14" ry="11" fill="${d}" opacity=".9"/>`+
+             // pelaje (líneas cortas simétricas sobre tórax)
+             `<path d="M38 48 l-4 -3 M42 46 l-2 -4 M50 45 l0 -4 M58 46 l2 -4 M62 48 l4 -3" stroke="${l}" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>`;
+      // mandíbulas
+      extra=`<path d="M42 40 q-6 -2 -8 2" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`+
+            `<path d="M58 40 q6 -2 8 2" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+      break;
+
+    case "reina":
+      // Abdomen alargado, alas grandes simétricas, corona
+      abdomen=`<ellipse cx="50" cy="72" rx="13" ry="20" fill="${c}"/>`;
+      bands=`<path d="M38 66 Q50 63 62 66 M37 74 Q50 71 63 74 M39 82 Q50 79 61 82" stroke="${d}" stroke-width="4" fill="none" opacity=".5"/>`;
+      wings=`<ellipse cx="29" cy="38" rx="26" ry="12" fill="#eaf6ff" opacity=".88" transform="rotate(-16 29 38)"/>`+
+            `<ellipse cx="71" cy="38" rx="26" ry="12" fill="#eaf6ff" opacity=".88" transform="rotate(16 71 38)"/>`;
+      extra=`<path d="M40 25 l2 -8 l4 5 l4 -9 l4 7 l4 -5 l2 8 Z" fill="#f2c14e" stroke="${d}" stroke-width="1"/>`;
+      break;
+
+    default: break;
+  }
+
+  return `<g>${wings}${legsStr}${antennae}${abdomen}${bands}${thorax}${head}${extra}${eyes}</g>`;
+}
+
+// ---- scorpion ----
+// Arthropod Design — Scorpion paramétrico
+// sp_scorpion.js — crit_scorpion({color, caste, vital})
+// Castas reales de escorpión por utilidad de proyecto:
+//   emperador  (Pandinus imperator)      — arquitectura/banco de pruebas grande/simuladores
+//   corteza    (Centruroides sculpturatus)— sensores pequeños críticos/análisis señal preciso
+//   dorado     (Leiurus quinquestriatus)  — alimentación/potencia/documentación de referencia
+//   vinagrillo (Mastigoproctus giganteus) — medición/cableado/herramientas de conexión
+//   imperial   (Heterometrus spinifer)    — arquitectura media/proyectos mixtos/agente IA
+
+// (helpers shade/legs/eye: definidos una sola vez al inicio del archivo)
+
+// ---- ESCORPIONES PARAMÉTRICOS -----------------------------------------------
+// o = { color:"#rrggbb", caste:"emperador|corteza|dorado|vinagrillo|imperial", vital:"ok|sleep|dead" }
+function crit_scorpion(o){
+  const c=o.color||"#cf3b2c", caste=o.caste||"imperial", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // ----- ojos según vital -----
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M44 56 l5 5 M49 56 l-5 5" stroke="${d}" stroke-width="2.1" stroke-linecap="round"/>`+
+         `<path d="M55 56 l5 5 M60 56 l-5 5" stroke="${d}" stroke-width="2.1" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M44 58 q3 3 6 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>`+
+         `<path d="M55 58 q3 3 6 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(47,57,2.6)+eye(58,57,2.6);
+
+  // ----- patas base (4 pares) -----
+  const baseLegs=legs([
+    "M40 62 L24 56","M40 66 L24 68","M40 70 L26 80",
+    "M60 62 L76 56","M60 66 L76 68","M60 70 L74 80"
+  ],d);
+
+  // ----- tronco/mesosoma base -----
+  let body    =`<ellipse cx="50" cy="64" rx="14" ry="16" fill="${c}"/>`;
+  let head    =`<ellipse cx="50" cy="52" rx="10" ry="9" fill="${c}"/>`;
+
+  // ----- cola base: curva hacia arriba/izquierda (metasoma) -----
+  let tail    =`<path d="M50 80 Q58 90 72 86 Q84 82 82 70" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  let stinger =`<path d="M82 70 Q88 64 84 60" stroke="${d}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+  let bulb    =`<circle cx="84" cy="60" r="4.5" fill="${d}"/>`;
+
+  // ----- queliceros (boca) -----
+  let chelicera=`<path d="M45 46 q-3 -4 -2 -7 M55 46 q3 -4 2 -7" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+
+  // ----- pedipalpos/pinzas: default mediano -----
+  let claws=`<path d="M44 56 Q30 48 22 50 Q16 50 14 46 M22 50 Q16 52 14 56" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>`+
+            `<path d="M56 56 Q70 48 78 50 Q84 50 86 46 M78 50 Q84 52 86 56" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+
+  // ----- extras por casta -----
+  let extra="";
+
+  switch(caste){
+
+    // EMPERADOR: Pandinus imperator — cuerpo grande, pinzas enormes, cola gruesa
+    case "emperador":
+      body   =`<ellipse cx="50" cy="65" rx="18" ry="20" fill="${c}"/>`;
+      head   =`<ellipse cx="50" cy="50" rx="13" ry="11" fill="${c}"/>`;
+      claws  =`<path d="M42 55 Q26 44 16 46 Q9 46 7 40 M16 46 Q9 49 7 54" stroke="${d}" stroke-width="4.2" fill="none" stroke-linecap="round"/>`+
+               `<path d="M58 55 Q74 44 84 46 Q91 46 93 40 M84 46 Q91 49 93 54" stroke="${d}" stroke-width="4.2" fill="none" stroke-linecap="round"/>`;
+      tail   =`<path d="M50 85 Q62 96 78 92 Q93 87 90 74" stroke="${c}" stroke-width="9" fill="none" stroke-linecap="round"/>`;
+      stinger=`<path d="M90 74 Q97 66 92 60" stroke="${d}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      bulb   =`<circle cx="92" cy="60" r="5.5" fill="${d}"/>`;
+      // segmentos del metasoma marcados
+      extra  =`<path d="M52 80 Q60 83 66 78 M56 85 Q63 89 70 84 M58 90 Q64 94 73 90" stroke="${d}" stroke-width="1.2" fill="none" opacity=".55"/>`;
+      break;
+
+    // CORTEZA: Centruroides sculpturatus — pequeño, cola larga y delgada, pinzas finas
+    case "corteza":
+      body   =`<ellipse cx="50" cy="64" rx="10" ry="13" fill="${c}"/>`;
+      head   =`<ellipse cx="50" cy="53" rx="8" ry="7" fill="${c}"/>`;
+      claws  =`<path d="M44 57 Q32 51 26 53 Q22 53 20 50 M26 53 Q22 55 20 57" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`+
+               `<path d="M56 57 Q68 51 74 53 Q78 53 80 50 M74 53 Q78 55 80 57" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+      // cola muy larga y fina: rasgo de Centruroides
+      tail   =`<path d="M50 77 Q56 88 68 90 Q80 92 86 82 Q92 72 88 64" stroke="${c}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
+      stinger=`<path d="M88 64 Q94 58 90 53" stroke="${d}" stroke-width="2.8" fill="none" stroke-linecap="round"/>`;
+      bulb   =`<circle cx="90" cy="53" r="3.5" fill="${d}"/>`;
+      break;
+
+    // DORADO: Leiurus quinquestriatus — cuerpo robusto, cola con bulbo prominente, venas en el dorso
+    case "dorado":
+      body   =`<ellipse cx="50" cy="64" rx="15" ry="17" fill="${c}"/>`;
+      head   =`<ellipse cx="50" cy="51" rx="11" ry="10" fill="${c}"/>`;
+      // pinzas medianas redondeadas
+      claws  =`<path d="M43 56 Q28 47 20 50 Q14 50 12 44 M20 50 Q14 53 12 58" stroke="${d}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`+
+               `<path d="M57 56 Q72 47 80 50 Q86 50 88 44 M80 50 Q86 53 88 58" stroke="${d}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+      // bulbo del aguijon muy prominente (alta potencia)
+      tail   =`<path d="M50 81 Q60 92 74 88 Q86 84 84 72" stroke="${c}" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+      stinger=`<path d="M84 72 Q90 65 86 58" stroke="${d}" stroke-width="3.8" fill="none" stroke-linecap="round"/>`;
+      bulb   =`<circle cx="86" cy="58" r="6.5" fill="${l}" stroke="${d}" stroke-width="1.8"/>`;
+      // venas dorsales = líneas de alta tensión
+      extra  =`<path d="M43 58 Q50 54 57 58 M44 63 Q50 60 56 63 M45 69 Q50 66 55 69" stroke="${d}" stroke-width="1.1" fill="none" opacity=".45"/>`;
+      break;
+
+    // VINAGRILLO: Mastigoproctus giganteus — cola en látigo (telson delgadísimo), sin aguijón venenoso
+    case "vinagrillo":
+      body   =`<ellipse cx="50" cy="63" rx="12" ry="15" fill="${c}"/>`;
+      head   =`<ellipse cx="50" cy="51" rx="9" ry="8" fill="${c}"/>`;
+      // pinzas alargadas para sujetar cables
+      claws  =`<path d="M43 56 Q28 49 22 52 Q18 52 16 48 M22 52 Q17 54 16 58" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`+
+               `<path d="M57 56 Q72 49 78 52 Q82 52 84 48 M78 52 Q83 54 84 58" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+      // COLA LÁTIGO: muy fina y larga, sin bulbo venenoso, termina en punta
+      tail   =`<path d="M50 78 Q55 86 64 86 Q76 86 82 78 Q88 70 90 60 Q92 50 94 42" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+      stinger=`<path d="M94 42 Q96 36 95 30" stroke="${d}" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+      bulb   =`<circle cx="95" cy="30" r="2" fill="${d}"/>`;
+      // primer par de patas muy alargadas (característico del vinagrillo)
+      extra  =`<path d="M40 62 L14 44 M60 62 L86 44" stroke="${d}" stroke-width="2.8" fill="none" stroke-linecap="round"/>`;
+      break;
+
+    // IMPERIAL: Heterometrus spinifer — proporciones equilibradas, espinas dorsales
+    case "imperial":
+    default:
+      // proporciones estándar heredadas de base; añadir espinas dorsales
+      extra  =`<path d="M46 50 L42 43 M50 48 L50 41 M54 50 L58 43" stroke="${d}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+      break;
+  }
+
+  return `<g>${baseLegs}${tail}${stinger}${bulb}${extra}${body}${head}${chelicera}${claws}${eyes}</g>`;
+}
+
+// ---- centipede ----
+// Arthropod Design — CIEMPIES parametrico
+// Area: Comunidades/Datos (VPostal) · Color base: #dd4f86
+// Castas: escolopendra | escutigera | geofilida | miriapoda | lithobiida
+// o = { color, caste, vital }
+
+function crit_centipede(o) {
+  const c = o.color || "#dd4f86", caste0 = o.caste || "escolopendra", vital = o.vital || "ok";
+  // Mapa casta funcional (castas.json) -> forma anatomica, segun el campo `sp` de cada casta.
+  // rastreador=Lithobius->lithobiida | indexador=Scutigera->escutigera
+  // fusionador/desplegador/recolector=Scolopendromorpha->escolopendra
+  // ensamblador/mensajero/segador/alcantarillero=Geophilomorpha->geofilida
+  // (los nombres anatomicos siguen siendo validos como alias de compatibilidad)
+  const CENTI_FORMA = {
+    rastreador: "lithobiida", indexador: "escutigera",
+    fusionador: "escolopendra", desplegador: "escolopendra", recolector: "escolopendra",
+    ensamblador: "geofilida", mensajero: "geofilida", segador: "geofilida", alcantarillero: "geofilida"
+  };
+  const caste = CENTI_FORMA[caste0] || caste0;
+  const d = shade(c, .55), l = shade(c, 1.34);
+
+  // ---- OJOS segun vital ----
+  let eyes;
+  if (vital === "dead")
+    eyes = `<path d="M16 37 l5 5 M21 37 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+  else if (vital === "sleep")
+    eyes = `<path d="M15 40 q3 3 7 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes = eye(16, 39, 2.5) + eye(23, 38, 2.5);
+
+  // ---- ANTENAS base ----
+  let ant = `<path d="M13 34 L8 26 M19 33 L18 23" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+
+  // ---- SWITCH DE CASTA ----
+  // Cada casta modifica: segmentos, patas, antenas, apendices
+
+  if (caste === "escolopendra") {
+    // Escolopendra: cuerpo largo, 9 segmentos bien definidos, patas robustas
+    // pipeline de datos largo — muchos segmentos encadenados
+    const pts = [[22,44],[31,48],[40,50],[49,51],[58,51],[67,50],[76,48],[85,46],[91,43]];
+    let body = "";
+    // patas por segmento (robustas, cortas, paralelas)
+    pts.forEach((p, i) => {
+      body += `<path d="M${p[0]} ${p[1]} l-5 9 M${p[0]} ${p[1]} l5 9" stroke="${d}" stroke-width="2.8" stroke-linecap="round"/>`;
+    });
+    // patas traseras forcipuladas (veneno) — ultimas patas largas
+    body += `<path d="M91 43 l7 10 M91 43 l-3 12" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>`;
+    // segmentos (cabeza grande, resto medianos)
+    pts.forEach((p, i) => {
+      const r = i === 0 ? 10 : 7;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    // segmentos: linea dorsal
+    body += `<path d="M31 48 Q58 51 91 43" stroke="${d}" stroke-width="1.2" fill="none" opacity=".4"/>`;
+    return `<g>${body}${ant}${eyes}</g>`;
+
+  } else if (caste === "escutigera") {
+    // Escutigera: cuerpo corto, patas MUY largas y finas, antenas larguisimas
+    // scraping rapido, patas que llegan lejos
+    const pts = [[28,46],[38,50],[48,52],[58,52],[68,50],[78,47]];
+    let body = "";
+    // patas largas y finas (llegan a los bordes del viewBox)
+    const legOffsetsL = [[-18,14],[-20,8],[-20,0],[-18,-8],[-14,-16],[-10,-22]];
+    const legOffsetsR = [[12,14],[14,8],[16,0],[14,-8],[12,-16],[10,-22]];
+    pts.forEach((p, i) => {
+      body += `<path d="M${p[0]} ${p[1]} l${legOffsetsL[i][0]} ${legOffsetsL[i][1]}" stroke="${d}" stroke-width="1.6" stroke-linecap="round"/>`;
+      body += `<path d="M${p[0]} ${p[1]} l${legOffsetsR[i][0]} ${legOffsetsR[i][1]}" stroke="${d}" stroke-width="1.6" stroke-linecap="round"/>`;
+    });
+    pts.forEach((p, i) => {
+      const r = i === 0 ? 9 : 6.5;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    // antenas larguisimas (el rasgo distintivo de escutigera)
+    const antEscutigera = `<path d="M23 41 L4 22 M28 39 L18 16" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+    return `<g>${body}${antEscutigera}${eyes}</g>`;
+
+  } else if (caste === "geofilida") {
+    // Geofilido: cuerpo MUY largo y delgado, segmentos numerosos y pequenos
+    // datos enterrados / bases de datos / correcciones profundas
+    const nSeg = 14;
+    let body = "";
+    // trayectoria sinuosa (como geofilido excavando)
+    const pts14 = [];
+    for (let i = 0; i < nSeg; i++) {
+      const x = 10 + i * 6.2;
+      const y = 50 + Math.round(Math.sin(i * 0.9) * 7);
+      pts14.push([Math.round(x), y]);
+    }
+    pts14.forEach((p, i) => {
+      // patas muy cortas y numerosas
+      body += `<path d="M${p[0]} ${p[1]} l-3 6 M${p[0]} ${p[1]} l3 6" stroke="${d}" stroke-width="1.8" stroke-linecap="round"/>`;
+    });
+    pts14.forEach((p, i) => {
+      const r = i === 0 ? 7 : 4.5;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    // antenas cortas (vive bajo tierra, no las necesita largas)
+    const antGeo = `<path d="M7 46 L4 40 M10 44 L9 37" stroke="${d}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+    const eyesGeo = vital === "dead"
+      ? `<path d="M6 43 l3 3 M9 43 l-3 3" stroke="${d}" stroke-width="1.6" stroke-linecap="round"/>`
+      : vital === "sleep"
+      ? `<path d="M5 44 q2 2 5 0" stroke="${d}" stroke-width="1.6" fill="none" stroke-linecap="round"/>`
+      : eye(6, 43, 1.8) + eye(11, 42, 1.8);
+    return `<g>${body}${antGeo}${eyesGeo}</g>`;
+
+  } else if (caste === "miriapoda") {
+    // Milpies (diplopoda): cuerpo REDONDEADO, segmentos esfericos apilados, DOS pares de patas por segmento
+    // acumulacion / archivado / recursos almacenados
+    const pts = [[22,50],[32,48],[42,47],[52,47],[62,47],[72,48],[80,50],[86,54]];
+    let body = "";
+    pts.forEach((p, i) => {
+      // dos pares de patas por segmento (milpies = 2 pares/seg)
+      body += `<path d="M${p[0]} ${p[1]-2} l-5 8 M${p[0]} ${p[1]+2} l-4 8" stroke="${d}" stroke-width="1.8" stroke-linecap="round"/>`;
+      body += `<path d="M${p[0]} ${p[1]-2} l5 8 M${p[0]} ${p[1]+2} l4 8" stroke="${d}" stroke-width="1.8" stroke-linecap="round"/>`;
+    });
+    pts.forEach((p, i) => {
+      // segmentos esfericos, mas anchos (acumulacion)
+      const r = i === 0 ? 10 : 8;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    // segmento terminal redondeado (cola roma del milpies)
+    body += `<ellipse cx="90" cy="55" rx="5" ry="4" fill="${d}"/>`;
+    return `<g>${body}${ant}${eyes}</g>`;
+
+  } else if (caste === "lithobiida") {
+    // Lithobius: 7 segmentos medianos, forma clasica de ciempies de piedra
+    // estructura base / soporte / catalogacion
+    const pts = [[24,44],[33,48],[42,51],[51,52],[60,51],[69,48],[78,44]];
+    let body = "";
+    pts.forEach((p, i) => {
+      body += `<path d="M${p[0]} ${p[1]} l-5 9 M${p[0]} ${p[1]} l5 9" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>`;
+    });
+    pts.forEach((p, i) => {
+      const r = i === 0 ? 9 : 7;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    return `<g>${body}${ant}${eyes}</g>`;
+
+  } else {
+    // fallback = escolopendra
+    const pts = [[22,44],[31,48],[40,50],[49,51],[58,51],[67,50],[76,48],[85,46]];
+    let body = "";
+    pts.forEach((p, i) => {
+      body += `<path d="M${p[0]} ${p[1]} l-5 9 M${p[0]} ${p[1]} l5 9" stroke="${d}" stroke-width="2.6" stroke-linecap="round"/>`;
+    });
+    pts.forEach((p, i) => {
+      const r = i === 0 ? 10 : 7.5;
+      const fill = i === 0 ? d : c;
+      body += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}"/>`;
+    });
+    return `<g>${body}${ant}${eyes}</g>`;
+  }
+}
+
+// ---- dung ----
+// Peloteros (dung beetles) — Arthropod Design v2
+// Castas: rodador | sagrado | minotauro | tunelador
+// viewBox 100x100; globales shade/legs/eye requeridos en scope
+
+function crit_dung(o) {
+  const c = o.color || "#16a890", caste = o.caste || "rodador", vital = o.vital || "ok";
+  const d = shade(c, .55), l = shade(c, 1.34);
+
+  // Ojos segun vital
+  let eyes;
+  if (vital === "dead")
+    eyes = `<path d="M58 49 l5 5 M63 49 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+  else if (vital === "sleep")
+    eyes = `<path d="M58 52 q3 3 7 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes = eye(61, 51, 2.8);
+
+  // Patas base: 3 pares
+  const legsBase = legs([
+    "M54 58 L42 68", "M58 62 L52 78", "M64 58 L76 68",
+    "M46 56 L36 52", "M48 62 L38 72", "M70 62 L80 72"
+  ], d);
+
+  // Cabeza base
+  let head = `<circle cx="62" cy="52" r="10" fill="${c}"/>`;
+
+  // Bola de estiercol (elemento comun)
+  let ball = `<circle cx="26" cy="64" r="20" fill="#7a5a30" stroke="#5a4020" stroke-width="2"/>
+    <circle cx="20" cy="58" r="4" fill="#5a4020" opacity=".5"/>
+    <circle cx="32" cy="70" r="3" fill="#5a4020" opacity=".45"/>
+    <circle cx="24" cy="74" r="2.2" fill="#5a4020" opacity=".35"/>`;
+
+  // Cuerpo (elytros)
+  let body = `<ellipse cx="58" cy="62" rx="18" ry="17" fill="${c}"/>
+    <path d="M58 46 L58 79" stroke="${d}" stroke-width="2.8"/>
+    <path d="M42 56 Q58 52 74 56" stroke="${d}" stroke-width="2" fill="none"/>`;
+
+  // Pronoto (cabeza-torax union)
+  let thorax = `<ellipse cx="54" cy="54" rx="8" ry="6" fill="${c}"/>`;
+
+  // Cuernos / rasgos por casta
+  let horns = "", ballExtra = "", legExtra = "";
+
+  switch (caste) {
+    case "rodador":
+      // Scarabaeus-tipo liso: empuja la bola con las patas traseras
+      // bola grande, patas traseras extendidas hacia la bola
+      ball = `<circle cx="24" cy="66" r="22" fill="#7a5a30" stroke="#5a4020" stroke-width="2"/>
+        <circle cx="18" cy="58" r="4.5" fill="#5a4020" opacity=".5"/>
+        <circle cx="30" cy="74" r="3.5" fill="#5a4020" opacity=".45"/>
+        <circle cx="20" cy="76" r="2.5" fill="#5a4020" opacity=".35"/>`;
+      legExtra = `<path d="M54 66 L36 70" stroke="${d}" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M56 70 L38 78" stroke="${d}" stroke-width="3.2" stroke-linecap="round"/>`;
+      break;
+
+    case "sagrado":
+      // Scarabaeus sacer: cabeza en forma de abanico (corona)
+      head = `<circle cx="62" cy="52" r="10" fill="${c}"/>`;
+      horns = `<path d="M56 43 l-4 -7 M60 42 l-2 -8 M64 42 l2 -8 M68 43 l4 -7" stroke="${d}" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M54 44 Q62 40 70 44" stroke="${d}" stroke-width="2" fill="none"/>`;
+      break;
+
+    case "minotauro":
+      // Typhaeus/Minotaurus: cuernos prominentes en el torax
+      head = `<circle cx="62" cy="53" r="10" fill="${c}"/>`;
+      horns = `<path d="M51 50 Q44 42 42 36" stroke="${d}" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+        <path d="M53 47 Q50 40 52 34" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        <path d="M55 46 Q56 38 58 33" stroke="${d}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <circle cx="42" cy="35" r="3" fill="${d}"/>
+        <circle cx="52" cy="33" r="2.5" fill="${d}"/>
+        <circle cx="58" cy="32" r="2.2" fill="${d}"/>`;
+      body = `<ellipse cx="58" cy="62" rx="18" ry="17" fill="${c}"/>
+        <path d="M58 46 L58 79" stroke="${d}" stroke-width="2.8"/>
+        <path d="M42 55 Q58 50 74 55" stroke="${d}" stroke-width="2.2" fill="none"/>
+        <path d="M44 62 Q58 58 72 62" stroke="${d}" stroke-width="1.6" fill="none" opacity=".5"/>`;
+      break;
+
+    case "tunelador":
+      // Geotrupes/Copris: cuerpo mas robusto/redondeado, pequena bola (trabaja bajo tierra)
+      ball = `<circle cx="28" cy="68" r="13" fill="#7a5a30" stroke="#5a4020" stroke-width="2"/>
+        <circle cx="23" cy="63" r="3" fill="#5a4020" opacity=".5"/>
+        <circle cx="31" cy="72" r="2" fill="#5a4020" opacity=".4"/>`;
+      body = `<ellipse cx="58" cy="63" rx="20" ry="19" fill="${c}"/>
+        <path d="M58 45 L58 82" stroke="${d}" stroke-width="2.8"/>
+        <path d="M40 56 Q58 51 76 56" stroke="${d}" stroke-width="2" fill="none"/>
+        <path d="M39 64 Q58 59 77 64" stroke="${d}" stroke-width="1.5" fill="none" opacity=".45"/>
+        <path d="M41 72 Q58 67 75 72" stroke="${d}" stroke-width="1.2" fill="none" opacity=".35"/>`;
+      head = `<circle cx="62" cy="51" r="11" fill="${c}"/>`;
+      // rayas de tierra en la bola (tunel)
+      ballExtra = `<path d="M18 68 Q24 62 30 68" stroke="#5a4020" stroke-width="1.2" fill="none" opacity=".7"/>
+        <path d="M20 74 Q26 70 32 74" stroke="#5a4020" stroke-width="1" fill="none" opacity=".5"/>`;
+      break;
+  }
+
+  return `<g>${ball}${ballExtra}${legsBase}${legExtra}${body}${thorax}${head}${horns}${eyes}</g>`;
+}
+
+// ---- snail ----
+// Arthropod Design — Caracol paramétrico (área: Linux/Migración SO)
+// crit_snail({color, caste, vital}) → <g> SVG viewBox 100×100
+// Castas:
+//   jardin  — caracol de jardín: migración paso a paso, análisis comparativo
+//             concha espiral grande, tentáculos largos con ojos en las puntas
+//   babosa  — babosa sin concha: CLI/terminal, sin GUI, minimalista
+//             cuerpo alargado bajo, tentáculos cortos, sin concha
+//   mar     — caracol marino (distro): elegir distro/arranque/setup
+//             concha cónica puntiaguda (no espiral), cuerpo más esbelto
+
+function crit_snail(o){
+  const c=o.color||"#6d6ef0", caste=o.caste||"jardin", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // ojos en las puntas de tentáculos — cambian según vital
+  function tentEye(x,y,r){
+    if(vital==="dead")   return `<path d="M${x-r} ${y-r} l${r*2} ${r*2} M${x+r} ${y-r} l${-r*2} ${r*2}" stroke="${d}" stroke-width="1.6" stroke-linecap="round"/>`;
+    if(vital==="sleep")  return `<path d="M${x-r} ${y} q${r} ${r*1.2} ${r*2} 0" stroke="${d}" stroke-width="1.6" fill="none" stroke-linecap="round"/>`;
+    return eye(x,y,r);
+  }
+
+  switch(caste){
+    case "babosa": {
+      // Cuerpo alargado sin concha, rasante al suelo, tentáculos cortos
+      const body=`<path d="M18 72 Q16 60 30 58 Q60 54 74 60 Q84 64 82 72 Q78 80 60 80 Q30 82 18 72 Z" fill="${c}" stroke="${d}" stroke-width="1.8"/>`;
+      // cola que se afina a la izquierda
+      const tail=`<path d="M18 72 Q10 68 12 62 Q14 56 22 60" fill="${c}" stroke="${d}" stroke-width="1.4"/>`;
+      // manto dorsal (textura babosa)
+      const manto=`<path d="M28 60 Q50 54 72 62" stroke="${l}" stroke-width="2.2" fill="none" opacity=".6"/>`;
+      // tentáculos cortos con ojos (2 pares: 2 largos ópticos + 2 olfativos)
+      const t1=`<path d="M70 60 L74 50" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+      const t2=`<path d="M78 62 L84 54" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+      const t3=`<path d="M65 60 L67 55" stroke="${d}" stroke-width="1.5" stroke-linecap="round"/>`;
+      const t4=`<path d="M74 60 L76 56" stroke="${d}" stroke-width="1.5" stroke-linecap="round"/>`;
+      const e1=tentEye(74,48,2.8);
+      const e2=tentEye(84,52,2.8);
+      return `<g>${body}${tail}${manto}${t1}${t2}${t3}${t4}${e1}${e2}</g>`;
+    }
+    case "mar": {
+      // Concha cónica puntiaguda (no espiral): torre cónica con líneas de espira
+      const shell=`<path d="M48 18 L72 70 Q66 78 58 76 Q40 78 34 70 L48 18 Z" fill="${c}" stroke="${d}" stroke-width="2"/>`;
+      // líneas de espira en cono
+      const spires=`<path d="M44 36 Q58 38 66 42 M42 50 Q56 52 68 56 M40 62 Q52 65 68 68" stroke="${d}" stroke-width="1.4" fill="none" opacity=".55"/>`;
+      // punta brillante del cono
+      const apex=`<circle cx="48" cy="18" r="2.8" fill="${l}"/>`;
+      // cuerpo del molusco saliendo por la apertura (parte inferior del cono)
+      const bodyOut=`<path d="M34 70 Q30 74 24 76 Q18 80 16 76 Q14 70 22 68 Q28 66 34 70 Z" fill="${c}" stroke="${d}" stroke-width="1.6"/>`;
+      // cabeza con tentáculos estilizados y más largos
+      const neck=`<path d="M24 74 Q20 66 22 58" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`;
+      const t1=`<path d="M20 58 L14 44" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+      const t2=`<path d="M24 56 L22 42" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+      const e1=tentEye(14,42,3);
+      const e2=tentEye(22,40,3);
+      return `<g>${shell}${spires}${apex}${bodyOut}${neck}${t1}${t2}${e1}${e2}</g>`;
+    }
+    default: // "jardin" — caracol de jardín con concha espiral grande
+    {
+      // Pie/cuerpo arrastrándose
+      const foot=`<path d="M14 76 Q12 64 24 62 Q30 60 38 62" fill="${c}" stroke="${d}" stroke-width="1.8"/>`;
+      const body=`<path d="M22 76 Q20 68 28 66 Q46 62 58 70 Q64 76 60 82 Q50 88 32 84 Q20 82 22 76 Z" fill="${c}" stroke="${d}" stroke-width="1.8"/>`;
+      // cuello/cabeza hacia adelante (izquierda)
+      const neck=`<path d="M24 68 Q18 62 16 54" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`;
+      const head=`<ellipse cx="16" cy="52" rx="7" ry="5.5" fill="${c}" stroke="${d}" stroke-width="1.6"/>`;
+      // tentáculos oculares largos (par superior)
+      const t1=`<path d="M14 48 L8 34" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+      const t2=`<path d="M20 48 L18 32" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+      // tentáculos olfativos cortos (par inferior)
+      const t3=`<path d="M12 50 L8 44" stroke="${d}" stroke-width="1.5" stroke-linecap="round"/>`;
+      const t4=`<path d="M19 50 L18 44" stroke="${d}" stroke-width="1.5" stroke-linecap="round"/>`;
+      const e1=tentEye(8,32,3.2);
+      const e2=tentEye(18,30,3.2);
+      // Concha espiral centrada a la derecha-arriba del cuerpo
+      const shell=`<circle cx="58" cy="52" r="26" fill="${c}" stroke="${d}" stroke-width="2"/>`;
+      const spiral1=`<circle cx="58" cy="52" r="19" fill="none" stroke="${d}" stroke-width="2.8" opacity=".5"/>`;
+      const spiral2=`<circle cx="58" cy="52" r="12" fill="none" stroke="${d}" stroke-width="2.8" opacity=".5"/>`;
+      const spiral3=`<circle cx="58" cy="52" r="5.5" fill="none" stroke="${d}" stroke-width="2.4" opacity=".5"/>`;
+      const umbilicus=`<circle cx="58" cy="52" r="2" fill="${d}" opacity=".7"/>`;
+      // sutura / ornamento dorsal
+      const suture=`<path d="M34 62 Q46 58 58 62" stroke="${d}" stroke-width="1.4" fill="none" opacity=".4"/>`;
+      return `<g>${shell}${spiral1}${spiral2}${spiral3}${umbilicus}${suture}${foot}${body}${neck}${head}${t3}${t4}${t1}${t2}${e1}${e2}</g>`;
+    }
+  }
+}
+
+// ---- dragonfly ----
+// sp_dragonfly.js — Libélulas paramétricas (Arthropod Design Terrarium)
+// Área: Redes/Conectividad · Color base: #f5812f
+// Castas: emperor (red troncal/router) · damsel (wifi/enlace pequeño) · hawk (VPN/largo alcance)
+// Dependencias globales: shade(), legs(), eye() — ya presentes en critters.js
+// viewBox 100×100. Sin emojis. Sin dependencias externas.
+
+function crit_dragonfly(o) {
+  const c = o.color || "#f5812f", caste = o.caste || "emperor", vital = o.vital || "ok";
+  const d = shade(c, .55), l = shade(c, 1.34);
+
+  // Ojos grandes (rasgo distintivo libélula) — compuestos, facetados
+  let eyes;
+  if (vital === "dead") {
+    eyes = `<path d="M43 28 l5 5 M48 28 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>` +
+           `<path d="M55 28 l5 5 M60 28 l-5 5" stroke="${d}" stroke-width="2.2" stroke-linecap="round"/>`;
+  } else if (vital === "sleep") {
+    eyes = `<path d="M43 31 q3 2.5 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>` +
+           `<path d="M55 31 q3 2.5 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  } else {
+    // Ojos compuestos grandes: dos esferas prominentes
+    eyes = eye(46, 29, 4.5) + eye(57, 29, 4.5);
+  }
+
+  // Base anatómica compartida — cabeza con ojos grandes
+  let head = `<circle cx="51" cy="28" r="11" fill="${c}"/>` +
+              `<path d="M48 20 L44 14 M54 20 L58 14" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+
+  // Cuerpo (abdomen): forma varía por casta
+  let abdomen = "";
+  // Alas: varían por casta
+  let wings = "";
+  // Extras por casta
+  let extras = "";
+
+  switch (caste) {
+
+    // ── EMPEROR: Anax imperator — red troncal / router backbone
+    // Cuerpo largo y GRUESO, alas largas y anchas (4 alas simétricas prominentes)
+    case "emperor":
+      abdomen =
+        // Tórax robusto
+        `<rect x="44" y="37" width="14" height="14" rx="5" fill="${c}"/>` +
+        // Abdomen largo y grueso con segmentos marcados
+        `<rect x="46" y="49" width="10" height="36" rx="4" fill="${c}"/>` +
+        `<path d="M46 56 H56 M46 63 H56 M46 70 H56 M46 77 H56" stroke="${d}" stroke-width="1.4" opacity=".6"/>`;
+      // 4 alas: par superior grande y ancho, par inferior más corto
+      wings =
+        `<ellipse cx="30" cy="38" rx="22" ry="8" fill="${l}" opacity=".72" transform="rotate(-15 30 38)"/>` +
+        `<ellipse cx="72" cy="38" rx="22" ry="8" fill="${l}" opacity=".72" transform="rotate(15 72 38)"/>` +
+        `<ellipse cx="28" cy="52" rx="18" ry="6.5" fill="${l}" opacity=".62" transform="rotate(8 28 52)"/>` +
+        `<ellipse cx="74" cy="52" rx="18" ry="6.5" fill="${l}" opacity=".62" transform="rotate(-8 74 52)"/>` +
+        // Nervadura en alas superiores
+        `<path d="M12 38 L44 40 M16 44 L44 43" stroke="${d}" stroke-width=".8" opacity=".4"/>` +
+        `<path d="M88 38 L56 40 M84 44 L56 43" stroke="${d}" stroke-width=".8" opacity=".4"/>`;
+      // Indicador de router: pequeño icono backbone
+      extras = `<circle cx="51" cy="42" r="3.5" fill="${d}" opacity=".5"/>`;
+      break;
+
+    // ── DAMSEL: Coenagrion (Zygoptera) — wifi / enlace local pequeño
+    // Cuerpo MUY FINO y largo, alas plegadas hacia atrás en reposo (estrechas)
+    case "damsel":
+      abdomen =
+        // Tórax fino
+        `<rect x="47" y="37" width="8" height="12" rx="4" fill="${c}"/>` +
+        // Abdomen ultra-fino, muy largo
+        `<rect x="48.5" y="48" width="5" height="42" rx="2.5" fill="${c}"/>` +
+        `<path d="M48.5 55 H53.5 M48.5 63 H53.5 M48.5 71 H53.5 M48.5 79 H53.5 M48.5 86 H53.5" stroke="${d}" stroke-width="1.1" opacity=".55"/>`;
+      // Alas Zygoptera: ESTRECHAS y plegadas hacia atrás paralelas al cuerpo
+      wings =
+        `<ellipse cx="35" cy="45" rx="17" ry="4.5" fill="${l}" opacity=".7" transform="rotate(30 35 45)"/>` +
+        `<ellipse cx="67" cy="45" rx="17" ry="4.5" fill="${l}" opacity=".7" transform="rotate(-30 67 45)"/>` +
+        `<ellipse cx="33" cy="57" rx="14" ry="3.8" fill="${l}" opacity=".6" transform="rotate(22 33 57)"/>` +
+        `<ellipse cx="69" cy="57" rx="14" ry="3.8" fill="${l}" opacity=".6" transform="rotate(-22 69 57)"/>`;
+      // Señal wifi punteada: pequeño arco sobre cabeza
+      extras =
+        `<path d="M40 16 Q51 10 62 16" stroke="${d}" stroke-width="1.6" fill="none" opacity=".5" stroke-linecap="round"/>` +
+        `<path d="M44 20 Q51 14 58 20" stroke="${d}" stroke-width="1.2" fill="none" opacity=".45" stroke-linecap="round"/>`;
+      break;
+
+    // ── HAWK: Aeshna cyanea — VPN / enlace largo alcance
+    // Cuerpo largo y AERODINÁMICO, alas en posición extendida inclinadas hacia adelante
+    case "hawk":
+      abdomen =
+        // Tórax intermedio-aerodinámico
+        `<rect x="45" y="37" width="12" height="13" rx="5" fill="${c}"/>` +
+        // Abdomen largo, ligeramente cónico hacia la punta
+        `<path d="M48 50 L53 50 L54 88 L47 88 Z" rx="2" fill="${c}"/>` +
+        `<path d="M47.5 57 L53.5 57 M47 65 L54 65 M47 73 L53.5 73 M47.5 81 L53 81" stroke="${d}" stroke-width="1.3" opacity=".55"/>`;
+      // Alas inclinadas hacia ADELANTE como halcón en picado
+      wings =
+        `<ellipse cx="27" cy="33" rx="24" ry="7" fill="${l}" opacity=".74" transform="rotate(-25 27 33)"/>` +
+        `<ellipse cx="75" cy="33" rx="24" ry="7" fill="${l}" opacity=".74" transform="rotate(25 75 33)"/>` +
+        `<ellipse cx="26" cy="48" rx="19" ry="5.5" fill="${l}" opacity=".64" transform="rotate(-12 26 48)"/>` +
+        `<ellipse cx="76" cy="48" rx="19" ry="5.5" fill="${l}" opacity=".64" transform="rotate(12 76 48)"/>` +
+        // Nervadura larga tipo halcón
+        `<path d="M8 30 L44 38 M10 40 L44 42" stroke="${d}" stroke-width=".9" opacity=".38"/>` +
+        `<path d="M92 30 L56 38 M90 40 L56 42" stroke="${d}" stroke-width=".9" opacity=".38"/>`;
+      // Punto de destino lejano: dos guiones indicando "túnel"
+      extras =
+        `<path d="M42 42 h4 M46 42 h4" stroke="${l}" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>`;
+      break;
+
+    default:
+      // Fallback: emperor
+      abdomen =
+        `<rect x="44" y="37" width="14" height="14" rx="5" fill="${c}"/>` +
+        `<rect x="46" y="49" width="10" height="36" rx="4" fill="${c}"/>`;
+      wings =
+        `<ellipse cx="30" cy="38" rx="22" ry="8" fill="${l}" opacity=".72" transform="rotate(-15 30 38)"/>` +
+        `<ellipse cx="72" cy="38" rx="22" ry="8" fill="${l}" opacity=".72" transform="rotate(15 72 38)"/>` +
+        `<ellipse cx="28" cy="52" rx="18" ry="6.5" fill="${l}" opacity=".62" transform="rotate(8 28 52)"/>` +
+        `<ellipse cx="74" cy="52" rx="18" ry="6.5" fill="${l}" opacity=".62" transform="rotate(-8 74 52)"/>`;
+      extras = "";
+      break;
+  }
+
+  return `<g>${wings}${abdomen}${extras}${head}${eyes}</g>`;
+}
+
+// ---- ladybug ----
+// sp_ladybug.js — Mariquitas paramétricas (área: Recetas/Personal, color base #e8423f)
+// Castas basadas en tipos reales de mariquita por utilidad:
+//   siete-puntos  → recetas / proyectos personales elaborados (Coccinella septempunctata)
+//   arlequin      → misceláneo doméstico / intereses variados (Harmonia axyridis)
+//   dos-puntos    → notas rápidas / fragmentos / apuntes cortos (Adalia bipunctata)
+//
+// Señas de forma (NUNCA por color de estado):
+//   siete-puntos  → 7 puntos en élitros (3+3+1 pronotum), línea central bien marcada
+//   arlequin      → patrón irregular de manchas variables, élitros más anchos, antenas largas
+//   dos-puntos    → solo 2 puntos grandes centrados, cuerpo más pequeño y redondeado
+//
+// Globals esperados del entorno: shade(hex,f), legs(ps,col), eye(x,y,r)
+
+function crit_ladybug(o){
+  const c=o.color||"#e8423f", caste=o.caste||"siete-puntos", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos según vital
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M43 46 l5 5 M48 46 l-5 5" stroke="#2a2a2a" stroke-width="2.1" stroke-linecap="round"/>`+
+         `<path d="M54 46 l5 5 M59 46 l-5 5" stroke="#2a2a2a" stroke-width="2.1" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M43 49 q3 3 6 0" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round"/>`+
+         `<path d="M53 49 q3 3 6 0" stroke="#2a2a2a" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(46,47,2.4)+eye(56,47,2.4);
+
+  // Cuerpo base de mariquita (compartido por todas las castas)
+  let legsArr=["M40 52 L28 44","M40 60 L26 60","M40 68 L28 76","M60 52 L72 44","M60 60 L74 60","M60 68 L72 76"];
+  // Cabeza negra
+  let head=`<path d="M30 50 A24 24 0 0 1 70 50 Z" fill="#2a2a2a"/>`;
+  // Línea central divisoria de élitros
+  let spine=`<path d="M50 36 L50 84" stroke="#2a2a2a" stroke-width="2.8"/>`;
+  // Élitros (cuerpo principal)
+  let body=`<circle cx="50" cy="62" r="24" fill="${c}"/>`;
+  // Antenas base
+  let antennae=`<path d="M43 42 L36 30 M46 41 L42 28" stroke="#2a2a2a" stroke-width="2" stroke-linecap="round"/>`;
+  // Puntos (se sobreescribe por caste)
+  let dots="";
+  // Extra por caste
+  let extra="";
+
+  switch(caste){
+
+    // SIETE-PUNTOS — Coccinella septempunctata
+    // Recetas elaboradas / proyectos personales de calidad — la más icónica, 7 puntos clásicos
+    case "siete-puntos":
+      // 3 puntos lado izq + 3 lado der + 1 central en pronotum
+      dots=
+        // Punto único en pronotum (zona negra de la cabeza)
+        `<circle cx="50" cy="45" r="2.8" fill="${d}"/>` +
+        // Fila superior: 2 puntos grandes
+        `<circle cx="40" cy="56" r="4" fill="${d}"/>` +
+        `<circle cx="60" cy="56" r="4" fill="${d}"/>` +
+        // Fila media: 2 puntos
+        `<circle cx="39" cy="67" r="3.4" fill="${d}"/>` +
+        `<circle cx="61" cy="67" r="3.4" fill="${d}"/>` +
+        // Fila inferior: 2 puntos pequeños
+        `<circle cx="43" cy="76" r="2.8" fill="${d}"/>` +
+        `<circle cx="57" cy="76" r="2.8" fill="${d}"/>`;
+      break;
+
+    // ARLEQUIN — Harmonia axyridis
+    // Misceláneo doméstico / intereses variados — patrón irregular, muchas variantes
+    case "arlequin":
+      // Élitros un poco más anchos
+      body=`<ellipse cx="50" cy="62" rx="25" ry="23" fill="${c}"/>`;
+      // Antenas más largas (rasgo arlequín: son más activas, exploradoras)
+      antennae=`<path d="M43 42 L33 28 M46 41 L40 26" stroke="#2a2a2a" stroke-width="2" stroke-linecap="round"/>`;
+      // Patrón irregular: manchas de tamaños distintos, asimétricas
+      dots=
+        `<circle cx="38" cy="54" r="5" fill="${d}"/>` +
+        `<circle cx="62" cy="55" r="3.2" fill="${d}"/>` +
+        `<circle cx="61" cy="65" r="5" fill="${d}"/>` +
+        `<circle cx="40" cy="67" r="2.8" fill="${d}"/>` +
+        `<circle cx="44" cy="77" r="3.6" fill="${d}"/>` +
+        `<circle cx="57" cy="76" r="2.4" fill="${d}"/>` +
+        // Manchita extra irregular (rasgo arlequín)
+        `<circle cx="52" cy="58" r="1.8" fill="${d}"/>`;
+      // Borde de élitros ligeramente marcado (variante típica del arlequín)
+      extra=`<ellipse cx="50" cy="62" rx="25" ry="23" fill="none" stroke="${d}" stroke-width="1.4" opacity=".3"/>`;
+      break;
+
+    // DOS-PUNTOS — Adalia bipunctata
+    // Notas rápidas / apuntes cortos — minimalista, 2 puntos, cuerpo más pequeño
+    case "dos-puntos":
+      // Cuerpo más compacto
+      body=`<ellipse cx="50" cy="63" rx="21" ry="20" fill="${c}"/>`;
+      head=`<path d="M33 52 A21 20 0 0 1 67 52 Z" fill="#2a2a2a"/>`;
+      spine=`<path d="M50 38 L50 83" stroke="#2a2a2a" stroke-width="2.4"/>`;
+      // Solo 2 puntos grandes, uno por élitro — muy centrados y prominentes
+      dots=
+        `<circle cx="41" cy="65" r="6" fill="${d}"/>` +
+        `<circle cx="59" cy="65" r="6" fill="${d}"/>`;
+      break;
+
+    default: break;
+  }
+
+  return `<g>${legs(legsArr,"#2a2a2a")}${antennae}${body}${extra}${spine}${head}${dots}${eyes}</g>`;
+}
+
+// ---- mite ----
+// Arthropod Design — ACAROS parametricos (sp_mite.js)
+// crit_mite({color, caste, vital}) -> <g> SVG viewBox 100x100
+// Castas: polvo | garrapata | arana-roja | agua
+// Globales requeridas: shade(), legs(), eye() (de critters.js)
+
+function crit_mite(o) {
+  const c = o.color || "#8a93a0";
+  const caste = o.caste || "polvo";
+  const vital = o.vital || "ok";
+  const d = shade(c, 0.55);
+  const l = shade(c, 1.34);
+
+  // Ojos segun estado vital
+  let eyes;
+  if (vital === "dead") {
+    eyes = `<path d="M46 44 l4 4 M50 44 l-4 4" stroke="${d}" stroke-width="2" stroke-linecap="round"/>` +
+           `<path d="M54 44 l4 4 M58 44 l-4 4" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+  } else if (vital === "sleep") {
+    eyes = `<path d="M46 46 q4 3 8 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  } else {
+    eyes = eye(48, 44, 2.4) + eye(56, 44, 2.4);
+  }
+
+  // Cuerpo base (idiosoma): redondo y peludo
+  // Gnatosoma (cabeza/boca) pequeño al frente
+  let idiosoma = `<ellipse cx="50" cy="60" rx="22" ry="19" fill="${c}"/>`;
+  let gnathosoma = `<ellipse cx="50" cy="43" rx="8" ry="6" fill="${d}"/>`;
+
+  // Pelos del cuerpo (setas): base comun a todos los acaros
+  let setae = `<path d="M34 54 l-4 -5 M30 63 l-5 -2 M34 72 l-4 4" stroke="${l}" stroke-width="1.4" stroke-linecap="round"/>` +
+              `<path d="M66 54 l4 -5 M70 63 l5 -2 M66 72 l4 4" stroke="${l}" stroke-width="1.4" stroke-linecap="round"/>` +
+              `<path d="M43 76 l-2 5 M50 78 l0 5 M57 76 l2 5" stroke="${l}" stroke-width="1.4" stroke-linecap="round"/>`;
+
+  // Patas base: 4 pares = 8 patas (aracnido)
+  let legsArr = [
+    "M38 54 L24 44", "M36 62 L20 60", "M38 70 L24 78", "M36 76 L28 86",
+    "M62 54 L76 44", "M64 62 L80 60", "M62 70 L76 78", "M64 76 L72 86"
+  ];
+  let legsG = legs(legsArr, d);
+
+  // Variaciones por casta — forma, gnatosoma y setas distintas
+  let extra = "";
+  let rostrum = ""; // piezas bucales especificas
+
+  switch (caste) {
+    case "garrapata":
+      // Cuerpo mas aplanado y ovalado; hipostoma largo y puntiagudo (se ancla)
+      idiosoma = `<ellipse cx="50" cy="62" rx="24" ry="17" fill="${c}"/>`;
+      gnathosoma = `<ellipse cx="50" cy="44" rx="7" ry="5" fill="${d}"/>`;
+      // Hipostoma = organo de anclaje, largo y estrecho
+      rostrum = `<rect x="47.5" y="36" width="5" height="10" rx="2" fill="${d}"/>` +
+                `<path d="M47 38 l-3 2 M53 38 l3 2 M47 42 l-3 2 M53 42 l3 2" stroke="${l}" stroke-width="1.2" stroke-linecap="round"/>`;
+      // Patas mas robustas y con garfios en extremos
+      legsArr = [
+        "M38 56 L22 46", "M36 64 L18 62", "M38 72 L22 80", "M36 77 L26 87",
+        "M62 56 L78 46", "M64 64 L82 62", "M62 72 L78 80", "M64 77 L74 87"
+      ];
+      legsG = legs(legsArr, d);
+      // Garfios en extremo de patas
+      extra = `<circle cx="22" cy="46" r="2.2" fill="${d}"/><circle cx="18" cy="62" r="2.2" fill="${d}"/>` +
+              `<circle cx="78" cy="46" r="2.2" fill="${d}"/><circle cx="82" cy="62" r="2.2" fill="${d}"/>`;
+      // Setas escasas (cuerpo aplanado)
+      setae = `<path d="M34 57 l-3 -4 M34 72 l-4 3" stroke="${l}" stroke-width="1.2" stroke-linecap="round"/>` +
+              `<path d="M66 57 l3 -4 M66 72 l4 3" stroke="${l}" stroke-width="1.2" stroke-linecap="round"/>`;
+      break;
+
+    case "arana-roja":
+      // Tetranychus urticae: cuerpo oval con manchas oscuras laterales visibles
+      idiosoma = `<ellipse cx="50" cy="60" rx="20" ry="17" fill="${c}"/>` +
+                 // Manchas laterales oscuras caracteristicas de araña roja
+                 `<ellipse cx="38" cy="60" rx="6" ry="8" fill="${d}" opacity="0.45"/>` +
+                 `<ellipse cx="62" cy="60" rx="6" ry="8" fill="${d}" opacity="0.45"/>`;
+      gnathosoma = `<ellipse cx="50" cy="44" rx="7" ry="5.5" fill="${d}"/>`;
+      // Queliceros estiliformes (agujan la hoja para succionar)
+      rostrum = `<path d="M47 39 L45 32 M53 39 L55 32" stroke="${d}" stroke-width="1.8" stroke-linecap="round"/>` +
+                `<circle cx="45" cy="32" r="1.8" fill="${l}"/>` +
+                `<circle cx="55" cy="32" r="1.8" fill="${l}"/>`;
+      // Setas largas y abundantes (caracteristica taxonomica)
+      setae = `<path d="M32 53 l-5 -6 M29 62 l-6 -1 M32 71 l-5 5 M40 77 l-2 6 M50 79 l0 6 M60 77 l2 6" stroke="${l}" stroke-width="1.3" stroke-linecap="round"/>` +
+              `<path d="M68 53 l5 -6 M71 62 l6 -1 M68 71 l5 5" stroke="${l}" stroke-width="1.3" stroke-linecap="round"/>`;
+      // Patas largas y delgadas (muy activas)
+      legsArr = [
+        "M38 52 Q26 42 20 40", "M36 60 Q20 58 14 56", "M38 68 Q24 74 20 80", "M36 74 Q26 82 24 90",
+        "M62 52 Q74 42 80 40", "M64 60 Q80 58 86 56", "M62 68 Q76 74 80 80", "M64 74 Q74 82 76 90"
+      ];
+      legsG = legs(legsArr, d);
+      extra = "";
+      break;
+
+    case "agua":
+      // Acaro acuatico / Hydrachnidia: cuerpo redondeado y liso, sin setas, patas remo
+      idiosoma = `<circle cx="50" cy="61" r="21" fill="${c}"/>` +
+                 // Patron dorsal suave (escudete)
+                 `<ellipse cx="50" cy="58" rx="13" ry="10" fill="${l}" opacity="0.35"/>`;
+      gnathosoma = `<circle cx="50" cy="44" r="7" fill="${d}"/>`;
+      // Sin rostrum prominente
+      rostrum = "";
+      // Patas con frangias (pelos natatorios) = ensanchadas en extremos
+      legsArr = [
+        "M38 53 Q26 46 22 48", "M36 63 Q20 63 16 65", "M38 71 Q24 78 22 82", "M37 77 Q28 85 28 90",
+        "M62 53 Q74 46 78 48", "M64 63 Q80 63 84 65", "M62 71 Q76 78 78 82", "M63 77 Q72 85 72 90"
+      ];
+      legsG = legs(legsArr, d);
+      // Frangias natatorias en patas III y IV (lineas perpendiculares al eje)
+      extra = `<path d="M22 48 l-3 3 M22 48 l3 3 M16 65 l-3 3 M16 65 l3 3" stroke="${l}" stroke-width="1.6" stroke-linecap="round"/>` +
+              `<path d="M78 48 l-3 3 M78 48 l3 3 M84 65 l-3 3 M84 65 l3 3" stroke="${l}" stroke-width="1.6" stroke-linecap="round"/>`;
+      // Sin setas — superficie lisa y brillante
+      setae = `<ellipse cx="50" cy="61" rx="21" ry="21" fill="none" stroke="${l}" stroke-width="1" opacity="0.3"/>`;
+      break;
+
+    case "polvo":
+    default:
+      // Dermatophagoides: cuerpo redondeado, estraciones cuticulares transversales
+      idiosoma = `<ellipse cx="50" cy="60" rx="22" ry="19" fill="${c}"/>` +
+                 // Estraciones (cuticula segmentada visualmente)
+                 `<path d="M30 53 Q50 50 70 53 M29 60 Q50 57 71 60 M30 67 Q50 64 70 67" stroke="${d}" stroke-width="1" fill="none" opacity="0.5"/>`;
+      gnathosoma = `<ellipse cx="50" cy="44" rx="8" ry="6" fill="${d}"/>`;
+      rostrum = `<path d="M46 40 L42 35 M54 40 L58 35" stroke="${d}" stroke-width="1.6" stroke-linecap="round"/>`;
+      // Setas largas y dispersas (polvo)
+      setae = `<path d="M34 54 l-4 -6 M30 63 l-6 -1 M34 72 l-4 5 M43 76 l-2 6 M57 76 l2 6" stroke="${l}" stroke-width="1.3" stroke-linecap="round"/>` +
+              `<path d="M66 54 l4 -6 M70 63 l6 -1 M66 72 l4 5" stroke="${l}" stroke-width="1.3" stroke-linecap="round"/>`;
+      extra = "";
+      break;
+  }
+
+  return `<g>${legsG}${setae}${idiosoma}${gnathosoma}${rostrum}${extra}${eyes}</g>`;
+}
+
+// ---- mantis ----
+// Arthropod Design — Mantis parametrica (colonia META: paneles/visualizaciones del terrario)
+// Castas: religiosa=planificacion/sistema, orquidea=visual/artefactos, fantasma=infra/parsers/builds,
+//         gigante=entrega completa/terrario, espinosa=prototipos/experimentos
+// API: crit_mantis({color, caste, vital}) -> <g> SVG viewBox 100x100
+// (helpers shade/legs/eye: definidos una sola vez al inicio del archivo)
+
+// ---- MANTIS PARAMETRICA ----------------------------------------------------
+// o = { color:"#rrggbb", caste:"religiosa|orquidea|fantasma|gigante|espinosa", vital:"ok|sleep|dead" }
+function crit_mantis(o){
+  const c=o.color||"#5fae46", caste=o.caste||"religiosa", vital=o.vital||"ok";
+  const d=shade(c,.55), l=shade(c,1.34);
+
+  // Ojos segun vital
+  let eyes;
+  if(vital==="dead")
+    eyes=`<path d="M44 30 l5 5 M49 30 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>
+          <path d="M53 30 l5 5 M58 30 l-5 5" stroke="${d}" stroke-width="2" stroke-linecap="round"/>`;
+  else if(vital==="sleep")
+    eyes=`<path d="M44 32 q3 2 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M53 32 q3 2 6 0" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else
+    eyes=eye(47,31,2.8)+eye(56,31,2.8);
+
+  // Antenas base (todas las castas las tienen)
+  const antenas=`<path d="M46 24 Q40 14 36 10 M54 24 Q60 14 64 10" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+
+  // Patas caminadoras traseras (base comun)
+  const walkLegs=legs(["M44 68 L32 80","M50 70 L44 84","M56 68 L68 80","M50 70 L56 84"],d);
+
+  // Cuerpo base: cabeza triangular, torax, abdomen
+  const cabeza=`<polygon points="50,20 40,38 60,38" fill="${c}"/>`;
+  const torax=`<ellipse cx="50" cy="50" rx="9" ry="13" fill="${c}"/>`;
+  const abdomen=`<ellipse cx="50" cy="68" rx="7" ry="16" fill="${c}"/>`;
+
+  // Patas raptoras base (casta por defecto)
+  let raptoras=`<path d="M43 40 Q30 36 28 26 Q27 20 32 18" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M57 40 Q70 36 72 26 Q73 20 68 18" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+
+  // Extras por casta
+  let escudo="", apendices="", ornamento="";
+
+  switch(caste){
+
+    case "religiosa":
+      // Religiosa: mantis rezando — patas raptoras elevadas y plegadas, escudo torax sobrio
+      // Simboliza: planificacion y diseño del sistema (la mente del terrario)
+      raptoras=`<path d="M43 40 Q28 32 26 20 Q26 14 32 14" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <path d="M57 40 Q72 32 74 20 Q74 14 68 14" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <path d="M32 14 Q35 22 40 26 M68 14 Q65 22 60 26" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+      escudo=`<ellipse cx="50" cy="48" rx="11" ry="4" fill="${d}" opacity=".35"/>`;
+      break;
+
+    case "orquidea":
+      // Orquidea: mantis orchid — ornamentos florales en torax, abdomen ancho decorado
+      // Simboliza: artefactos visuales bonitos, HTML interactivo, dashboards
+      raptoras=`<path d="M43 40 Q30 34 28 24 Q28 18 34 16" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M57 40 Q70 34 72 24 Q72 18 66 16" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      ornamento=`<ellipse cx="50" cy="68" rx="11" ry="18" fill="${l}" opacity=".6"/>
+                 <ellipse cx="50" cy="52" rx="14" ry="6" fill="${l}" opacity=".45" transform="rotate(-10 50 52)"/>
+                 <ellipse cx="50" cy="52" rx="14" ry="6" fill="${l}" opacity=".45" transform="rotate(10 50 52)"/>
+                 <circle cx="50" cy="52" r="3" fill="${d}" opacity=".5"/>`;
+      break;
+
+    case "fantasma":
+      // Fantasma: mantis ghost — cuerpo semitransparente, patas raptoras muy largas y finas, sin escudo visible
+      // Simboliza: infra invisible (parsers, builds, datos, debug de herramientas)
+      raptoras=`<path d="M43 42 Q24 36 20 22 Q19 14 26 12" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/>
+                <path d="M57 42 Q76 36 80 22 Q81 14 74 12" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/>`;
+      escudo=`<ellipse cx="50" cy="50" rx="9" ry="13" fill="${l}" opacity=".25"/>
+              <ellipse cx="50" cy="68" rx="7" ry="16" fill="${l}" opacity=".2"/>`;
+      apendices=`<path d="M44 60 L38 72 M56 60 L62 72" stroke="${d}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".6"/>`;
+      break;
+
+    case "gigante":
+      // Gigante: mantis giant — cuerpo ancho y robusto, escudo torax grande, patas raptoras gruesas
+      // Simboliza: entrega completa del terrario, sesion principal, proyecto total
+      raptoras=`<path d="M42 42 Q26 36 23 24 Q22 16 30 14" stroke="${d}" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M58 42 Q74 36 77 24 Q78 16 70 14" stroke="${d}" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M30 14 Q33 24 42 28 M70 14 Q67 24 58 28" stroke="${d}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+      escudo=`<ellipse cx="50" cy="49" rx="14" ry="8" fill="${d}" opacity=".3"/>
+              <ellipse cx="50" cy="68" rx="11" ry="19" fill="${c}" stroke="${d}" stroke-width="1.4"/>`;
+      break;
+
+    case "espinosa":
+      // Espinosa: mantis flower-spiny — apendices espinosos laterales en torax y abdomen
+      // Simboliza: prototipos y experimentos visuales (vivos, puntiagudos, impredecibles)
+      raptoras=`<path d="M43 40 Q30 34 28 22 Q28 16 34 14" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M57 40 Q70 34 72 22 Q72 16 66 14" stroke="${d}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      apendices=`<path d="M41 46 L28 42 M41 52 L26 54 M41 58 L30 64" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                 <path d="M59 46 L72 42 M59 52 L74 54 M59 58 L70 64" stroke="${d}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                 <circle cx="28" cy="42" r="2.2" fill="${d}"/><circle cx="26" cy="54" r="2.2" fill="${d}"/><circle cx="30" cy="64" r="2.2" fill="${d}"/>
+                 <circle cx="72" cy="42" r="2.2" fill="${d}"/><circle cx="74" cy="54" r="2.2" fill="${d}"/><circle cx="70" cy="64" r="2.2" fill="${d}"/>`;
+      break;
+
+    default: break;
+  }
+
+  return `<g>${walkLegs}${raptoras}${antenas}${abdomen}${escudo}${ornamento}${torax}${cabeza}${apendices}${eyes}</g>`;
+}
+
+function critV2(key,o){switch(key){case 'ant':return crit_ant(o);case 'beetle':return crit_beetle(o);case 'butterfly':return crit_butterfly(o);case 'spider':return crit_spider(o);case 'bee':return crit_bee(o);case 'scorpion':return crit_scorpion(o);case 'centipede':return crit_centipede(o);case 'dung':return crit_dung(o);case 'snail':return crit_snail(o);case 'dragonfly':return crit_dragonfly(o);case 'ladybug':return crit_ladybug(o);case 'mite':return crit_mite(o);case 'mantis':return crit_mantis(o);}return antV2(o);}
+function bugSVG2(key,o){return '<svg viewBox="0 0 100 100">'+critV2(key,o)+'</svg>';}
+
+
+</script>
+<script>
+const CASTAS = {
+ "ant": {
+  "key": "ant",
+  "metafora": "El hormiguero subterráneo ES la memoria de la colonia.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la reina es la única alada (el origen).",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (memoria almacenada)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "obrera",
+   "nombre": "Obrera",
+   "sp": "Formica fusca",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "legionaria",
+    "nombre": "Legionaria",
+    "sp": "Eciton burchellii",
+    "camara": "despensa",
+    "utilidad": "orquestar / multi-agente",
+    "keywords": [
+     "multi-agent",
+     "multiagente",
+     "multi-agente",
+     "dynamic workflow",
+     "dynamic-workflows",
+     "orquesta",
+     "orchestrat",
+     "pipeline",
+     "fan-out",
+     "multi-skill"
+    ]
+   },
+   {
+    "id": "melifera",
+    "nombre": "Melífera",
+    "sp": "Myrmecocystus mexicanus",
+    "camara": "granero",
+    "utilidad": "memoria / almacenar",
+    "keywords": [
+     "memoria",
+     "memory",
+     "sesera",
+     "obsidian",
+     "vault",
+     "consolidation",
+     "consolidacion",
+     "knowledge",
+     "retencion",
+     "mem0"
+    ]
+   },
+   {
+    "id": "cortadora",
+    "nombre": "Cortadora de hojas",
+    "sp": "Atta cephalotes",
+    "camara": "guarderia",
+    "utilidad": "resumir / procesar",
+    "keywords": [
+     "resumen",
+     "resumir",
+     "summary",
+     "summaries",
+     "sintesis",
+     "sintetiz",
+     "condensar",
+     "extracto"
+    ]
+   },
+   {
+    "id": "carpintera",
+    "nombre": "Carpintera",
+    "sp": "Camponotus",
+    "camara": "guarderia",
+    "utilidad": "crear / empaquetar skills",
+    "keywords": [
+     "skill creation",
+     "crear skill",
+     "skill-creator",
+     "skill.md",
+     "empaquet",
+     "build skill",
+     "construir skill",
+     "plugin"
+    ]
+   },
+   {
+    "id": "tejedora",
+    "nombre": "Tejedora",
+    "sp": "Oecophylla smaragdina",
+    "camara": "tuneles",
+    "utilidad": "sincronizar / conectar",
+    "keywords": [
+     "sincroniz",
+     "synchroniz",
+     "integr",
+     "mcp",
+     "bridge",
+     "webhook",
+     "screen sharing",
+     "real-time",
+     "tiempo real",
+     "github",
+     "google drive"
+    ]
+   },
+   {
+    "id": "cosechadora",
+    "nombre": "Cosechadora",
+    "sp": "Pogonomyrmex barbatus",
+    "camara": "guarderia",
+    "utilidad": "auditar / investigar",
+    "keywords": [
+     "auditoria",
+     "audit",
+     "recopil",
+     "investiga",
+     "research",
+     "diagnostic",
+     "codex",
+     "inventario",
+     "fact-check",
+     "optimization"
+    ]
+   },
+   {
+    "id": "bala",
+    "nombre": "Bala",
+    "sp": "Paraponera clavata",
+    "camara": "despensa",
+    "utilidad": "límites / tokens / bloqueos",
+    "keywords": [
+     "out of tokens",
+     "limite de sesion",
+     "limite de uso",
+     "monitor token",
+     "token-monitor",
+     "sin tokens",
+     "tope de"
+    ]
+   }
+  ]
+ },
+ "bee": {
+  "key": "bee",
+  "metafora": "La colmena aérea ES el motor de negocio: vuela a la red, trae néctar (datos, dinero, ideas), lo procesa en celdas.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet (vuela a la red), cabeza=sesera; la reina es la identidad de la colonia.",
+  "camaras": {
+   "reina": "Cámara real (núcleo de la colonia)",
+   "despensa": "Despensa (contexto activo / en vuelo)",
+   "granero": "Granero (cosecha almacenada / entregado)",
+   "guarderia": "Guardería (en construcción / larva)",
+   "vertedero": "Vertedero (celda sellada / archivo muerto)",
+   "tuneles": "Túneles (enlaces / rutas de vuelo)"
+  },
+  "casta_base": {
+   "id": "obrera-melifera",
+   "nombre": "Obrera melífera",
+   "sp": "Apis mellifera",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "exploradora",
+    "nombre": "Exploradora",
+    "sp": "Apis mellifera — abeja exploradora",
+    "camara": "despensa",
+    "utilidad": "explorar oportunidades / investigar / hacer research",
+    "keywords": [
+     "research",
+     "investiga",
+     "analisis",
+     "análisis",
+     "analysis",
+     "analizar",
+     "viabilidad",
+     "mercado",
+     "market",
+     "competencia",
+     "competitive",
+     "comparacion",
+     "comparison",
+     "comparativa",
+     "estudio",
+     "prediccion",
+     "predicciones",
+     "elecciones",
+     "explor",
+     "reclamacion",
+     "reclamación",
+     "google business",
+     "ficha google",
+     "hermes",
+     "independencia digital",
+     "openrouter",
+     "usos de",
+     "use cases",
+     "divulgacion",
+     "divulgación",
+     "analogia",
+     "analogía",
+     "legal",
+     "rgpd",
+     "ley ia",
+     "tpv"
+    ]
+   },
+   {
+    "id": "obrera-melifera",
+    "nombre": "Obrera melífera",
+    "sp": "Apis mellifera",
+    "camara": "granero",
+    "utilidad": "producir / entregar / ejecutar",
+    "keywords": [
+     "entrega",
+     "deliver",
+     "produccion",
+     "producción",
+     "construccion",
+     "construcción",
+     "web empresa",
+     "web inmersiva",
+     "inmersiva",
+     "scroll",
+     "gruas",
+     "grúas",
+     "completar",
+     "pasivo",
+     "ingreso pasivo",
+     "passive income",
+     "micro-herramienta",
+     "herramienta web",
+     "calculadora",
+     "overnight",
+     "variantes entregadas",
+     "agentes en paralelo",
+     "multi-agente",
+     "multi-agent",
+     "claude code"
+    ]
+   },
+   {
+    "id": "zangano",
+    "nombre": "Zángano",
+    "sp": "Apis mellifera — dron",
+    "camara": "vertedero",
+    "utilidad": "idea sin currar / concepto en bruto / sin siguiente paso claro",
+    "keywords": [
+     "idea",
+     "concepto",
+     "conceptual",
+     "reflexivo",
+     "reflexion",
+     "texto reflexivo",
+     "one piece",
+     "nautica",
+     "náutica",
+     "analogia nautica",
+     "sin siguiente paso",
+     "proximo paso",
+     "decidir uso",
+     "pendiente de definir",
+     "brief de una pagina",
+     "mvp",
+     "concepto mvp",
+     "definir concepto",
+     "quick business",
+     "setup rapido",
+     "brainstorm",
+     "esbozo"
+    ]
+   },
+   {
+    "id": "carpintera",
+    "nombre": "Carpintera",
+    "sp": "Xylocopa violacea",
+    "camara": "guarderia",
+    "utilidad": "montar producto / construir / empaquetar para vender",
+    "keywords": [
+     "producto digital",
+     "kit",
+     "kit prompts",
+     "kit digital",
+     "prompts ia",
+     "payhip",
+     "vender",
+     "venta",
+     "oficios",
+     "negocios de oficios",
+     "empaquet",
+     "build",
+     "construir",
+     "montar",
+     "web noticias",
+     "predictor",
+     "marcador",
+     "traspaso proyecto",
+     "agente ia",
+     "telecomunicaciones",
+     "instaladores",
+     "sistema de comandas",
+     "comandas por voz",
+     "tpv voz",
+     "hosteleria",
+     "hostelería",
+     "bar alcatraz",
+     "gestion local",
+     "gestión local"
+    ]
+   }
+  ]
+ },
+ "beetle": {
+  "key": "beetle",
+  "metafora": "El PC es el entorno: su caparazon blindado protege los circuitos de la colonia.",
+  "vuela": false,
+  "anatomia": "patas=LAN; sin alas=local-first (no vuela); cabeza=la sesera (memoria del PC); el entorno=el ordenador fisico.",
+  "camaras": {
+   "reina": "Camara del Nucleo (identidad del sistema)",
+   "despensa": "Despensa de Circuitos (contexto activo)",
+   "granero": "Granero de Datos (almacen/lo hecho)",
+   "guarderia": "Galeria de Larvas (en construccion)",
+   "vertedero": "Vertedero de Restos (archivo muerto)",
+   "tuneles": "Tuneles de Cableado (enlaces/conexiones)"
+  },
+  "casta_base": {
+   "id": "base",
+   "nombre": "Escarabajo sin casta",
+   "sp": "Coleoptera gen.",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "rinoceronte",
+    "nombre": "Rinoceronte",
+    "sp": "Dynastes hercules",
+    "camara": "granero",
+    "utilidad": "almacenamiento / hardware fisico / git/sync",
+    "keywords": [
+     "almacenamiento",
+     "storage",
+     "formateo",
+     "format",
+     "dispositivos externos",
+     "external storage",
+     "mapeo",
+     "analisis hardware",
+     "github",
+     "sync",
+     "repositorio",
+     "gpu",
+     "gtx",
+     "z890",
+     "ollama",
+     "linux servidor"
+    ]
+   },
+   {
+    "id": "ciervo",
+    "nombre": "Ciervo Volante",
+    "sp": "Lucanus cervus",
+    "camara": "guarderia",
+    "utilidad": "configuracion / drivers / herramientas IDE",
+    "keywords": [
+     "vs code",
+     "visual studio code",
+     "settings.json",
+     "driver",
+     "bios",
+     "xmp",
+     "ddr5",
+     "directx",
+     "dxgi",
+     "vanguard",
+     "mcp",
+     "uv command",
+     "configuracion",
+     "code-workspace",
+     "artifacts html",
+     "skills"
+    ]
+   },
+   {
+    "id": "tigre",
+    "nombre": "Escarabajo Tigre",
+    "sp": "Cicindela campestris",
+    "camara": "despensa",
+    "utilidad": "acceso remoto / virtualizacion / red",
+    "keywords": [
+     "escritorio remoto",
+     "rdp",
+     "acceso movil",
+     "remote desktop",
+     "chrome remote desktop",
+     "vmware",
+     "hyper-v",
+     "virtualizacion",
+     "virtual",
+     "android"
+    ]
+   },
+   {
+    "id": "gorgojo",
+    "nombre": "Gorgojo",
+    "sp": "Curculio elephas",
+    "camara": "despensa",
+    "utilidad": "diagnostico / monitoreo / perifericos",
+    "keywords": [
+     "diagnostico",
+     "diagnostics",
+     "tareas programadas",
+     "scheduled tasks",
+     "procesos windows",
+     "pantalla negra",
+     "black screen",
+     "screen going black",
+     "timeout pantalla",
+     "screen timeout",
+     "energy saver",
+     "vrr",
+     "freesync",
+     "monitor",
+     "led",
+     "leds",
+     "teclado",
+     "raton",
+     "perifericos",
+     "hardware",
+     "audit",
+     "system audit",
+     "improvement",
+     "computer improvement",
+     "check system",
+     "system access",
+     "verify your access",
+     "diagnose system"
+    ]
+   },
+   {
+    "id": "bombardero",
+    "nombre": "Bombardero",
+    "sp": "Brachinus crepitans",
+    "camara": "guarderia",
+    "utilidad": "automatizacion / scripts / tareas",
+    "keywords": [
+     "automatizacion",
+     "automation",
+     "apagado pantalla",
+     "apagado de pantalla",
+     "microfono",
+     "tft",
+     "juego",
+     "game",
+     "computer use",
+     "script",
+     "powershell",
+     "task scheduler"
+    ]
+   },
+   {
+    "id": "joya",
+    "nombre": "Escarabajo Joya",
+    "sp": "Chrysochroa fulminans",
+    "camara": "tuneles",
+    "utilidad": "seguridad / enlaces / integracion de herramientas",
+    "keywords": [
+     "bitlocker",
+     "seguridad",
+     "cifrado",
+     "security",
+     "obsidian",
+     "symlinks",
+     "junctions",
+     "vault",
+     "memoria claude",
+     "windows junctions",
+     "enlace",
+     "link"
+    ]
+   }
+  ]
+ },
+ "butterfly": {
+  "key": "butterfly",
+  "metafora": "Las mariposas son el escaparate visual de la colonia: transforman datos e ideas en artefactos que se pueden ver, tocar y compartir.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet/la net (especie voladora), cabeza=sesera; el entorno es el ordenador.",
+  "camaras": {
+   "reina": "Galería real (núcleo)",
+   "despensa": "Paleta activa (contexto activo)",
+   "granero": "Archivo de diseño (lo hecho)",
+   "guarderia": "Cocón (en construcción)",
+   "vertedero": "Crisálida muerta (archivo)",
+   "tuneles": "Corrientes de aire (enlaces)"
+  },
+  "casta_base": {
+   "id": "monarca",
+   "nombre": "Monarca",
+   "sp": "Danaus plexippus",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "morpho",
+    "nombre": "Morpho",
+    "sp": "Morpho peleides",
+    "camara": "despensa",
+    "utilidad": "artefacto interactivo / widget / HTML",
+    "keywords": [
+     "widget",
+     "artefacto",
+     "artifact",
+     "html",
+     "interactivo",
+     "interactive",
+     "panel",
+     "panel interactivo",
+     "calculadora",
+     "calculadoras",
+     "pwa",
+     "offline",
+     "navaja suiza"
+    ]
+   },
+   {
+    "id": "cometa",
+    "nombre": "Cometa",
+    "sp": "Graphium agamemnon",
+    "camara": "guarderia",
+    "utilidad": "animacion / canvas / efectos visuales",
+    "keywords": [
+     "animado",
+     "animacion",
+     "animation",
+     "canvas",
+     "glow",
+     "efecto",
+     "effect",
+     "neuroanatomia",
+     "cerebro",
+     "surcos",
+     "region"
+    ]
+   },
+   {
+    "id": "polilla",
+    "nombre": "Polilla",
+    "sp": "Manduca sexta",
+    "camara": "granero",
+    "utilidad": "analisis / diagnostico visual / lectura de datos",
+    "keywords": [
+     "analisis",
+     "analytic",
+     "diagnostico",
+     "diagnostic",
+     "disco",
+     "carpetas",
+     "archivos",
+     "swimming",
+     "natacion",
+     "contenido"
+    ]
+   },
+   {
+    "id": "pavon",
+    "nombre": "Pavo real",
+    "sp": "Inachis io",
+    "camara": "granero",
+    "utilidad": "diseno de producto / diseño visual / infografia",
+    "keywords": [
+     "diseno",
+     "diseno producto",
+     "design",
+     "infografia",
+     "infographic",
+     "svg",
+     "tablero",
+     "board",
+     "monopoly",
+     "juego",
+     "game",
+     "personalizado",
+     "custom",
+     "visual"
+    ]
+   },
+   {
+    "id": "monarca",
+    "nombre": "Monarca",
+    "sp": "Danaus plexippus",
+    "camara": "tuneles",
+    "utilidad": "compartir / exportar / enviar artefacto",
+    "keywords": [
+     "exportar",
+     "export",
+     "enviar",
+     "whatsapp",
+     "png",
+     "compartir",
+     "share",
+     "respuesta visual",
+     "respuesta amigo",
+     "visual response"
+    ]
+   }
+  ]
+ },
+ "centipede": {
+  "key": "centipede",
+  "render_pendiente": false,
+  "metafora": "El ciempiés recorre la red local: cada par de patas es un enlace LAN, la cabeza es la sesera, el cuerpo entero ES el pipeline de datos.",
+  "vuela": false,
+  "anatomia": "patas=LAN (muchas patas → muy en red), sin alas=local-first, cabeza=sesera; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho / datos limpios)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Túneles (enlaces / despliegue)"
+  },
+  "casta_base": {
+   "id": "recolector",
+   "nombre": "Recolector",
+   "sp": "Scolopendra cingulata",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "rastreador",
+    "nombre": "Rastreador",
+    "sp": "Lithobius forficatus",
+    "camara": "despensa",
+    "utilidad": "scraping / extraccion de mensajes",
+    "keywords": [
+     "whatsapp",
+     "extraccion mensajes",
+     "extraccion",
+     "extraction",
+     "reparseo",
+     "parse",
+     "chat",
+     "chats",
+     "exported",
+     "exportado",
+     "archivos zip",
+     "zip"
+    ]
+   },
+   {
+    "id": "indexador",
+    "nombre": "Indexador",
+    "sp": "Scutigera coleoptrata",
+    "camara": "granero",
+    "utilidad": "indexar / catalogar comunidades y portales",
+    "keywords": [
+     "vpostal",
+     "comunidades",
+     "portales",
+     "461 comunidades",
+     "545 comunidades",
+     "553 comunidades",
+     "2113 portales",
+     "codigos portal",
+     "portal",
+     "callejero",
+     "callejero zaragoza",
+     "direcciones",
+     "verificadas",
+     "verificacion"
+    ]
+   },
+   {
+    "id": "fusionador",
+    "nombre": "Fusionador",
+    "sp": "Cryptops hortensis",
+    "camara": "guarderia",
+    "utilidad": "ETL / fusion y limpieza de datos",
+    "keywords": [
+     "fusion chats",
+     "fusionar",
+     "fusion",
+     "merge",
+     "cleanup",
+     "data cleanup",
+     "limpieza",
+     "reparseo",
+     "rebuild",
+     "csv",
+     "etl",
+     "correccion",
+     "fix"
+    ]
+   },
+   {
+    "id": "ensamblador",
+    "nombre": "Ensamblador",
+    "sp": "Geophilus carpophagus",
+    "camara": "guarderia",
+    "utilidad": "construir panel HTML / app de datos",
+    "keywords": [
+     "panel html",
+     "panel",
+     "html",
+     "pestanas",
+     "5 pestanas",
+     "app operativa",
+     "panel v2",
+     "badges",
+     "garantia",
+     "reincidencia",
+     "tabla",
+     "busqueda portal",
+     "busqueda"
+    ]
+   },
+   {
+    "id": "mensajero",
+    "nombre": "Mensajero",
+    "sp": "Strigamia acuminata",
+    "camara": "despensa",
+    "utilidad": "mensajeria / atribucion de mensajes a comunidades",
+    "keywords": [
+     "atribucion",
+     "atribucion mensajes",
+     "mensajes",
+     "message",
+     "whatsapp",
+     "tecnicos",
+     "comunidad",
+     "community"
+    ]
+   },
+   {
+    "id": "segador",
+    "nombre": "Segador",
+    "sp": "Necrophloeophagus longicornis",
+    "camara": "vertedero",
+    "utilidad": "localizar / recuperar archivos perdidos o recursos",
+    "keywords": [
+     "missing",
+     "localizar",
+     "localizacion",
+     "recursos",
+     "archivos zip",
+     "archivo original",
+     "confirmation",
+     "confirmacion",
+     "perdido"
+    ]
+   },
+   {
+    "id": "desplegador",
+    "nombre": "Desplegador",
+    "sp": "Scolopendra morsitans",
+    "camara": "tuneles",
+    "utilidad": "despliegue / publicacion en la nube",
+    "keywords": [
+     "cloudflare",
+     "cloudflare pages",
+     "despliegue",
+     "deploy",
+     "subir",
+     "upload",
+     "pipeline",
+     "vplostal",
+     "entrega",
+     "v2",
+     "zip"
+    ]
+   },
+   {
+    "id": "alcantarillero",
+    "nombre": "Alcantarillero",
+    "sp": "Himantarium gabrielis",
+    "camara": "despensa",
+    "utilidad": "decision de alcance / planificacion de rebuild",
+    "keywords": [
+     "alcance",
+     "scope",
+     "rebuild",
+     "rebuild completo",
+     "decisiones",
+     "proximo paso",
+     "planificacion",
+     "pipeline completo"
+    ]
+   }
+  ]
+ },
+ "dragonfly": {
+  "key": "dragonfly",
+  "metafora": "La libélula vuela entre redes: sus alas cruzan el aire (internet), sus patas tocan la LAN, sus ojos compuestos lo ven todo.",
+  "vuela": true,
+  "anatomia": "patas=LAN, alas=internet/conectividad exterior (vuela=true), cabeza/ojos enormes=sesera/observabilidad; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Estanque activo (contexto activo)",
+   "granero": "Orilla seca (lo hecho)",
+   "guarderia": "Larvas (en construcción)",
+   "vertedero": "Cieno (archivo muerto)",
+   "tuneles": "Corrientes (enlaces)"
+  },
+  "casta_base": {
+   "id": "damsel",
+   "nombre": "Damselfly",
+   "sp": "Zygoptera",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "emperor",
+    "nombre": "Emperor",
+    "sp": "Anax imperator",
+    "camara": "despensa",
+    "utilidad": "auditar / asegurar router o firewall",
+    "keywords": [
+     "audit",
+     "auditoria",
+     "seguridad",
+     "security",
+     "firewall",
+     "router",
+     "backup cifrado",
+     "cifrado",
+     "encrypted",
+     "config",
+     "wifi 7",
+     "movistar",
+     "panel del router"
+    ]
+   },
+   {
+    "id": "hawk",
+    "nombre": "Hawker",
+    "sp": "Aeshna cyanea",
+    "camara": "despensa",
+    "utilidad": "diagnosticar / escanear red",
+    "keywords": [
+     "ssh",
+     "arp",
+     "diagnostic",
+     "diagnosticar",
+     "diagnostico",
+     "scan",
+     "invisible",
+     "client isolation",
+     "2.4ghz",
+     "5ghz",
+     "wifi",
+     "ping",
+     "traceroute",
+     "nmap",
+     "mini pc",
+     "asociados"
+    ]
+   },
+   {
+    "id": "damsel",
+    "nombre": "Damselfly",
+    "sp": "Zygoptera",
+    "camara": "tuneles",
+    "utilidad": "conectar / vincular dispositivos locales",
+    "keywords": [
+     "conectar",
+     "connect",
+     "pairing",
+     "enlazar",
+     "link",
+     "vpn",
+     "tunnel",
+     "tunel",
+     "proxy",
+     "dns",
+     "lan",
+     "local network",
+     "dispositivo",
+     "device"
+    ]
+   }
+  ],
+  "cobertura": [
+   {
+    "proyecto_id": "local_f263eede-d8e0-457b-850b-f56a9ad4f62b",
+    "titulo": "SSH connection options for mini PC",
+    "casta_asignada": "hawk",
+    "keywords_match": [
+     "ssh",
+     "arp",
+     "wifi",
+     "mini pc",
+     "client isolation"
+    ],
+    "X": true
+   },
+   {
+    "proyecto_id": "local_f678be9d-d8e0-40a4-a3b7-83666019e8bd",
+    "titulo": "Audit Wi-Fi 7 router security configuration",
+    "casta_asignada": "emperor",
+    "keywords_match": [
+     "audit",
+     "seguridad",
+     "router",
+     "wifi 7",
+     "backup cifrado",
+     "movistar"
+    ],
+    "X": true
+   }
+  ]
+ },
+ "dung": {
+  "key": "dung",
+  "metafora": "El pelotero empuja su bola (la jornada laboral) cada dia desde que sale el sol. El ordenador es su entorno; las patas son la LAN; la cabeza es la sesera.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; la bola=tarea/jornada que se empuja; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guarderia (en construccion)",
+   "vertedero": "Vertedero (archivo muerto)",
+   "tuneles": "Tuneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "rodador",
+   "nombre": "Rodador",
+   "sp": "Scarabaeus laticollis",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "minotauro",
+    "nombre": "Minotauro",
+    "sp": "Minotauros typhoeus",
+    "camara": "despensa",
+    "utilidad": "capturar API / investigar opciones tecnicas",
+    "keywords": [
+     "devtools captura",
+     "captura api",
+     "fichaje api",
+     "access employee",
+     "raspberry pi",
+     "analisis de",
+     "12 opciones",
+     "opciones de automatizacion",
+     "employee management dashboard"
+    ]
+   },
+   {
+    "id": "rodador",
+    "nombre": "Rodador",
+    "sp": "Scarabaeus laticollis",
+    "camara": "despensa",
+    "utilidad": "fichar / registrar jornada",
+    "keywords": [
+     "fichar",
+     "fichaje",
+     "clock in",
+     "clock-in",
+     "desfichar",
+     "desfichaje",
+     "clock out",
+     "clock-out",
+     "registrar jornada",
+     "registro entrada",
+     "registro salida",
+     "time tracking",
+     "jornada",
+     "turno",
+     "shift",
+     "timestamp",
+     "horario"
+    ]
+   },
+   {
+    "id": "sagrado",
+    "nombre": "Sagrado",
+    "sp": "Scarabaeus sacer",
+    "camara": "granero",
+    "utilidad": "documentos / formularios / facturas",
+    "keywords": [
+     "formulario",
+     "form",
+     "factura",
+     "invoice",
+     "plantilla",
+     "template",
+     "pdf",
+     "excel",
+     "documento",
+     "document",
+     "nomina",
+     "payroll",
+     "contrato",
+     "contract",
+     "reserva",
+     "booking",
+     "shipment",
+     "carga",
+     "transporte",
+     "balearia"
+    ]
+   },
+   {
+    "id": "tunelador",
+    "nombre": "Tunelador",
+    "sp": "Typhaeus typhoeus",
+    "camara": "tuneles",
+    "utilidad": "tareas programadas / infraestructura background",
+    "keywords": [
+     "tarea programada",
+     "scheduled task",
+     "schedule",
+     "windows-mcp",
+     "windows mcp",
+     "extension chrome",
+     "chrome extension",
+     "automatizacion fichaje",
+     "background",
+     "cron",
+     "trigger",
+     "reconfigurar",
+     "reconfigure",
+     "reescribir",
+     "rewrite"
+    ]
+   }
+  ]
+ },
+ "ladybug": {
+  "key": "ladybug",
+  "metafora": "El ordenador ES el habitat de la mariquita: los élitros guardan lo casero, las patas recorren la LAN.",
+  "vuela": false,
+  "anatomia": "patas=LAN; alas bajo élitros (puede volar pero es lo casero/personal); cabeza=sesera; puntos=pequeños recuerdos personales; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "siete-puntos",
+   "nombre": "Siete Puntos",
+   "sp": "Coccinella septempunctata",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "siete-puntos",
+    "nombre": "Siete Puntos",
+    "sp": "Coccinella septempunctata",
+    "camara": "despensa",
+    "utilidad": "receta / guia paso a paso",
+    "keywords": [
+     "receta",
+     "recipe",
+     "guia",
+     "guide",
+     "paso a paso",
+     "step by step",
+     "tecnica",
+     "technique",
+     "instrucciones",
+     "instructions",
+     "tutorial",
+     "como hacer",
+     "how to",
+     "gastronomia",
+     "gastronomy",
+     "cocina",
+     "cooking",
+     "tortilla",
+     "patatas",
+     "cebolla",
+     "ingredientes",
+     "ingredients"
+    ]
+   },
+   {
+    "id": "arlequin",
+    "nombre": "Arlequín",
+    "sp": "Harmonia axyridis",
+    "camara": "granero",
+    "utilidad": "nota personal / hobby / salud",
+    "keywords": [
+     "personal",
+     "nota",
+     "note",
+     "hobby",
+     "salud",
+     "health",
+     "diario",
+     "journal",
+     "bienestar",
+     "wellness",
+     "deporte",
+     "sport",
+     "ejercicio",
+     "exercise",
+     "aficion",
+     "aficiones",
+     "pasatiempo",
+     "pasatiempos"
+    ]
+   },
+   {
+    "id": "dos-puntos",
+    "nombre": "Dos Puntos",
+    "sp": "Adalia bipunctata",
+    "camara": "tuneles",
+    "utilidad": "historia / cultura / investigacion personal",
+    "keywords": [
+     "historia",
+     "history",
+     "cultura",
+     "culture",
+     "origen",
+     "origin",
+     "debate",
+     "region",
+     "regions",
+     "espanola",
+     "espanol",
+     "spanish",
+     "tradicional",
+     "traditional",
+     "variantes",
+     "variants",
+     "investigacion",
+     "research"
+    ]
+   }
+  ],
+  "cobertura": {
+   "proyectos_total": 1,
+   "proyectos_cubiertos": 1,
+   "detalle": [
+    {
+     "id": "local_1d454631-a5f7-493c-91a2-9779357fb709",
+     "title": "Tortilla de patatas guide",
+     "casta_asignada": "siete-puntos",
+     "match_keywords": [
+      "receta",
+      "guia",
+      "gastronomia",
+      "tortilla",
+      "patatas",
+      "historia"
+     ]
+    }
+   ]
+  }
+ },
+ "mantis": {
+  "key": "mantis",
+  "metafora": "La mantis observa el terrario desde dentro: es el ojo que diseña el ojo.",
+  "vuela": false,
+  "anatomia": "patas=LAN; cabeza triangular giratoria=observabilidad/sesera; patas raptoras=precision de diseno; entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guarderia (en construccion)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Tuneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "religiosa",
+   "nombre": "Religiosa",
+   "sp": "Mantis religiosa",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "gigante",
+    "nombre": "Gigante africana",
+    "sp": "Sphodromantis viridis",
+    "camara": "despensa",
+    "utilidad": "motor / build / skill-pipeline / fan-out",
+    "keywords": [
+     "skill-pipeline",
+     "pipeline",
+     "fan-out",
+     "build",
+     "motor",
+     "skill creator",
+     "live artifact",
+     "live-artifact",
+     "artefacto",
+     "artifact",
+     "backlog",
+     "digital audit capacity",
+     "generation process",
+     "update backlog"
+    ]
+   },
+   {
+    "id": "orquidea",
+    "nombre": "Mantis orquidea",
+    "sp": "Hymenopus coronatus",
+    "camara": "guarderia",
+    "utilidad": "visualizacion / panel / dashboard / HTML interactivo",
+    "keywords": [
+     "visualizaci",
+     "visualization",
+     "panel",
+     "dashboard",
+     "html interactivo",
+     "interactive",
+     "interactivo",
+     "pixel art",
+     "carrusel",
+     "4 vistas",
+     "sidebar",
+     "ux",
+     "chart",
+     "chart.js",
+     "agent work",
+     "overview",
+     "display",
+     "real-time process",
+     "tiempo real",
+     "atencion"
+    ]
+   },
+   {
+    "id": "fantasma",
+    "nombre": "Mantis fantasma",
+    "sp": "Phyllocrania paradoxa",
+    "camara": "despensa",
+    "utilidad": "auditoria / debug / diagnostico / prompt",
+    "keywords": [
+     "audit",
+     "auditoria",
+     "auditori",
+     "debug",
+     "diagnostic",
+     "diagnostico",
+     "parsers",
+     "prompt optimizer",
+     "optimizador",
+     "prompt",
+     "multi-agent",
+     "multi-agente",
+     "information factory",
+     "fabrica",
+     "setup",
+     "chequeo",
+     "verificaci",
+     "verificacion"
+    ]
+   },
+   {
+    "id": "religiosa",
+    "nombre": "Religiosa",
+    "sp": "Mantis religiosa",
+    "camara": "reina",
+    "utilidad": "diseno del sistema / taxonomia / castas / identidad visual",
+    "keywords": [
+     "diseno",
+     "diseño",
+     "design",
+     "taxon",
+     "casta",
+     "castas",
+     "especies",
+     "species",
+     "caste.json",
+     "critters",
+     "12 especies",
+     "sistema",
+     "sesera content",
+     "antv2",
+     "boceto",
+     "colonia",
+     "arthropod design"
+    ]
+   },
+   {
+    "id": "espinosa",
+    "nombre": "Mantis espinosa",
+    "sp": "Pseudocreobotra wahlbergii",
+    "camara": "granero",
+    "utilidad": "identidad visual / 3D / render / artefacto espectacular",
+    "keywords": [
+     "carrusel 3d",
+     "3d",
+     "47 puntos",
+     "acordeon",
+     "inspeccion",
+     "render",
+     "visual chat",
+     "artifact display",
+     "47",
+     "vistas"
+    ]
+   }
+  ],
+  "asignaciones": [
+   {
+    "id": "local_caa64384-b60c-4937-8629-8650344926fd",
+    "casta": "fantasma",
+    "razon": "multi-agente + auditoria historial + fabrica"
+   },
+   {
+    "id": "local_48d103a6-794c-47a1-811e-27db9e1c4a6d",
+    "casta": "orquidea",
+    "razon": "visualizacion agentes + HTML interactivo + pixel art"
+   },
+   {
+    "id": "local_413a65b6-ac4f-4586-b148-d2b2faa33304",
+    "casta": "gigante",
+    "razon": "skill-pipeline + artefactos HTML + panel visual"
+   },
+   {
+    "id": "local_b901903c-d877-4caf-a978-65cdefc0dcd7",
+    "casta": "orquidea",
+    "razon": "panel proyectos + entorno Claude + HTML interactivo"
+   },
+   {
+    "id": "local_17cb0b6d-4052-4851-884c-bffc7f044c49",
+    "casta": "orquidea",
+    "razon": "panel auditoria + sidebar + UX + visualizacion"
+   },
+   {
+    "id": "local_4a06336a-008e-443d-a67e-f9f2c4b137e8",
+    "casta": "fantasma",
+    "razon": "optimizador prompts + auditoria + activacion skill"
+   },
+   {
+    "id": "local_a9e87fe6-5fa3-4d28-aabb-ab61d748ee73",
+    "casta": "gigante",
+    "razon": "skill creator + live artifact + panel flotante"
+   },
+   {
+    "id": "local_e2b88869-2f9b-4343-914d-1979971e0e1e",
+    "casta": "gigante",
+    "razon": "live artifact + verificacion + show_widget + build"
+   },
+   {
+    "id": "local_029662d9-e136-41e6-8e4b-a6db9f060854",
+    "casta": "gigante",
+    "razon": "update backlog artifact + panel IA + optimizador"
+   },
+   {
+    "id": "local_51e09385-e706-4b1a-9182-a264404bdacb",
+    "casta": "orquidea",
+    "razon": "dashboard tiempo real + chart.js + tareas programadas"
+   },
+   {
+    "id": "local_ae10746b-978f-4165-ad14-a9c1e6d52763",
+    "casta": "fantasma",
+    "razon": "debug + parsers + diagnostico + tiempo real"
+   },
+   {
+    "id": "local_c0b86470-c9a2-44f9-865a-0c681a110cc0",
+    "casta": "orquidea",
+    "razon": "dashboard atencion + herramientas conectadas + estado"
+   },
+   {
+    "id": "local_8c332b5e-fee5-400e-b8f8-5ad1fe0cc03f",
+    "casta": "religiosa",
+    "razon": "diseno v2 + castas + antV2 + boceto sistema"
+   },
+   {
+    "id": "local_1f7137d6-f104-43e1-981f-6cac2496f829",
+    "casta": "fantasma",
+    "razon": "setup + auditoria + repo + prompt de chequeo"
+   },
+   {
+    "id": "local_eabb2856-8723-4a63-80c7-8f6c5a864a65",
+    "casta": "religiosa",
+    "razon": "fan-out 12 especies + caste.json + critters v2 + arthropod design"
+   },
+   {
+    "id": "local_60dc882b-82cc-40df-96cc-51b8b80efcde",
+    "casta": "espinosa",
+    "razon": "carrusel 3D + 4 vistas + 47 puntos + acordeon"
+   }
+  ]
+ },
+ "mite": {
+  "key": "mite",
+  "metafora": "Los ácaros son omnipresentes e invisibles — lo diminuto y suelto que vive en el ordenador.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; diminutos y omnipresentes, viven en el entorno del ordenador.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "polvo",
+   "nombre": "Ácaro del polvo",
+   "sp": "Dermatophagoides pteronyssinus",
+   "camara": "vertedero"
+  },
+  "castas": [
+   {
+    "id": "garrapata",
+    "nombre": "Garrapata",
+    "sp": "Ixodes ricinus",
+    "camara": "despensa",
+    "utilidad": "tareas pendientes / cosas que se enganchan",
+    "keywords": [
+     "schedule",
+     "appointment",
+     "cita",
+     "agenda",
+     "reminder",
+     "recordatorio",
+     "pending",
+     "pendiente",
+     "todo",
+     "tarea",
+     "task"
+    ]
+   },
+   {
+    "id": "arana-roja",
+    "nombre": "Araña roja",
+    "sp": "Tetranychus urticae",
+    "camara": "guarderia",
+    "utilidad": "bugs / problemas / algo que irrita",
+    "keywords": [
+     "bug",
+     "error",
+     "fix",
+     "fallo",
+     "problema",
+     "issue",
+     "crash",
+     "broken",
+     "roto",
+     "debug",
+     "troubleshoot"
+    ]
+   },
+   {
+    "id": "agua",
+    "nombre": "Ácaro de agua",
+    "sp": "Hydrachna globosa",
+    "camara": "guarderia",
+    "utilidad": "extraer / revisar / procesar contenido",
+    "keywords": [
+     "extract",
+     "extrae",
+     "extraccion",
+     "review",
+     "revision",
+     "revisión",
+     "pack",
+     "content",
+     "contenido",
+     "tisfera",
+     "parse",
+     "proceso",
+     "process",
+     "import",
+     "exporta",
+     "export",
+     "download",
+     "descargar"
+    ]
+   },
+   {
+    "id": "polvo",
+    "nombre": "Ácaro del polvo",
+    "sp": "Dermatophagoides pteronyssinus",
+    "camara": "vertedero",
+    "utilidad": "restos / misc / sesiones sin contenido",
+    "keywords": [
+     "chat",
+     "session",
+     "sesion",
+     "sin contenido",
+     "empty",
+     "vacio",
+     "misc",
+     "other",
+     "otro",
+     "map",
+     "mapa",
+     "zarapoly",
+     "untitled",
+     "sin titulo"
+    ]
+   }
+  ]
+ },
+ "scorpion": {
+  "key": "scorpion",
+  "metafora": "El exoesqueleto blindado ES la precisión del instrumento — pinzas que sujetan la señal, aguijón que inyecta la medida.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera, pinzas=precision/medida, aguijon=instrumentacion, entorno=el ordenador.",
+  "camaras": {
+   "reina": "Camara real (nucleo de la colonia)",
+   "despensa": "Despensa de veneno (contexto activo, señales vivas)",
+   "granero": "Guarida (memoria almacenada, documentacion)",
+   "guarderia": "Madriguera (en construccion, wip)",
+   "vertedero": "Muda (archivo muerto, exoesqueleto viejo)",
+   "tuneles": "Tunel sensorial (enlaces, integraciones)"
+  },
+  "casta_base": {
+   "id": "imperial",
+   "nombre": "Imperial generico",
+   "sp": "Pandinus imperator",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "emperador",
+    "nombre": "Emperador",
+    "sp": "Pandinus imperator",
+    "camara": "despensa",
+    "utilidad": "sensing / deteccion inalambrica (WiFi RSSI, RF, presencia)",
+    "keywords": [
+     "nodemcu",
+     "esp8266",
+     "esp32",
+     "rssi",
+     "rf sensing",
+     "rf",
+     "sensing",
+     "presencia",
+     "presence",
+     "deteccion",
+     "detection",
+     "wifi",
+     "inalambrico",
+     "wireless",
+     "radio"
+    ]
+   },
+   {
+    "id": "corteza",
+    "nombre": "Corteza",
+    "sp": "Centruroides exilicauda",
+    "camara": "guarderia",
+    "utilidad": "microcontroladores / firmware / hardware embebido",
+    "keywords": [
+     "nodemcu",
+     "esp8266",
+     "esp32",
+     "esp32-s3",
+     "arduino",
+     "microcontrolador",
+     "microcontroller",
+     "firmware",
+     "embebido",
+     "embedded",
+     "arduino ide",
+     "blink",
+     "driver",
+     "flash",
+     "gpio"
+    ]
+   },
+   {
+    "id": "dorado",
+    "nombre": "Dorado",
+    "sp": "Opistophthalmus glabrifrons",
+    "camara": "despensa",
+    "utilidad": "medir / instrumentar / osciloscopio",
+    "keywords": [
+     "rigol",
+     "dho804",
+     "osciloscopio",
+     "oscilloscope",
+     "pyvisa",
+     "scpi",
+     "medicion",
+     "medida",
+     "measure",
+     "señal",
+     "signal",
+     "scs",
+     "bus scs",
+     "tegui",
+     "bticino",
+     "señal cuadrada",
+     "usb conexion",
+     "lan",
+     "scope"
+    ]
+   },
+   {
+    "id": "vinagrillo",
+    "nombre": "Vinagrillo",
+    "sp": "Mastigoproctus giganteus",
+    "camara": "tuneles",
+    "utilidad": "software EDA / simulacion de circuitos / integracion herramientas",
+    "keywords": [
+     "kicad",
+     "eda",
+     "simulacion circuitos",
+     "simulador circuitos",
+     "circuit simulation",
+     "simulacion",
+     "simulation",
+     "mcp osciloscopio",
+     "mcp",
+     "pyvisa",
+     "python",
+     "arquitectura",
+     "cloud",
+     "integracion",
+     "integration",
+     "comparativa",
+     "software"
+    ]
+   },
+   {
+    "id": "imperial",
+    "nombre": "Imperial",
+    "sp": "Pandinus dictator",
+    "camara": "guarderia",
+    "utilidad": "documentacion tecnica / organizacion / referencia",
+    "keywords": [
+     "documentacion",
+     "documentation",
+     "referencia",
+     "reference",
+     "organiz",
+     "memoria del proyecto",
+     "scpi",
+     "manual",
+     "prompt ia",
+     "hogar",
+     "agente ia",
+     "virtualiz",
+     "arquitectura del agente"
+    ]
+   }
+  ]
+ },
+ "snail": {
+  "key": "snail",
+  "metafora": "La concha que cargas ES el SO que migras; el entorno es el ordenador donde vives.",
+  "vuela": false,
+  "anatomia": "pie=LAN, sin alas=local-first, cabeza/tentáculos=sesera; la concha es el SO portátil que te llevas a cuestas.",
+  "camaras": {
+   "reina": "Cámara real (núcleo)",
+   "despensa": "Despensa (contexto activo)",
+   "granero": "Granero (lo hecho)",
+   "guarderia": "Guardería (en construcción)",
+   "vertedero": "Vertedero (archivo)",
+   "tuneles": "Túneles (enlaces)"
+  },
+  "casta_base": {
+   "id": "babosa",
+   "nombre": "Babosa",
+   "sp": "Arion ater",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "babosa",
+    "nombre": "Babosa",
+    "sp": "Arion ater",
+    "camara": "guarderia",
+    "utilidad": "migrar SO / evaluar distro",
+    "keywords": [
+     "migracion",
+     "migration",
+     "migrar",
+     "distro",
+     "linux",
+     "fedora",
+     "cachyos",
+     "windows vs linux",
+     "os migration",
+     "dual boot",
+     "windows",
+     "omarchy",
+     "recopilacion digital",
+     "auditoria digital",
+     "panel interactivo"
+    ]
+   },
+   {
+    "id": "mar",
+    "nombre": "Caracol de Mar",
+    "sp": "Helix pomatia",
+    "camara": "despensa",
+    "utilidad": "configurar entorno / virtualizar",
+    "keywords": [
+     "gpu",
+     "kvm",
+     "vm",
+     "virtual machine",
+     "virtualizacion",
+     "virtualization",
+     "passthrough",
+     "setup",
+     "entorno",
+     "graphics card",
+     "linux vm",
+     "linux setup",
+     "computer-use",
+     "conectores",
+     "mcp"
+    ]
+   }
+  ]
+ },
+ "spider": {
+  "key": "spider",
+  "metafora": "La telaraña ES la red local: cada hilo un cable, cada nudo un servicio always-on.",
+  "vuela": false,
+  "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; el entorno es el ordenador.",
+  "camaras": {
+   "reina": "Cámara-orb (núcleo de la colonia)",
+   "despensa": "Despensa sedosa (contexto activo)",
+   "granero": "Granero envuelto (memoria almacenada)",
+   "guarderia": "Guardería de capullos (en construcción)",
+   "vertedero": "Vertedero de mudas (archivo muerto)",
+   "tuneles": "Túneles de seda (enlaces)"
+  },
+  "casta_base": {
+   "id": "orbweaver",
+   "nombre": "Orbweaver",
+   "sp": "Araneus diadematus",
+   "camara": "guarderia"
+  },
+  "castas": [
+   {
+    "id": "crab",
+    "nombre": "Crab spider (cangrejo)",
+    "sp": "Misumena vatia",
+    "camara": "granero",
+    "utilidad": "análisis / arquitectura / auditoría pasiva",
+    "keywords": [
+     "arquitectura",
+     "architecture",
+     "analisis",
+     "analiz",
+     "analys",
+     "server architecture",
+     "server status",
+     "audit export",
+     "system audit",
+     "estado"
+    ]
+   },
+   {
+    "id": "orbweaver",
+    "nombre": "Orbweaver",
+    "sp": "Araneus diadematus",
+    "camara": "guarderia",
+    "utilidad": "infraestructura / self-hosting / red doméstica",
+    "keywords": [
+     "self-hosted",
+     "self-hosting",
+     "servidor propio",
+     "infraestructura",
+     "infrastructure",
+     "independencia digital",
+     "prompt unificador",
+     "homelab",
+     "home server",
+     "servidor casero"
+    ]
+   },
+   {
+    "id": "jumper",
+    "nombre": "Jumper (saltarina)",
+    "sp": "Phidippus regius",
+    "camara": "despensa",
+    "utilidad": "acceso remoto / SSH / conexión directa / instalación",
+    "keywords": [
+     "ssh",
+     "acceso remoto",
+     "remote",
+     "conexion",
+     "connect",
+     "ethernet",
+     "dhcp",
+     "ip",
+     "169.254",
+     "mini pc",
+     "tisferadesign",
+     "tisferade",
+     "antix",
+     "anti-x",
+     "linux",
+     "instalacion",
+     "install",
+     "script",
+     "32 bits",
+     "setup"
+    ]
+   },
+   {
+    "id": "wolf",
+    "nombre": "Wolf spider (lobo)",
+    "sp": "Lycosa tarantula",
+    "camara": "despensa",
+    "utilidad": "monitoreo / estado / diagnóstico / logs",
+    "keywords": [
+     "monitor",
+     "log",
+     "preflight",
+     "error",
+     "errores",
+     "500",
+     "diagnostic",
+     "check",
+     "audit",
+     "auditoria",
+     "export",
+     "limite tokens",
+     "limite de tokens",
+     "token"
+    ]
+   },
+   {
+    "id": "widow",
+    "nombre": "Widow (viuda)",
+    "sp": "Latrodectus mactans",
+    "camara": "vertedero",
+    "utilidad": "migración / virtualización / operaciones críticas",
+    "keywords": [
+     "migracion",
+     "migrar",
+     "migrate",
+     "vmware",
+     "virtualizacion",
+     "vm",
+     "contenedor",
+     "container",
+     "docker",
+     "raspberry pi",
+     "raspberrypi"
+    ]
+   }
+  ]
+ }
+};
+const SP=[["ant","Hormigas","#b4502e"],["beetle","Escarabajos","#3f7f9c"],["butterfly","Mariposas","#9a5cf0"],
+["spider","Arañas","#2f9b5e"],["bee","Abejas","#e6a417"],["scorpion","Escorpiones","#cf3b2c"],
+["centipede","Ciempiés","#dd4f86"],["dung","Peloteros","#16a890"],["snail","Caracoles","#6d6ef0"],
+["dragonfly","Libélulas","#f5812f"],["ladybug","Mariquitas","#e8423f"],["mite","Ácaros","#8a93a0"],["mantis","Mantis","#5fae46"]];
+const STATES=[["activa","#4e9a3a"],["pendiente","#d98326"],["atascada","#c0392b"],["hibernando","#a3957c"],["relevada","#b7b1a5"]];
+function svgOf(key,o,px){return '<svg viewBox="0 0 100 100" style="width:'+(px||72)+'px;height:'+(px||72)+'px" xmlns="http://www.w3.org/2000/svg" overflow="visible">'+critV2(key,o)+'</svg>';}
+function baseCaste(k){const i=CASTAS[k]||{};return (i.casta_base||{}).id||'base';}
+document.getElementById('gal-species').innerHTML=SP.map(([k,n,c])=>
+  '<div class="spec">'+svgOf(k,{color:c,caste:baseCaste(k),vital:'ok'})+'<div class="n">'+n+'</div><div class="s">'+k+'</div></div>').join('');
+const spb=document.getElementById('spbtns');
+spb.innerHTML=SP.map(([k,n])=>'<button class="spbtn" data-k="'+k+'">'+n+'</button>').join('');
+function showCastes(k){
+  const sp=SP.find(s=>s[0]===k), info=CASTAS[k]||{};
+  const all=[(info.casta_base||{id:'base',nombre:'Base'})].concat(info.castas||[]);
+  document.getElementById('gal-castes').innerHTML=all.map((c,i)=>
+    '<div class="spec">'+svgOf(k,{color:sp[2],caste:c.id,vital:'ok'})+
+    '<div class="n">'+(c.nombre||c.id)+'</div><div class="s">'+(c.utilidad||(i===0?'casta base':''))+'</div></div>').join('');
+  spb.querySelectorAll('.spbtn').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+}
+spb.addEventListener('click',e=>{const b=e.target.closest('.spbtn');if(b)showCastes(b.dataset.k);});
+showCastes('ant');
+document.getElementById('gal-states').innerHTML=STATES.map(([n,c])=>
+  '<div class="spec">'+svgOf('ant',{color:c,caste:'obrera',vital:n==='hibernando'?'sleep':'ok'},58)+'<div class="n">'+n+'</div></div>').join('');
+document.getElementById('gal-vitals').innerHTML=[['de pie','ok','#4e9a3a',''],['dormida','sleep','#a3957c',''],['boca arriba','dead','#b7b1a5','transform:rotate(180deg)']].map(([n,vital,c,st])=>
+  '<div class="spec"><div style="'+st+'">'+svgOf('beetle',{color:c,caste:baseCaste('beetle'),vital:vital},58)+'</div><div class="n">'+n+'</div></div>').join('');
+document.getElementById('gal-sizes').innerHTML=[['alta',64],['media',48],['baja',34]].map(([n,px])=>
+  '<div class="spec">'+svgOf('bee',{color:'#d98326',caste:baseCaste('bee'),vital:'ok'},px)+'<div class="n">'+n+'</div></div>').join('');
+function badged(k,c,glyph,n){
+  return '<div class="spec"><div style="position:relative;width:64px;margin:0 auto">'+svgOf(k,{color:c,caste:baseCaste(k),vital:'ok'},64)+
+  '<span style="position:absolute;top:-4px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--card);border:1.5px solid var(--frame);display:flex;align-items:center;justify-content:center;font-size:12px">'+glyph+'</span></div><div class="n">'+n+'</div></div>';
+}
+document.getElementById('gal-badges').innerHTML=
+  badged('mantis','#4e9a3a','🍴','hambre · te espera')+
+  badged('mantis','#d98326','❓','no sabe seguir')+
+  '<div class="spec"><div style="position:relative;width:64px;margin:0 auto">'+svgOf('mantis',{color:'#d98326',caste:baseCaste('mantis'),vital:'ok'},64)+
+  '<span style="position:absolute;top:0;right:-2px;width:12px;height:12px;border-radius:50%;background:#ff8a1e;border:1.5px solid #fff"></span></div><div class="n">punto naranja · próximo paso</div></div>';
+</script>
+</body>
+</html>

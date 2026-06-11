@@ -1,0 +1,412 @@
+[
+  {
+    "id": "demo-001",
+    "title": "Rediseño del portfolio",
+    "status": "running",
+    "categoria": "Web / Frontend",
+    "deque": "Renovar la web personal con un estilo más vivo",
+    "ultimo_avance": "Maquetada la portada con SVG",
+    "proximo_paso": "Pulir las animaciones del hero",
+    "temas": [
+      "diseño",
+      "svg",
+      "portfolio"
+    ],
+    "msgs": 9,
+    "actividad": "alta",
+    "waiting_on": "none",
+    "related": [
+      "demo-021"
+    ]
+  },
+  {
+    "id": "demo-002",
+    "title": "Widget de galería interactivo",
+    "status": "idle",
+    "categoria": "Web / Frontend",
+    "deque": "Galería de imágenes reutilizable como widget",
+    "ultimo_avance": "Prototipo interactivo con scroll",
+    "proximo_paso": "Decidir si usar masonry o cuadrícula",
+    "temas": [
+      "widget",
+      "interactivo",
+      "galería"
+    ],
+    "msgs": 5,
+    "actividad": "media",
+    "waiting_on": "user",
+    "depends_on": [
+      "demo-004"
+    ],
+    "links": [
+      "https://figma.com/demo/galeria"
+    ]
+  },
+  {
+    "id": "demo-003",
+    "title": "Animación del hero con canvas",
+    "status": "idle",
+    "categoria": "Web / Frontend",
+    "deque": "Efecto animado de partículas en la portada",
+    "ultimo_avance": "Boceto con canvas y glow",
+    "proximo_paso": "—",
+    "temas": [
+      "animacion",
+      "canvas",
+      "glow"
+    ],
+    "msgs": 6,
+    "actividad": "baja",
+    "superseded_by": "demo-001"
+  },
+  {
+    "id": "demo-004",
+    "title": "API de reservas",
+    "status": "running",
+    "categoria": "Backend / APIs",
+    "deque": "Servicio para reservar salas por horas",
+    "ultimo_avance": "Arquitectura y endpoints base listos",
+    "proximo_paso": "Añadir tests de integración",
+    "temas": [
+      "arquitectura",
+      "api",
+      "reservas"
+    ],
+    "msgs": 12,
+    "actividad": "alta",
+    "waiting_on": "none"
+  },
+  {
+    "id": "demo-005",
+    "title": "Auth con OAuth",
+    "status": "idle",
+    "categoria": "Backend / APIs",
+    "deque": "Login con cuentas externas (conexión OAuth)",
+    "ultimo_avance": "Flujo básico de conexión montado",
+    "proximo_paso": "El callback da error 500 al refrescar el token",
+    "temas": [
+      "conexion",
+      "oauth",
+      "login"
+    ],
+    "msgs": 8,
+    "actividad": "media",
+    "waiting_on": "system"
+  },
+  {
+    "id": "demo-006",
+    "title": "Migrar webhooks a contenedor",
+    "status": "idle",
+    "categoria": "Backend / APIs",
+    "deque": "Mover los webhooks de pago a un contenedor",
+    "ultimo_avance": "Imagen del contenedor preparada",
+    "proximo_paso": "Confirmar el formato del payload con el proveedor",
+    "temas": [
+      "migracion",
+      "contenedor",
+      "pagos"
+    ],
+    "msgs": 4,
+    "actividad": "media",
+    "waiting_on": "external_person",
+    "depends_on": [
+      "demo-004"
+    ]
+  },
+  {
+    "id": "demo-007",
+    "title": "Pipeline CI/CD",
+    "status": "idle",
+    "categoria": "Infra / DevOps",
+    "deque": "Construir y desplegar en cada push (automatización)",
+    "ultimo_avance": "Automatización del build en cada commit",
+    "proximo_paso": "Cachear dependencias en el runner",
+    "temas": [
+      "automatizacion",
+      "ci",
+      "deploy"
+    ],
+    "msgs": 6,
+    "actividad": "media",
+    "waiting_on": "none",
+    "related": [
+      "demo-004"
+    ]
+  },
+  {
+    "id": "demo-008",
+    "title": "Backups automáticos",
+    "status": "idle",
+    "categoria": "Infra / DevOps",
+    "deque": "Copia diaria cifrada de la base de datos",
+    "ultimo_avance": "Volcado nocturno cifrado funcionando",
+    "proximo_paso": "—",
+    "temas": [
+      "backups",
+      "cifrado",
+      "seguridad"
+    ],
+    "msgs": 6,
+    "actividad": "baja",
+    "waiting_on": "none",
+    "camara": "granero"
+  },
+  {
+    "id": "demo-009",
+    "title": "Backups automáticos",
+    "status": "idle",
+    "categoria": "Infra / DevOps",
+    "deque": "Intento antiguo de los backups (duplicado)",
+    "ultimo_avance": "Versión vieja a medias",
+    "proximo_paso": "Programar el cron semanal",
+    "temas": [
+      "backups"
+    ],
+    "msgs": 2,
+    "actividad": "baja"
+  },
+  {
+    "id": "demo-010",
+    "title": "Monitorización con Grafana",
+    "status": "idle",
+    "categoria": "Infra / DevOps",
+    "deque": "Paneles de diagnóstico del servidor",
+    "ultimo_avance": "Dashboard de CPU y memoria",
+    "proximo_paso": "El exporter se cae cada noche, revisar el timeout",
+    "temas": [
+      "diagnostico",
+      "grafana",
+      "metricas"
+    ],
+    "msgs": 5,
+    "actividad": "baja",
+    "waiting_on": "system"
+  },
+  {
+    "id": "demo-011",
+    "title": "Scraper de precios",
+    "status": "idle",
+    "categoria": "Datos / Scraping",
+    "deque": "Extracción de precios de varias tiendas",
+    "ultimo_avance": "Parser de dos tiendas funcionando",
+    "proximo_paso": "Rotar proxies para evitar el límite de peticiones",
+    "temas": [
+      "extraccion",
+      "parse",
+      "precios"
+    ],
+    "msgs": 7,
+    "actividad": "media",
+    "waiting_on": "internet",
+    "related": [
+      "demo-004"
+    ]
+  },
+  {
+    "id": "demo-012",
+    "title": "Limpieza del dataset",
+    "status": "idle",
+    "categoria": "Datos / Scraping",
+    "deque": "Normalizar y fusionar los datos recogidos",
+    "ultimo_avance": "Merge y limpieza de duplicados hecho",
+    "proximo_paso": "—",
+    "temas": [
+      "limpieza",
+      "merge",
+      "dataset"
+    ],
+    "msgs": 4,
+    "actividad": "baja",
+    "waiting_on": "none"
+  },
+  {
+    "id": "demo-013",
+    "title": "Panel de métricas",
+    "status": "idle",
+    "categoria": "Datos / Scraping",
+    "deque": "Tablero HTML con las cifras del negocio",
+    "ultimo_avance": "",
+    "proximo_paso": "",
+    "temas": [
+      "panel",
+      "html"
+    ],
+    "msgs": 0,
+    "actividad": "baja"
+  },
+  {
+    "id": "demo-014",
+    "title": "Lanzamiento en Product Hunt",
+    "status": "idle",
+    "categoria": "Negocio / Marketing",
+    "deque": "Vender el producto digital en Product Hunt",
+    "ultimo_avance": "Textos y capturas preparados",
+    "proximo_paso": "Decidir la fecha de lanzamiento",
+    "temas": [
+      "vender",
+      "producto digital",
+      "lanzamiento"
+    ],
+    "msgs": 6,
+    "actividad": "media",
+    "waiting_on": "user",
+    "related": [
+      "demo-001"
+    ],
+    "links": [
+      "https://www.producthunt.com/"
+    ]
+  },
+  {
+    "id": "demo-015",
+    "title": "Newsletter mensual",
+    "status": "idle",
+    "categoria": "Negocio / Marketing",
+    "deque": "Boletín de novedades: idea y texto reflexivo",
+    "ultimo_avance": "Plantilla de correo lista",
+    "proximo_paso": "Redactar el número de junio",
+    "temas": [
+      "idea",
+      "texto reflexivo",
+      "newsletter"
+    ],
+    "msgs": 3,
+    "actividad": "baja",
+    "waiting_on": "none",
+    "camara": "granero"
+  },
+  {
+    "id": "demo-016",
+    "title": "Calculadora de precios",
+    "status": "running",
+    "categoria": "Negocio / Marketing",
+    "deque": "Widget de producto digital para estimar planes",
+    "ultimo_avance": "Lógica de cálculo terminada",
+    "proximo_paso": "—",
+    "temas": [
+      "producto digital",
+      "pricing",
+      "widget"
+    ],
+    "msgs": 5,
+    "actividad": "baja",
+    "waiting_on": "none"
+  },
+  {
+    "id": "demo-017",
+    "title": "Estación meteorológica ESP32",
+    "status": "idle",
+    "categoria": "Hardware / Cacharreo",
+    "deque": "Medir temperatura con un microcontrolador",
+    "ultimo_avance": "Lee temperatura y la envía por wifi",
+    "proximo_paso": "Soldar el sensor de presión",
+    "temas": [
+      "esp32",
+      "sensores",
+      "arduino"
+    ],
+    "msgs": 8,
+    "actividad": "media",
+    "waiting_on": "physical"
+  },
+  {
+    "id": "demo-018",
+    "title": "Simular el reloj en KiCad",
+    "status": "idle",
+    "categoria": "Hardware / Cacharreo",
+    "deque": "Simular el circuito del reloj antes de montarlo",
+    "ultimo_avance": "Esquemático inicial en KiCad",
+    "proximo_paso": "—",
+    "temas": [
+      "kicad",
+      "simulacion",
+      "reloj"
+    ],
+    "msgs": 5,
+    "actividad": "baja",
+    "waiting_on": "none",
+    "depends_on": [
+      "demo-017"
+    ]
+  },
+  {
+    "id": "demo-019",
+    "title": "Segmentar la red con VLANs",
+    "status": "idle",
+    "categoria": "Redes / Conectividad",
+    "deque": "Separar dispositivos (router y firewall)",
+    "ultimo_avance": "Plan de VLANs sobre el papel",
+    "proximo_paso": "El switch no aplica la config; reset y reintentar",
+    "temas": [
+      "router",
+      "firewall",
+      "vlan"
+    ],
+    "msgs": 4,
+    "actividad": "baja",
+    "waiting_on": "system"
+  },
+  {
+    "id": "demo-020",
+    "title": "VPN de casa",
+    "status": "idle",
+    "categoria": "Redes / Conectividad",
+    "deque": "Acceder a la red de casa por un túnel VPN",
+    "ultimo_avance": "Servidor WireGuard instalado",
+    "proximo_paso": "Abrir el puerto en el router",
+    "temas": [
+      "vpn",
+      "tunnel",
+      "wireguard"
+    ],
+    "msgs": 6,
+    "actividad": "media",
+    "waiting_on": "none",
+    "related": [
+      "demo-019"
+    ],
+    "links": [
+      "https://www.wireguard.com/"
+    ]
+  },
+  {
+    "id": "demo-021",
+    "title": "Afinar el diseño de las mariposas",
+    "status": "running",
+    "categoria": "Meta / Diseño del terrario",
+    "deque": "Mejorar el dibujo de una especie y su casta",
+    "ultimo_avance": "Mariposa con alas y postura nuevas",
+    "proximo_paso": "Aplicar el mismo patrón a las arañas",
+    "temas": [
+      "diseño",
+      "castas",
+      "especies"
+    ],
+    "msgs": 11,
+    "actividad": "alta",
+    "waiting_on": "none",
+    "related": [
+      "demo-001"
+    ]
+  },
+  {
+    "id": "demo-022",
+    "title": "Auditar el render del terrario",
+    "status": "idle",
+    "categoria": "Meta / Diseño del terrario",
+    "deque": "Revisar (audit/debug) cómo se pinta el jardín",
+    "ultimo_avance": "Checklist de render redactado",
+    "proximo_paso": "—",
+    "temas": [
+      "audit",
+      "debug",
+      "render"
+    ],
+    "msgs": 4,
+    "actividad": "baja",
+    "waiting_on": "none",
+    "depends_on": [
+      "demo-021"
+    ]
+  }
+]

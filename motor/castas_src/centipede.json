@@ -1,0 +1,183 @@
+{
+ "key": "centipede",
+ "render_pendiente": false,
+ "metafora": "El ciempiés recorre la red local: cada par de patas es un enlace LAN, la cabeza es la sesera, el cuerpo entero ES el pipeline de datos.",
+ "vuela": false,
+ "anatomia": "patas=LAN (muchas patas → muy en red), sin alas=local-first, cabeza=sesera; entorno=el ordenador.",
+ "camaras": {
+  "reina": "Cámara real (núcleo)",
+  "despensa": "Despensa (contexto activo)",
+  "granero": "Granero (lo hecho / datos limpios)",
+  "guarderia": "Guardería (en construcción)",
+  "vertedero": "Vertedero (archivo muerto)",
+  "tuneles": "Túneles (enlaces / despliegue)"
+ },
+ "casta_base": {
+  "id": "recolector",
+  "nombre": "Recolector",
+  "sp": "Scolopendra cingulata",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "rastreador",
+   "nombre": "Rastreador",
+   "sp": "Lithobius forficatus",
+   "camara": "despensa",
+   "utilidad": "scraping / extraccion de mensajes",
+   "keywords": [
+    "whatsapp",
+    "extraccion mensajes",
+    "extraccion",
+    "extraction",
+    "reparseo",
+    "parse",
+    "chat",
+    "chats",
+    "exported",
+    "exportado",
+    "archivos zip",
+    "zip"
+   ]
+  },
+  {
+   "id": "indexador",
+   "nombre": "Indexador",
+   "sp": "Scutigera coleoptrata",
+   "camara": "granero",
+   "utilidad": "indexar / catalogar comunidades y portales",
+   "keywords": [
+    "vpostal",
+    "comunidades",
+    "portales",
+    "461 comunidades",
+    "545 comunidades",
+    "553 comunidades",
+    "2113 portales",
+    "codigos portal",
+    "portal",
+    "callejero",
+    "callejero zaragoza",
+    "direcciones",
+    "verificadas",
+    "verificacion"
+   ]
+  },
+  {
+   "id": "fusionador",
+   "nombre": "Fusionador",
+   "sp": "Cryptops hortensis",
+   "camara": "guarderia",
+   "utilidad": "ETL / fusion y limpieza de datos",
+   "keywords": [
+    "fusion chats",
+    "fusionar",
+    "fusion",
+    "merge",
+    "cleanup",
+    "data cleanup",
+    "limpieza",
+    "reparseo",
+    "rebuild",
+    "csv",
+    "etl",
+    "correccion",
+    "fix"
+   ]
+  },
+  {
+   "id": "ensamblador",
+   "nombre": "Ensamblador",
+   "sp": "Geophilus carpophagus",
+   "camara": "guarderia",
+   "utilidad": "construir panel HTML / app de datos",
+   "keywords": [
+    "panel html",
+    "panel",
+    "html",
+    "pestanas",
+    "5 pestanas",
+    "app operativa",
+    "panel v2",
+    "badges",
+    "garantia",
+    "reincidencia",
+    "tabla",
+    "busqueda portal",
+    "busqueda"
+   ]
+  },
+  {
+   "id": "mensajero",
+   "nombre": "Mensajero",
+   "sp": "Strigamia acuminata",
+   "camara": "despensa",
+   "utilidad": "mensajeria / atribucion de mensajes a comunidades",
+   "keywords": [
+    "atribucion",
+    "atribucion mensajes",
+    "mensajes",
+    "message",
+    "whatsapp",
+    "tecnicos",
+    "comunidad",
+    "community"
+   ]
+  },
+  {
+   "id": "segador",
+   "nombre": "Segador",
+   "sp": "Necrophloeophagus longicornis",
+   "camara": "vertedero",
+   "utilidad": "localizar / recuperar archivos perdidos o recursos",
+   "keywords": [
+    "missing",
+    "localizar",
+    "localizacion",
+    "recursos",
+    "archivos zip",
+    "archivo original",
+    "confirmation",
+    "confirmacion",
+    "perdido"
+   ]
+  },
+  {
+   "id": "desplegador",
+   "nombre": "Desplegador",
+   "sp": "Scolopendra morsitans",
+   "camara": "tuneles",
+   "utilidad": "despliegue / publicacion en la nube",
+   "keywords": [
+    "cloudflare",
+    "cloudflare pages",
+    "despliegue",
+    "deploy",
+    "subir",
+    "upload",
+    "pipeline",
+    "vplostal",
+    "entrega",
+    "v2",
+    "zip"
+   ]
+  },
+  {
+   "id": "alcantarillero",
+   "nombre": "Alcantarillero",
+   "sp": "Himantarium gabrielis",
+   "camara": "despensa",
+   "utilidad": "decision de alcance / planificacion de rebuild",
+   "keywords": [
+    "alcance",
+    "scope",
+    "rebuild",
+    "rebuild completo",
+    "decisiones",
+    "proximo paso",
+    "planificacion",
+    "pipeline completo"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,132 @@
+{
+ "key": "spider",
+ "metafora": "La telaraña ES la red local: cada hilo un cable, cada nudo un servicio always-on.",
+ "vuela": false,
+ "anatomia": "patas=LAN, sin alas=local-first, cabeza=sesera; el entorno es el ordenador.",
+ "camaras": {
+  "reina": "Cámara-orb (núcleo de la colonia)",
+  "despensa": "Despensa sedosa (contexto activo)",
+  "granero": "Granero envuelto (memoria almacenada)",
+  "guarderia": "Guardería de capullos (en construcción)",
+  "vertedero": "Vertedero de mudas (archivo muerto)",
+  "tuneles": "Túneles de seda (enlaces)"
+ },
+ "casta_base": {
+  "id": "orbweaver",
+  "nombre": "Orbweaver",
+  "sp": "Araneus diadematus",
+  "camara": "guarderia"
+ },
+ "castas": [
+  {
+   "id": "crab",
+   "nombre": "Crab spider (cangrejo)",
+   "sp": "Misumena vatia",
+   "camara": "granero",
+   "utilidad": "análisis / arquitectura / auditoría pasiva",
+   "keywords": [
+    "arquitectura",
+    "architecture",
+    "analisis",
+    "analiz",
+    "analys",
+    "server architecture",
+    "server status",
+    "audit export",
+    "system audit",
+    "estado"
+   ]
+  },
+  {
+   "id": "orbweaver",
+   "nombre": "Orbweaver",
+   "sp": "Araneus diadematus",
+   "camara": "guarderia",
+   "utilidad": "infraestructura / self-hosting / red doméstica",
+   "keywords": [
+    "self-hosted",
+    "self-hosting",
+    "servidor propio",
+    "infraestructura",
+    "infrastructure",
+    "independencia digital",
+    "prompt unificador",
+    "homelab",
+    "home server",
+    "servidor casero"
+   ]
+  },
+  {
+   "id": "jumper",
+   "nombre": "Jumper (saltarina)",
+   "sp": "Phidippus regius",
+   "camara": "despensa",
+   "utilidad": "acceso remoto / SSH / conexión directa / instalación",
+   "keywords": [
+    "ssh",
+    "acceso remoto",
+    "remote",
+    "conexion",
+    "connect",
+    "ethernet",
+    "dhcp",
+    "ip",
+    "169.254",
+    "mini pc",
+    "tisferadesign",
+    "tisferade",
+    "antix",
+    "anti-x",
+    "linux",
+    "instalacion",
+    "install",
+    "script",
+    "32 bits",
+    "setup"
+   ]
+  },
+  {
+   "id": "wolf",
+   "nombre": "Wolf spider (lobo)",
+   "sp": "Lycosa tarantula",
+   "camara": "despensa",
+   "utilidad": "monitoreo / estado / diagnóstico / logs",
+   "keywords": [
+    "monitor",
+    "log",
+    "preflight",
+    "error",
+    "errores",
+    "500",
+    "diagnostic",
+    "check",
+    "audit",
+    "auditoria",
+    "export",
+    "limite tokens",
+    "limite de tokens",
+    "token"
+   ]
+  },
+  {
+   "id": "widow",
+   "nombre": "Widow (viuda)",
+   "sp": "Latrodectus mactans",
+   "camara": "vertedero",
+   "utilidad": "migración / virtualización / operaciones críticas",
+   "keywords": [
+    "migracion",
+    "migrar",
+    "migrate",
+    "vmware",
+    "virtualizacion",
+    "vm",
+    "contenedor",
+    "container",
+    "docker",
+    "raspberry pi",
+    "raspberrypi"
+   ]
+  }
+ ]
+}
