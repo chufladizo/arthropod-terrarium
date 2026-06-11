@@ -1,5 +1,7 @@
 # 🦗 Terrario Vivo · v0.5 «gabinete del naturalista»
 
+> **🌐 Demo en vivo:** <https://chufladizo.github.io/arthropod-terrarium/> — ábrelo en el navegador, sin instalar nada.
+
 **Convierte todos tus proyectos en un terrario de artrópodos.** Cada área de trabajo es una
 **especie** (una colonia con su **reina**) y cada proyecto es un **bicho**. De un vistazo ves qué
 tienes vivo, qué está parado y qué espera algo de ti — sin tablas, sin cuadrículas, muy ilustrado.
