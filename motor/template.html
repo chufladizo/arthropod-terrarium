@@ -57,6 +57,23 @@
   .world[data-lens="compost"] .queen:not(.has-dead){opacity:.14}
   .world[data-lens="compost"] .qb-dead{display:inline}
   .world[data-lens="caminos"] .queen:not(.in-camino){opacity:.2}
+  .world[data-lens="metabolismo"] .queen:not(.has-food){opacity:.14}
+  .world[data-lens="metabolismo"] .qb-food{display:inline}
+  /* ---- lámina del metabolismo (uso de tokens = comida) ---- */
+  .metplate{position:absolute;left:10px;bottom:10px;z-index:24;max-width:362px;max-height:93%;overflow:auto;
+    background:rgba(248,241,221,.97);border:1.5px solid var(--frame);border-radius:2px;
+    box-shadow:3px 4px 0 rgba(58,44,26,.3);padding:10px 13px 11px;display:none;font-size:12.5px;rotate:-.4deg}
+  .world[data-lens="metabolismo"] .metplate{display:block}
+  .metplate h4{margin:0 0 2px;font-size:13px;font-variant:all-small-caps;letter-spacing:.18em;color:var(--ink)}
+  .metplate .sub{font-size:10.5px;color:var(--sepia);font-style:italic;margin:0 0 6px}
+  .metplate .mrow{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+  .metplate .mbox{flex:1;min-width:88px;border:1px solid var(--line);background:var(--paper);padding:4px 6px;text-align:center}
+  .metplate .mbox b{display:block;font-size:15px;color:var(--ink)}
+  .metplate .mbox span{font-size:10px;color:var(--sepia);font-variant:all-small-caps;letter-spacing:.06em}
+  .metplate ol{margin:3px 0 0;padding-left:18px}
+  .metplate li{margin:2px 0;color:var(--ink2)}
+  .metplate li b{color:var(--ink)}
+  .metplate .foot{margin-top:6px;font-size:10.5px;color:var(--sepia);font-style:italic;border-top:1px solid var(--line);padding-top:5px}
   /* ---- colonia (lámina de corte) ---- */
   .colony{position:fixed;inset:0;z-index:150;display:none;flex-direction:column;background:var(--paper);padding:12px 16px 12px}
   .colony::before{content:"";position:absolute;inset:0;background-image:var(--grain);pointer-events:none}
@@ -137,7 +154,7 @@
   <h1>El Terrario de los Proyectos</h1>
   <p class="hint">Gabinete del naturalista — cada <b>colonia</b> es un área, cada <b>bicho</b> un proyecto.
   Forma = utilidad · color = estado · tamaño = actividad · postura = vital · 🍴/❓ = necesidad.
-  Toca una reina para bajar a su nido; dentro, pulsa <b>🔬 anatomía</b>.</p>
+  Toca una reina para bajar a su nido; dentro, pulsa <b>🔬 anatomía</b>. La lente <b>🍖 metabolismo</b> enseña qué come cada colonia (tokens).</p>
   <div class="rule"></div>
 </div>
 <div class="legend">
@@ -148,12 +165,14 @@
   <span class="lz"><i style="background:#b7b1a5"></i>relevada 💀</span>
   <span class="lz">🍴 hambre</span><span class="lz">❓ no sabe</span>
   <span class="lz"><i style="background:radial-gradient(#8fdc8f,#fff0)"></i>halo = corriendo</span>
+  <span class="lz">🍖 comida = tokens</span>
 </div>
 <div class="lenses" id="lenses">
   <button class="lensbtn on" data-lens="todo">el jardín</button>
   <button class="lensbtn" data-lens="comedero">🍴 comedero</button>
   <button class="lensbtn" data-lens="compost">🍂 compost</button>
   <button class="lensbtn" data-lens="caminos">🧵 caminos</button>
+  <button class="lensbtn" data-lens="metabolismo">🍖 metabolismo</button>
 </div>
 <div class="world" id="ov" data-lens="todo">
   <svg class="gscene" id="gscene" viewBox="0 0 1320 860" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,6 +207,7 @@
     <g id="mounds"></g>
   </svg>
   <svg class="camlayer" id="camlayer" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+  <div class="metplate" id="metplate"></div>
 </div>
 <div class="caption" id="ovcaption">Lámina I · el jardín de las colonias</div>
 </div>
@@ -213,7 +233,7 @@
     <div class="bigbug" id="bigbug"></div>
     <h3 id="bt"></h3><p class="casta" id="bc"></p><div id="bst"></div>
     <div id="bchips" style="margin:4px 0 2px"></div>
-    <dl><dt>De qué va</dt><dd id="bd"></dd><dt>Último avance</dt><dd id="bu"></dd><dt>Próximo paso</dt><dd id="bp"></dd></dl>
+    <dl><dt>De qué va</dt><dd id="bd"></dd><dt>Último avance</dt><dd id="bu"></dd><dt>Próximo paso</dt><dd id="bp"></dd><dt id="bmt">Metabolismo</dt><dd id="bmd"></dd></dl>
     <div id="brel" style="margin-top:6px"></div>
     <div id="btg" style="margin-top:6px"></div>
   </div>
@@ -233,6 +253,10 @@
 <script>
 const TERR = /*__DATA__*/;
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function fmtTok(n){n=n||0;if(n<1000)return ''+n;if(n<1e6)return (n/1e3).toFixed(n<1e4?1:0)+'k';return (n/1e6).toFixed(1)+'M';}
+function fmtUsd(x){x=x||0;return '$'+(x>=100?Math.round(x).toLocaleString('es'):x.toFixed(2));}
+function dkey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function asvg(key,o){return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'+critV2(key,o)+'</svg>';}
 const ROMAN=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"];
 const byArea={}; TERR.areas.forEach(a=>byArea[a]=[]);
@@ -264,10 +288,12 @@ const deco=document.getElementById('deco'), mounds=document.getElementById('moun
     g+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+r+'" ry="'+(r*0.62).toFixed(1)+'" fill="#c4ac80" stroke="#4a3a22" stroke-width="1" opacity=".55"/>';}
   deco.innerHTML=g;
 })();
+const METAB=TERR.metabolismo||null;
 TERR.areas.forEach(area=>{
   const s=TERR.species[area]; const arr=byArea[area]; const n=arr.length;
   const hungry=arr.filter(p=>p.need==='hambre').length;
   const dead=arr.filter(p=>p.vital!=='ok').length;
+  const food=(METAB&&METAB.colonias&&METAB.colonias[area])||null;
   const qsize=Math.round(46+Math.min(46,n*1.4));
   const ax=s.anchor[0]*13.2, ay=s.anchor[1]*8.6;
   const w=qsize*1.25, h=qsize*0.6, my=ay+qsize*0.42;
@@ -284,10 +310,11 @@ TERR.areas.forEach(area=>{
       '<use href="#tuft" transform="translate('+(ax+w*1.05).toFixed(0)+' '+(my+3).toFixed(0)+') scale(0.9)"/></g>');
   }
   ov.insertAdjacentHTML('beforeend',
-   '<div class="queen'+(s.air?' air':'')+(hungry?' has-hungry':'')+(dead?' has-dead':'')+'" style="left:'+s.anchor[0]+'%;top:'+s.anchor[1]+'%" data-area="'+area+'">'+
+   '<div class="queen'+(s.air?' air':'')+(hungry?' has-hungry':'')+(dead?' has-dead':'')+(food?' has-food':'')+'" style="left:'+s.anchor[0]+'%;top:'+s.anchor[1]+'%" data-area="'+area+'">'+
    '<div class="qb" style="width:'+qsize+'px">'+queenHTML(s)+'</div>'+
    '<div class="qlab">'+s.emo+' '+s.name+'<span class="cnt"> ·'+n+'</span>'+
      '<span class="qbadge qb-hungry"> 🍴'+hungry+'</span><span class="qbadge qb-dead"> 💀'+dead+'</span>'+
+     (food?'<span class="qbadge qb-food"> 🍖'+fmtTok(food.out)+'</span>':'')+
      '<span class="fn">'+s.fn+'</span></div></div>');
 });
 ov.addEventListener('click',e=>{const q=e.target.closest('.queen');if(q)openColony(q.dataset.area);});
@@ -314,6 +341,43 @@ document.getElementById('lenses').addEventListener('click',e=>{
   document.querySelectorAll('.lensbtn').forEach(x=>x.classList.toggle('on',x===b));
   ov.dataset.lens=b.dataset.lens;
 });
+
+// ---------- METABOLISMO (uso de tokens = comida) ----------
+(function buildMet(){
+  const plate=document.getElementById('metplate');
+  if(!METAB){
+    plate.innerHTML='<h4>🍖 metabolismo del terrario</h4>'+
+      '<p class="sub">El terrario está en ayunas: no hay <b>tokens.json</b> junto a los datos. '+
+      'Genéralo (p. ej. con <i>escanear-tokens.ps1</i>) y reconstruye para ver qué come cada bicho.</p>';
+    return;
+  }
+  const dias=Object.keys(METAB.dias||{}).sort();
+  const now=new Date(), hoyK=dkey(now);
+  const hoy=METAB.dias[hoyK]||{out:0,usd:0};
+  let s7o=0,s7u=0;
+  for(let i=0;i<7;i++){const d=new Date(now);d.setDate(d.getDate()-i);const v=METAB.dias[dkey(d)];if(v){s7o+=v.out;s7u+=v.usd;}}
+  const last14=dias.slice(-14), mx=Math.max(1,...last14.map(d=>METAB.dias[d].out));
+  const bw=15,gap=4,H=44,W=Math.max(60,last14.length*(bw+gap));
+  let bars='';
+  last14.forEach((d,i)=>{const v=METAB.dias[d],h=Math.max(2,Math.round(v.out/mx*H));
+    bars+='<rect x="'+(i*(bw+gap))+'" y="'+(H-h)+'" width="'+bw+'" height="'+h+'" fill="'+(d===hoyK?'#5d7a3a':'#b89a64')+'" stroke="#4a3a22" stroke-width=".7"><title>'+d+' · '+fmtTok(v.out)+' tokens · '+fmtUsd(v.usd)+' · '+(v.runs||0)+' corridas</title></rect>';});
+  const topL=(METAB.top||[]).slice(0,5).map(t=>'<li><b>'+fmtTok(t.out)+'</b> · '+esc(t.title)+' <span style="opacity:.7">('+fmtUsd(t.usd)+')</span></li>').join('');
+  const mods=Object.entries(METAB.modelos||{}).sort((a,b)=>(b[1].usd||0)-(a[1].usd||0)).slice(0,3)
+    .map(([m,v])=>esc(m.replace('claude-','').replace(/-\d{8}$/,''))+' '+fmtUsd(v.usd)).join(' · ');
+  const T=METAB.total||{};
+  plate.innerHTML='<h4>🍖 metabolismo del terrario</h4>'+
+   '<p class="sub">los bichos comen tokens · censo del '+esc((METAB.generado||'').slice(0,10))+'</p>'+
+   '<div class="mrow">'+
+     '<div class="mbox"><b>'+fmtTok(hoy.out)+'</b><span>hoy · '+fmtUsd(hoy.usd)+'</span></div>'+
+     '<div class="mbox"><b>'+fmtTok(s7o)+'</b><span>7 días · '+fmtUsd(s7u)+'</span></div>'+
+     '<div class="mbox"><b>'+fmtTok(T.out)+'</b><span>vida · '+fmtUsd(T.usd)+'</span></div>'+
+   '</div>'+
+   '<svg width="'+W+'" height="'+(H+4)+'" viewBox="0 0 '+W+' '+(H+4)+'" style="display:block;margin:2px 0 3px">'+bars+'</svg>'+
+   '<div style="font-size:10px;color:var(--sepia)">'+esc(last14[0]||'')+' → hoy · cada barra, lo comido ese día</div>'+
+   (topL?'<div style="margin-top:6px;font-variant:all-small-caps;letter-spacing:.12em;font-size:11px">los más comilones</div><ol>'+topL+'</ol>':'')+
+   ((METAB.huerfanas&&METAB.huerfanas.n)?'<div class="foot">fauna invisible: '+METAB.huerfanas.n+' sesiones sin bicho comieron '+fmtTok(METAB.huerfanas.out)+' ('+fmtUsd(METAB.huerfanas.usd)+')</div>':'')+
+   (mods?'<div class="foot">dietas: '+mods+(T.cr?' · '+fmtTok(T.cr)+' rumiados de caché':'')+'</div>':'');
+})();
 
 // ---------- COLONIA (corte transversal) ----------
 const colony=document.getElementById('colony'),conest=document.getElementById('conest');
@@ -359,7 +423,8 @@ function openColony(area){
   document.getElementById('coname').textContent=s.emo+' '+s.name;
   document.getElementById('cofn').textContent=s.fn;
   document.getElementById('cometa').textContent=s.metafora||'';
-  document.getElementById('cocnt').textContent=list.length+' bichos';
+  const cfood=(METAB&&METAB.colonias&&METAB.colonias[area])||null;
+  document.getElementById('cocnt').textContent=list.length+' bichos'+(cfood?' · 🍖 '+fmtTok(cfood.out):'');
   const byCam={}; CH.forEach(c=>byCam[c.id]=[]);
   list.forEach(b=>{(byCam[b.camara]||byCam.guarderia).push(b);});
   let sc=sceneDefs();
@@ -451,10 +516,16 @@ function openBug(b,area){
   const rastro=(b.msgs===0)?'sin rastro':(b.msgs+' msgs');
   let chips='<span class="tg">'+s.emo+' '+s.name+'</span><span class="tg">🏠 '+camName+camG+'</span><span class="tg">💬 '+rastro+'</span>';
   if(b.waiting_on&&WAIT_GLOSA[b.waiting_on]) chips+='<span class="tg">⏳ '+WAIT_GLOSA[b.waiting_on]+'</span>';
+  if(b.tokens) chips+='<span class="tg">🍖 '+fmtTok(b.tokens.out)+' tokens · '+fmtUsd(b.tokens.usd)+'</span>';
   document.getElementById('bchips').innerHTML=chips;
   document.getElementById('bd').textContent=b.deque||'—';
   document.getElementById('bu').textContent=b.ultimo||'—';
   document.getElementById('bp').textContent=b.proximo||'—';
+  const bmt=document.getElementById('bmt'),bmd=document.getElementById('bmd');
+  if(b.tokens){
+    bmt.style.display='';bmd.style.display='';
+    bmd.textContent='ha comido '+fmtTok(b.tokens.out)+' tokens (~'+fmtUsd(b.tokens.usd)+') en '+b.tokens.runs+' corrida'+(b.tokens.runs===1?'':'s')+(b.tokens.ultimo?(' · última comida '+b.tokens.ultimo):'');
+  }else{bmt.style.display='none';bmd.style.display='none';}
   let rel='';
   if(b.superseded_by) rel+='<span class="tg">↳ relevado por: '+titleOf(b.superseded_by)+'</span>';
   (b.depends_on||[]).forEach(t=>rel+='<span class="tg">⛓ depende de: '+titleOf(t)+'</span>');

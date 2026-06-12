@@ -1,6 +1,6 @@
 {
   "name": "arthropod-terrarium",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Motor del Terrario Vivo: convierte proyectos en una colonia de artropodos como HTML estatico autocontenido.",
   "license": "MIT",
   "private": true,

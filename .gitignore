@@ -29,3 +29,6 @@ assets/arthropods/
 
 # Scripts de publicación (uso local)
 subir-a-github.*
+
+# Estado interno del agente de sincronización
+.sync-state

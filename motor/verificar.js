@@ -1,8 +1,10 @@
-// Verificador del Terrario Vivo (jsdom) - v0.4.3
+// Verificador del Terrario Vivo (jsdom) - v0.6.0
 // Comprueba: nº reinas == colonias, nº bichos == proyectos, 6 cámaras/colonia,
 // variedad de castas, lentes y capa de caminos, ficha abre, anatomía, 0 errores JS.
 // v0.4.3 añade: A12 caminos>0 si hay relaciones, A13 las 13 especies × castas
 // producen SVG distintos (eje forma=utilidad vivo), A14 versión coherente.
+// v0.6.0 añade: 5ª lente 🍖 metabolismo (uso de tokens = comida) y A15: la
+// lámina del metabolismo se puebla (con datos o con el aviso de ayuno).
 //
 // Uso:  node motor/verificar.js [ruta_html]        (def.: demo/index.html)
 const fs = require("fs");
@@ -70,6 +72,18 @@ let anatOk = false;
 try { w.openColony(areas[0]); w.openAnat(); anatOk = d.getElementById("anatscrim").classList.contains("show"); }
 catch (e) { openErr.push("anat: " + e.message); }
 
+// A15: lámina del metabolismo poblada (con datos => 3 cajas + barras; sin => aviso de ayuno)
+const metplate = d.getElementById("metplate");
+let metOk = false, metInfo = "";
+if (!metplate) { metInfo = "falta #metplate"; }
+else if (TERR.metabolismo) {
+  metOk = metplate.querySelectorAll(".mbox").length >= 3 && metplate.querySelectorAll("rect").length > 0;
+  metInfo = "con datos (cajas=" + metplate.querySelectorAll(".mbox").length + ", barras=" + metplate.querySelectorAll("rect").length + ")";
+} else {
+  metOk = /ayunas/.test(metplate.textContent);
+  metInfo = "sin tokens.json (aviso de ayuno=" + metOk + ")";
+}
+
 // A13: cada una de las 13 especies, con sus castas reales, produce >=2 formas distintas
 const ALL13 = ["ant","beetle","butterfly","spider","bee","scorpion","centipede","dung","snail","dragonfly","ladybug","mite","mantis"];
 let rerr = [];
@@ -99,14 +113,15 @@ console.log("castas distintas =", castasDistintas, "| minimo =", minCastas);
 console.log("lentes =", lentes, "| capa caminos =", camlayer, "| caminos =", TERR.caminos.length, "| caminosOk =", caminosOk);
 console.log("version pkg =", pkgVersion, "| meta =", TERR.meta && TERR.meta.version, "| versionOk =", versionOk);
 console.log("anatomia: boton =", anatbtn, "| panel abre =", anatOk);
+console.log("metabolismo:", metOk, "|", metInfo);
 console.log("ficha abre =", detail, "| titulo =", JSON.stringify(dt));
 console.log("errores camaras/apertura =", openErr.length, openErr.slice(0, 5));
 console.log("errores render (13 especies x castas) =", rerr.length, rerr.slice(0, 8));
 console.log("errores JS =", errs.length, errs.slice(0, 5));
 
 const ok = queens === nAreas && total === nBichos && detail &&
-           castasDistintas >= minCastas && lentes === 4 && camlayer && anatbtn && anatOk &&
-           caminosOk && versionOk &&
+           castasDistintas >= minCastas && lentes === 5 && camlayer && anatbtn && anatOk &&
+           caminosOk && versionOk && metOk &&
            openErr.length === 0 && rerr.length === 0 && errs.length === 0;
 console.log(ok ? "VERIFY: PASS" : "VERIFY: FAIL");
 process.exit(ok ? 0 : 1);

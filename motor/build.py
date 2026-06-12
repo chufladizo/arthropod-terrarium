@@ -50,6 +50,21 @@ FONDOS = FONDOS_PATH.read_text(encoding="utf-8") if FONDOS_PATH.exists() else ""
 # sprites.json: imagenes de artropodos (pool base64 indexado). Opcional.
 SPRITES_PATH = AQUI / "sprites.json"
 SPRITES = json.loads(SPRITES_PATH.read_text(encoding="utf-8")) if SPRITES_PATH.exists() else {"pool": [], "byProject": {}, "queens": {}}
+# tokens.json: METABOLISMO (uso de tokens = comida). Opcional, vive junto a los
+# datos (p.ej. tierra/datos/tokens.json generado por escanear-tokens.ps1).
+# Esquema: {generado, total{out,inp,cw,cr,usd,runs,sesiones}, dias{fecha:{out,usd,runs}},
+#           modelos{nombre:{out,usd}}, sesiones{id:{out,inp,cw,cr,usd,runs,turnos,ultimo}}}
+TOKENS_PATH = data_dir / "tokens.json"
+TOKENS = json.loads(TOKENS_PATH.read_text(encoding="utf-8")) if TOKENS_PATH.exists() else None
+if TOKENS and TOKENS.get("demo"):
+    # datos de ejemplo: re-anclar las fechas para que la mas reciente sea hoy
+    import datetime
+    dias = TOKENS.get("dias") or {}
+    if dias:
+        hoy = datetime.date.today()
+        delta = hoy - max(datetime.date.fromisoformat(d) for d in dias)
+        TOKENS["dias"] = {(datetime.date.fromisoformat(d) + delta).isoformat(): v for d, v in dias.items()}
+        TOKENS["generado"] = hoy.isoformat()
 
 # ---------------------------------------------------------------- utilidades
 def norm(s):
@@ -247,11 +262,16 @@ for area in areas:
         if d.get("categoria") != area:
             continue
         area_by_id[d.get("id")] = area
+        tk = (TOKENS or {}).get("sesiones", {}).get(d.get("id"))
+        comida = ({"out": tk.get("out", 0), "usd": round(tk.get("usd", 0), 2),
+                   "runs": tk.get("runs", 0), "ultimo": (tk.get("ultimo") or "")[:10]}
+                  if tk else None)
         projects.append({"id": d.get("id"), "area": area, "title": d.get("title", ""),
                          "status": d.get("status", ""), "deque": d.get("deque", ""),
                          "ultimo": d.get("ultimo_avance", ""), "proximo": d.get("proximo_paso", ""),
                          "temas": d.get("temas", []), "keyword": (d.get("temas") or [""])[0],
                          "msgs": d.get("msgs", 0), "spriteIdx": SPRITES["byProject"].get(d.get("id")),
+                         "tokens": comida,
                          **derivar(d, i, key)})
 
 # ---- caminos (relaciones entre proyectos) ----------------------------------
@@ -272,8 +292,39 @@ for d in DATA:
 for j, vid in relevado_por.items():
     if j in muerto_dup: add_edge(DATA[j].get("id"), vid, "duplicate")
 
+# ---- METABOLISMO (uso de tokens = comida del terrario) -----------------------
+metabolismo = None
+if TOKENS:
+    ses_tok = TOKENS.get("sesiones", {})
+    ids_bicho = {p["id"] for p in projects if p.get("id")}
+    colonias_tok = {}
+    for p in projects:
+        t = p.get("tokens")
+        if not t:
+            continue
+        c = colonias_tok.setdefault(p["area"], {"out": 0, "usd": 0.0, "n": 0})
+        c["out"] += t["out"]; c["usd"] += t["usd"]; c["n"] += 1
+    for c in colonias_tok.values():
+        c["usd"] = round(c["usd"], 2)
+    con_comida = [p for p in projects if p.get("tokens")]
+    top = sorted(con_comida, key=lambda p: -p["tokens"]["out"])[:8]
+    huer = [v for k, v in ses_tok.items() if k not in ids_bicho]
+    metabolismo = {
+        "generado": TOKENS.get("generado", ""),
+        "total": TOKENS.get("total", {}),
+        "dias": TOKENS.get("dias", {}),
+        "modelos": TOKENS.get("modelos", {}),
+        "colonias": colonias_tok,
+        "top": [{"id": p["id"], "title": p["title"], "area": p["area"],
+                 "out": p["tokens"]["out"], "usd": p["tokens"]["usd"]} for p in top],
+        "huerfanas": {"n": len(huer),
+                      "out": sum(v.get("out", 0) for v in huer),
+                      "usd": round(sum(v.get("usd", 0) for v in huer), 2)},
+    }
+
 TERR = {"areas": areas, "species": species_out, "projects": projects, "caminos": caminos, "sprites": SPRITES.get("pool", []),
-        "meta": {"version": "0.5.0", "nProyectos": len(projects), "nColonias": len(areas)}}
+        "metabolismo": metabolismo,
+        "meta": {"version": "0.6.0", "nProyectos": len(projects), "nColonias": len(areas)}}
 
 for _m in ("/*__CRITTERS__*/", "/*__DATA__*/", "/*__FONDOS__*/"):
     _n = TPL.count(_m)
@@ -295,6 +346,11 @@ except ValueError:
     rel = salida
 print(f"OK -> {rel}  ({len(html)//1024} KB)")
 print(f"colonias: {len(areas)}   bichos: {len(projects)}   caminos: {len(caminos)}")
+if metabolismo:
+    ncon = sum(1 for p in projects if p.get("tokens"))
+    print(f"metabolismo: {ncon}/{len(projects)} bichos con comida   total out={metabolismo['total'].get('out',0):,} (~${metabolismo['total'].get('usd',0)})   huerfanas={metabolismo['huerfanas']['n']}")
+else:
+    print("metabolismo: sin tokens.json (la lente mostrara ayuno)")
 print("estados :", dict(Counter(p["state"] for p in projects)))
 print("camaras :", dict(Counter(p["camara"] for p in projects)))
 keys_used = {sp["key"] for sp in species_out.values()}
