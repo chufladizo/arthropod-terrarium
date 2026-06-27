@@ -94,3 +94,10 @@ Mejoras seguras tras una auditoria completa del motor (analisis -> investigacion
 - Ficha como etiqueta de espécimen con alfiler; anatomía como lámina rotulada.
 - UX: área de clic ampliada por bicho (círculo de impacto invisible).
 - Sin cambios de contrato: build.py, verificar.js y los 6 ejes siguen igual; VERIFY PASS en demo y personal.
+
+## v0.6 — Terrario Imperio en el repo genérico
+- El **demo público ahora es el juego** (pixel/AoE isométrico): `demo/index.html` = Terrario Imperio construido desde el jardín FICTICIO de `ejemplo/` (sin datos personales). La vista clásica estática queda en `demo/clasico.html`.
+- Motor del juego en el repo: plantilla `motor/app_terrario_src.html` + `motor/build_imperio.py` (reusa `motor/build.py` y da al TERR la forma que consume el juego, igual que el pipeline personal `app_build.py`).
+- Verificado con `motor/verifica_app.js`: `VERIFY APP: PASS` (22 bichos, 8 nidos, 5 lentes, selección/merge/stats/export/nido 6 cámaras/mesa de trabajo, 0 errores JS).
+- `package.json`: `build`/`verify`/`todo` apuntan al Imperio; `build:clasico`/`verify:clasico` para la vista estática.
+- Tarea programada de sincronización actualizada para construir y verificar el Imperio.

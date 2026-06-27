@@ -5,11 +5,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "python3 motor/build.py",
+    "build": "python3 motor/build_imperio.py",
     "build:personal": "python3 motor/build.py ../tierra/datos ../tierra/terrario.html",
-    "verify": "node motor/verificar.js demo/index.html",
+    "verify": "node motor/verifica_app.js demo/index.html",
     "verify:personal": "node motor/verificar.js ../tierra/terrario.html",
-    "todo": "npm run build && npm run verify"
+    "todo": "npm run build && npm run verify",
+    "build:clasico": "python3 motor/build.py ejemplo demo/clasico.html",
+    "verify:clasico": "node motor/verificar.js demo/clasico.html"
   },
   "devDependencies": {
     "jsdom": "^24.1.0"

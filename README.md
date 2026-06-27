@@ -1,4 +1,4 @@
-# 🦗 Terrario Vivo · v0.5 «gabinete del naturalista»
+# 🦗 Terrario Vivo · v0.6 «Terrario Imperio»
 
 > **🌐 Demo en vivo:** <https://chufladizo.github.io/arthropod-terrarium/> — ábrelo en el navegador, sin instalar nada.
 
@@ -38,6 +38,25 @@ El estado se lee *en el dibujo*, no en el texto:
 | 💀 Boca arriba | **Relevado** (duplicado superado por otro) |
 | 🍴 / ❓ | Necesita algo: **decisión tuya** / sin rumbo claro |
 | Tamaño del bicho | **Actividad** (más grande = más movimiento) |
+
+---
+
+## 🎮 El juego: Terrario Imperio
+
+La versión actual del terrario es un **juego isométrico pixel-art** (estilo *Age of Empires*):
+cada colonia es un asentamiento con su nido, y cada proyecto una unidad que se mueve por sus zonas.
+
+- **Mundo navegable** con pan/zoom, minimapa y ciclo día/noche.
+- **5 lentes**: estado, triaje, comedero (🍴), metabolismo y zonas.
+- **Mesa de trabajo** (📋): bandeja de atención, lista editable, tablero kanban, duplicados e ideas.
+- **Jugable**: selección por caja, menú contextual, arrastrar unidades entre zonas, destacar/priorizar/unificar, estadísticas y exportar decisiones.
+
+Qué se ve:
+
+- `demo/index.html` → **el juego** (Terrario Imperio) con el jardín de ejemplo. Es lo que sirve la demo en vivo.
+- `demo/clasico.html` → la vista **clásica** estática (jardín de reinas → colonia → ficha).
+
+Se construye con `python3 motor/build_imperio.py` (reusa el motor y la plantilla `motor/app_terrario_src.html`) y se verifica con `node motor/verifica_app.js demo/index.html` (`VERIFY APP: PASS`). Ambos demos usan **solo datos ficticios** (`ejemplo/`), nunca tus proyectos.
 
 ---
 
