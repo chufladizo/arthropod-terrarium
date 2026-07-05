@@ -1,5 +1,20 @@
 # 🦗 Terrario Vivo · v0.6 «Terrario Imperio»
 
+<p align="center">
+  <a href="https://chufladizo.github.io/arthropod-terrarium/">
+    <img src="assets/social-preview.jpg" alt="Terrario Vivo — tus proyectos como una colonia de artrópodos" width="820">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://chufladizo.github.io/arthropod-terrarium/"><img alt="Demo en vivo" src="https://img.shields.io/badge/demo-en_vivo-2ea44f?style=flat-square"></a>
+  <a href="LICENSE"><img alt="Licencia MIT" src="https://img.shields.io/badge/licencia-MIT-blue?style=flat-square"></a>
+  <img alt="Sin build" src="https://img.shields.io/badge/build-ninguno-informational?style=flat-square">
+  <img alt="Solo SVG" src="https://img.shields.io/badge/gr%C3%A1ficos-SVG_param%C3%A9trico-8250df?style=flat-square">
+  <a href="CONTRIBUTING.md"><img alt="PRs bienvenidos" src="https://img.shields.io/badge/PRs-bienvenidos-brightgreen?style=flat-square"></a>
+  <a href="https://github.com/chufladizo/arthropod-terrarium/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/chufladizo/arthropod-terrarium?style=social"></a>
+</p>
+
 > **🌐 Demo en vivo:** <https://chufladizo.github.io/arthropod-terrarium/> — ábrelo en el navegador, sin instalar nada.
 
 **Convierte todos tus proyectos en un terrario de artrópodos.** Cada área de trabajo es una
@@ -183,6 +198,19 @@ El terrario también habla de **dónde vive** cada cosa:
 - **La cabeza** = la sesera (memoria del proyecto).
 
 Una colonia local-first no tiene alas. Una que vive en la nube, sí.
+
+---
+
+## 🤝 ¿Quieres ayudar a que se vea mejor?
+
+Este es un proyecto de hobby y las mejores contribuciones son de **diseño y
+legibilidad**. No hace falta saber programar: si abres un HTML en el navegador,
+puedes opinar y proponer.
+
+- 👀 **Abre la [demo](https://chufladizo.github.io/arthropod-terrarium/)** y dime qué se lee bien y qué no.
+- 🎨 **Coge un [reto de diseño abierto](docs/RETOS-DISENO.md)** — están acotados y marcados como `good first issue`.
+- 📐 **Lee la [guía de colaboración](CONTRIBUTING.md)** para el sistema visual y el flujo de PR.
+- ⭐ Si te gusta la idea, **dale una estrella** — ayuda a que otra gente lo encuentre.
 
 ---
 

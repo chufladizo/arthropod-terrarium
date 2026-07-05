@@ -1,0 +1,28 @@
+name: "🐛 Nueva especie / casta"
+description: Propón una especie (colonia) o una casta (utilidad) nueva.
+title: "[Especie]: "
+labels: ["design", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cada **especie** = un área de trabajo; cada **casta** = un tipo de utilidad dentro de la colonia.
+  - type: input
+    id: nombre
+    attributes:
+      label: Nombre de la especie o casta
+      placeholder: "p.ej. luciérnaga (firefly) / casta 'explorador'"
+    validations:
+      required: true
+  - type: textarea
+    id: metafora
+    attributes:
+      label: Metáfora y anatomía
+      description: ¿Qué área/utilidad representa? ¿Vuela (net) o es local-first (sin alas)? ¿Rasgos visuales distintivos?
+    validations:
+      required: true
+  - type: textarea
+    id: keywords
+    attributes:
+      label: Keywords para la casta (si aplica)
+      description: Palabras que deberían hacer match para asignar un proyecto a esta casta.

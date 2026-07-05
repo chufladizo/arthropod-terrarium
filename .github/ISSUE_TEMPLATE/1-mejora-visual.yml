@@ -1,0 +1,44 @@
+name: "💅 Mejora visual"
+description: Propón cómo hacer el terrario más bonito o más legible.
+title: "[Visual]: "
+labels: ["design", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias! Esta es la contribución más valiosa del proyecto. Una captura vale más que mil palabras.
+  - type: dropdown
+    id: eje
+    attributes:
+      label: ¿Qué eje visual afecta?
+      description: Los 6 ejes de lectura del bicho.
+      options:
+        - Silueta (colonia / especie)
+        - Forma / casta (utilidad)
+        - Color (estado)
+        - Tamaño (actividad)
+        - Postura (vitalidad)
+        - Badge (necesidad)
+        - Composición general / jardín
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: ¿Qué mejorarías y por qué?
+      description: Describe el cambio y en qué mejora la legibilidad o la estética.
+    validations:
+      required: true
+  - type: textarea
+    id: captura
+    attributes:
+      label: Captura o boceto (opcional)
+      description: Arrastra aquí una imagen del estado actual y/o de tu propuesta.
+  - type: checkboxes
+    id: reglas
+    attributes:
+      label: Reglas del sistema visual
+      options:
+        - label: He hojeado la guía de diseño y respeto (o menciono si rompo) las reglas de oro (sin cuadrículas/ventanas, halo verde = activo, etc.).
+          required: false

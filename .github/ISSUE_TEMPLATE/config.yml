@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🌐 Ver la demo en vivo
+    url: https://chufladizo.github.io/arthropod-terrarium/
+    about: Ábrela en el navegador antes de abrir un issue — muchas dudas se resuelven mirándola.
+  - name: 📐 Guía de diseño para colaboradores
+    url: https://chufladizo.github.io/arthropod-terrarium/docs/guia-diseno.html
+    about: Los 6 ejes de lectura, la arquitectura y los retos de diseño abiertos.
+  - name: 💬 Discusiones
+    url: https://github.com/chufladizo/arthropod-terrarium/discussions
+    about: Para ideas abiertas, dudas y enseñar tu propio terrario.
