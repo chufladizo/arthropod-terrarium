@@ -21,10 +21,10 @@ habitat) y construye el grafo de CAMINOS (relaciones entre proyectos).
 Uso:
     python3 motor/build.py [CARPETA_DATOS] [SALIDA]
     CARPETA_DATOS   carpeta con species.json y projects_data.json   (def.: ejemplo)
-    SALIDA          archivo HTML a generar                          (def.: demo/index.html)
+    SALIDA          archivo HTML a generar                        (def.: demo/clasico.html)
 
 Ejemplos:
-    python3 motor/build.py                                  # demo:  ejemplo/ -> demo/index.html
+    python3 motor/build.py                                # demo clásica: ejemplo/ -> demo/clasico.html
     python3 motor/build.py ../tierra/datos ../terrario.html # personal: tierra/datos -> raiz
 """
 import json, pathlib, sys, unicodedata
@@ -34,7 +34,7 @@ AQUI = pathlib.Path(__file__).resolve().parent      # motor/
 REPO = AQUI.parent                                  # arthropod-terrarium/
 
 data_dir = REPO / (sys.argv[1] if len(sys.argv) > 1 else "ejemplo")
-salida   = REPO / (sys.argv[2] if len(sys.argv) > 2 else "demo/index.html")
+salida   = REPO / (sys.argv[2] if len(sys.argv) > 2 else "demo/clasico.html")
 
 TPL    = (AQUI / "template.html").read_text(encoding="utf-8")
 CRIT   = (AQUI / "critters.js").read_text(encoding="utf-8")

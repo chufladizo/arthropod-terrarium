@@ -9,6 +9,7 @@
 - Navegación por teclado, foco visible y nombres accesibles para nidos y bichos.
 - Distribución inicial determinista de unidades y responsive reforzado para HUD, lentes, nidos y kanban.
 - Inyección JSON endurecida contra cierres `</script>` procedentes de datos y prueba de regresión automática.
+- `build.py` genera por defecto `demo/clasico.html` y una regresión automática impide que vuelva a sobrescribir Imperio.
 
 ## v0.4.3 — Auditoria por capas (robustez, ciempies, verificacion)
 
