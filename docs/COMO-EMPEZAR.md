@@ -20,7 +20,7 @@ npm install    # instala jsdom y lo demás (una sola vez)
 
 ```bash
 npm run build     # reconstruye demo/index.html desde ejemplo/
-npm run verify    # debe decir VERIFY: PASS
+npm run verify:all # debe terminar con todos los módulos en PASS
 ```
 
 O abre `demo/index.html` directamente en el navegador (ya viene generado).
@@ -74,7 +74,7 @@ pinta sus bichos y abre ficha. Debe decir `VERIFY: PASS`.
 Las **seseras** son archivos `.md` por bicho — la memoria de cada proyecto en su cámara.
 
 ```bash
-python3 motor/seseras.py
+node motor/run-python.js motor/seseras.py
 ```
 
 Genera `colonias/<especie>/bichos/<id>.md` solo para proyectos activos, atascados o hambrientos.
@@ -117,10 +117,11 @@ tus sesiones y rellene los datos por ti.
 # Desde arthropod-terrarium/
 
 npm run build           # demo: ejemplo/ → demo/index.html
-npm run verify          # verifica la demo
+npm run verify:all      # verifica juego y módulos
+npm test                # build limpio + batería completa
 
 npm run build:personal  # tierra/datos → tierra/terrario.html
 npm run verify:personal # verifica la tuya
 
-python3 motor/seseras.py   # genera seseras .md (opt-in)
+node motor/run-python.js motor/seseras.py # genera seseras .md (opt-in)
 ```

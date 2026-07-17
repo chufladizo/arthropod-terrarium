@@ -55,7 +55,7 @@ git clone https://github.com/chufladizo/arthropod-terrarium.git
 cd arthropod-terrarium
 npm install
 npm run build     # construye la demo (ejemplo/ → demo/index.html)
-npm run verify    # comprueba que la demo está bien (VERIFY: PASS)
+npm run verify:all # juego, oficios, cuidadores, árboles y vista clásica
 ```
 
 Luego abre `demo/index.html` en el navegador. Todo lo visual sale del motor en
@@ -67,7 +67,7 @@ Luego abre `demo/index.html` en el navegador. Todo lo visual sale del motor en
 
 1. Haz un **fork** y una rama descriptiva: `git checkout -b diseno/hormiga-obrera`.
 2. Cambia lo mínimo para tu propuesta. Si tocas SVG/paletas, **adjunta un antes/después**.
-3. Ejecuta `npm run build && npm run verify` — el PR debe pasar la verificación.
+3. Ejecuta `npm test` — el PR debe reconstruir y superar toda la batería.
 4. Abre el PR con la plantilla. Explica **qué eje visual** tocas y **por qué mejora
    la legibilidad**.
 

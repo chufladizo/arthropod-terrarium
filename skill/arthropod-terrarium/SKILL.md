@@ -49,7 +49,7 @@ Ver `reference/data_schema.md` para la referencia rápida y `docs/ESQUEMA-DATOS.
 1. **Datos.** Si no hay `projects_data.json`, recopílalo con `session_info`
    (`list_sessions` → `read_transcript` con límite ~18 mensajes → resumir cada sesión según el
    esquema). Mapea cada sesión a un área (`categoria`).
-2. **Construir.** `python3 motor/build.py <carpeta_datos> <salida.html>`.
+2. **Construir.** `node motor/run-python.js motor/build.py <carpeta_datos> <salida.html>`.
 3. **Verificar.** `node motor/verificar.js <salida.html>` → debe dar `VERIFY: PASS`
    (una reina por colonia, todos los bichos pintados, ficha abre, 0 errores).
 4. **Entregar.** Registrar el HTML como artefacto y dejar los archivos en el repo.
@@ -72,7 +72,7 @@ una sesión.
 
 ## Seseras (memoria como hábitat, opcional)
 
-Tras construir, `python3 motor/seseras.py <salida.html> <carpeta_colonias>` genera un `.md` por bicho
+Tras construir, `node motor/run-python.js motor/seseras.py <salida.html> <carpeta_colonias>` genera un `.md` por bicho
 (solo activos/atascados/hambrientos) en `colonias/<especie>/bichos/<id>.md`. No sobrescribe lo editado
 a mano (idempotente). Es opt-in y privado (gitignored).
 
@@ -82,6 +82,6 @@ El diseño evoluciona por especie. Para afinar una colonia (p.ej. hormigas) y pr
 1. Edita las castas de la especie en `motor/castas_src/<especie>.json` y sincroniza `motor/castas.json`.
 2. Ajusta su anatomía en `motor/critters.js` (`crit_<especie>`), reusando los helpers comunes
    `shade/legs/eye` (definidos una sola vez al inicio).
-3. Reconstruye y verifica: `npm run build && npm run verify` (o `npm run todo`).
+3. Reconstruye y verifica: `npm test` (equivale a build + batería completa).
 La casta codifica la UTILIDAD; el render de cada especie debe reconocer sus IDs funcionales de
 `castas.json` (ver el mapa `sp`→forma anatómica del ciempiés como ejemplo de referencia).

@@ -1,5 +1,15 @@
 # Changelog
 
+## En desarrollo — robustez y accesibilidad
+
+- Build multiplataforma: `motor/run-python.js` encuentra Python 3 en Windows, macOS y Linux.
+- El demo Imperio ya es reproducible desde `ejemplo/imperio_data.json`; no depende de `tierra/`.
+- Batería unificada `npm run verify:all` / `npm test` y CI con GitHub Actions.
+- Verificadores auxiliares con entrada por defecto y salida limpia de avisos irrelevantes de canvas.
+- Navegación por teclado, foco visible y nombres accesibles para nidos y bichos.
+- Distribución inicial determinista de unidades y responsive reforzado para HUD, lentes, nidos y kanban.
+- Inyección JSON endurecida contra cierres `</script>` procedentes de datos y prueba de regresión automática.
+
 ## v0.4.3 — Auditoria por capas (robustez, ciempies, verificacion)
 
 Mejoras seguras tras una auditoria completa del motor (analisis -> investigacion -> decision -> aplicacion):

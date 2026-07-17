@@ -71,7 +71,10 @@ Qué se ve:
 - `demo/index.html` → **el juego** (Terrario Imperio) con el jardín de ejemplo. Es lo que sirve la demo en vivo.
 - `demo/clasico.html` → la vista **clásica** estática (jardín de reinas → colonia → ficha).
 
-Se construye con `python3 motor/build_imperio.py` (reusa el motor y la plantilla `motor/app_terrario_src.html`) y se verifica con `node motor/verifica_app.js demo/index.html` (`VERIFY APP: PASS`). Ambos demos usan **solo datos ficticios** (`ejemplo/`), nunca tus proyectos.
+Se construye con `npm run build` (usa el Python 3 disponible en Windows, macOS o Linux) y se
+verifica con `npm run verify:all`. Ambos demos usan **solo datos ficticios** de `ejemplo/`, nunca
+tus proyectos. `ejemplo/imperio_data.json` es la fuente canónica del juego; la vista clásica se
+deriva de `projects_data.json`, `species.json` y `tokens.json`.
 
 ---
 
@@ -157,7 +160,9 @@ La mejor forma de verlo es abrir la demo:
 demo/index.html      ← ábrelo en el navegador
 ```
 
-Un estudio inventado con 8 colonias y 22 proyectos, pensado para enseñar **todos** los estados, las castas, las cámaras y los caminos de un vistazo. Cuando lo montes con lo tuyo, se verá igual pero con tus cosas.
+El juego usa un estudio inventado con **13 colonias y 25 proyectos**. La vista clásica conserva
+otro ejemplo técnico de **8 colonias y 22 proyectos**, pensado para enseñar estados, castas,
+cámaras y caminos. Cuando lo montes con lo tuyo, se verá igual pero con tus cosas.
 
 ---
 
@@ -168,6 +173,8 @@ Un estudio inventado con 8 colonias y 22 proyectos, pensado para enseñar **todo
 npm install
 npm run build           # construye la demo (ejemplo/ → demo/index.html)
 npm run verify          # comprueba que la demo está bien
+npm run verify:all      # juego + oficios + cuidadores + árboles + clásico
+npm test                # reconstruye todo y ejecuta la batería completa
 npm run build:personal  # construye la tuya (tierra/datos → tierra/terrario.html)
 npm run verify:personal
 ```
