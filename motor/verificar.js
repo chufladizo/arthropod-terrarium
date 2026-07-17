@@ -6,12 +6,12 @@
 // v0.6.0 añade: 5ª lente 🍖 metabolismo (uso de tokens = comida) y A15: la
 // lámina del metabolismo se puebla (con datos o con el aviso de ayuno).
 //
-// Uso:  node motor/verificar.js [ruta_html]        (def.: demo/index.html)
+// Uso:  node motor/verificar.js [ruta_html]        (def.: demo/clasico.html)
 const fs = require("fs");
 const path = require("path");
 const { JSDOM, VirtualConsole } = require("jsdom");
 
-const htmlPath = process.argv[2] || path.join(__dirname, "..", "demo", "index.html");
+const htmlPath = process.argv[2] || path.join(__dirname, "..", "demo", "clasico.html");
 const html = fs.readFileSync(htmlPath, "utf8");
 
 const linea = html.split("\n").find(l => l.trimStart().startsWith("const TERR ="));
@@ -59,7 +59,8 @@ for (const a of areas) {
   if (L !== 6) openErr.push(a + ": " + L + " camaras (esperado 6)");
 }
 
-w.openColony(areas[0]);
+if (typeof w.openColony === "function" && areas.length) w.openColony(areas[0]);
+else openErr.push("API openColony no disponible");
 const fb = d.querySelector("#conest .sbug");
 let detail = false, dt = "";
 if (fb) {

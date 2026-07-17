@@ -1,8 +1,10 @@
 // Test de CLASES/OFICIOS + tooltips dentro del juego integrado.
-const { JSDOM } = require("jsdom"); const fs = require("fs");
-const html = fs.readFileSync(process.argv[2], "utf-8");
+const { JSDOM, VirtualConsole } = require("jsdom"); const fs = require("fs");
+const html = fs.readFileSync(process.argv[2] || "demo/index.html", "utf-8");
 let errs = [];
-const dom = new JSDOM(html, { runScripts: "dangerously", pretendToBeVisual: true, url: "http://localhost/",
+const vc = new VirtualConsole();
+vc.on("jsdomError", e => { if(!/canvas|getContext|Not implemented/i.test(String(e.message||e))) errs.push(String(e.message||e)); });
+const dom = new JSDOM(html, { runScripts: "dangerously", pretendToBeVisual: true, virtualConsole: vc, url: "http://localhost/",
   beforeParse(w){ w.cowork = { callMcpTool:()=>Promise.resolve({structuredContent:[{results:[{v:"{}",ts:"0"}],success:true}],isError:false}), askClaude:()=>Promise.resolve("x") }; } });
 dom.window.addEventListener("error", e => errs.push(String(e.message)));
 dom.window.requestAnimationFrame = cb => setTimeout(cb, 0);

@@ -1,5 +1,5 @@
 const { JSDOM, VirtualConsole } = require("jsdom"); const fs = require("fs");
-const html = fs.readFileSync(process.argv[2], "utf-8");
+const html = fs.readFileSync(process.argv[2] || "demo/index.html", "utf-8");
 const errs = [];
 const vc = new VirtualConsole();
 vc.on("jsdomError", e => { const m=String(e.message||e); if(/getContext|canvas|Not implemented|execCommand/i.test(m))return; errs.push(m); });
@@ -21,9 +21,12 @@ setTimeout(() => {
   const res = d.querySelectorAll("#res .res").length;
   const lenses = d.querySelectorAll("#lenses .btn").length;
   const expCol = T.areas.filter(a => T.species[a]).length;
+  const a11yBichos = d.querySelectorAll('#layer .bicho[role="button"][tabindex="0"][aria-label]').length;
+  const a11yNidos = d.querySelectorAll('#layer .nest[role="button"][tabindex="0"][aria-label]').length;
   console.log("bichos =", bichos, "| esperados =", T.projects.length);
   console.log("nidos =", nests, "| colonias =", expCol);
   console.log("HUD =", res, "| lentes =", lenses);
+  console.log("accesibles: bichos =", a11yBichos, "| nidos =", a11yNidos);
   // selección
   const id = G.firstId(); G.selectOnly(id);
   const sel1 = G.selected.length === 1;
@@ -83,7 +86,7 @@ setTimeout(() => {
     const syncTxt = d.querySelector("#syncst").textContent;
     console.log("nube activa:", cloudOn, "| D1 lecturas:", d1reads, "escrituras:", d1writes, "| estado:", syncTxt);
     console.log("errores JS =", errs.length, errs.slice(0,4));
-    const pass = bichos===T.projects.length && nests===expCol && res>0 && lenses===6 &&
+    const pass = bichos===T.projects.length && nests===expCol && a11yBichos===bichos && a11yNidos===nests && res>0 && lenses===6 &&
       sel1 && cmd && ring===1 && f1===f0+1 && stOpen && tablas>=1 && exOpen && exHas && nestOpen && rooms===6 &&
       wbOpen && wbRows>0 && cols===4 && inboxOk && cloudOn===true && d1reads>=1 && d1writes>=1 &&
       hasHelp && aiOn===true && fwOk && chatMsgs>=1 && zipOk && lupaOn && errs.length===0;

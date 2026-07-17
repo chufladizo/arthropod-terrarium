@@ -1,5 +1,5 @@
 const { JSDOM } = require("jsdom"); const fs = require("fs");
-const html = fs.readFileSync(process.argv[2], "utf-8");
+const html = fs.readFileSync(process.argv[2] || "../tierra/panel.html", "utf-8");
 const errs = [];
 // extraer TERR del propio HTML (const no se expone en window)
 const linea = html.split("\n").find(l => l.trimStart().startsWith("const TERR ="));
