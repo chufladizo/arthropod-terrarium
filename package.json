@@ -5,13 +5,19 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "python3 motor/build_imperio.py",
-    "build:personal": "python3 motor/build.py ../tierra/datos ../tierra/terrario.html",
+    "build": "node motor/run-python.js motor/build_imperio.py",
+    "build:personal": "node motor/run-python.js motor/build.py ../tierra/datos ../tierra/terrario.html",
     "verify": "node motor/verifica_app.js demo/index.html",
     "verify:personal": "node motor/verificar.js ../tierra/terrario.html",
-    "todo": "npm run build && npm run verify",
-    "build:clasico": "python3 motor/build.py ejemplo demo/clasico.html",
-    "verify:clasico": "node motor/verificar.js demo/clasico.html"
+    "verify:classes": "node motor/verifica_classes.js demo/index.html",
+    "verify:keepers": "node motor/verifica_keepers.js demo/index.html",
+    "verify:trees": "node motor/verifica_tree2.js demo/index.html",
+    "verify:security": "node motor/verifica_seguridad.js",
+    "verify:clasico": "node motor/verificar.js demo/clasico.html",
+    "verify:all": "npm run verify && npm run verify:classes && npm run verify:keepers && npm run verify:trees && npm run verify:clasico && npm run verify:security",
+    "todo": "npm run build && npm run verify:all",
+    "test": "npm run todo",
+    "build:clasico": "node motor/run-python.js motor/build.py ejemplo demo/clasico.html"
   },
   "devDependencies": {
     "jsdom": "^24.1.0"

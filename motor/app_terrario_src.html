@@ -13,6 +13,7 @@ img,canvas,.spr{image-rendering:pixelated;image-rendering:crisp-edges}
 .panel{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.18)),var(--wood);border:3px solid var(--wood2);box-shadow:inset 0 0 0 2px rgba(227,169,43,.25),0 4px 0 rgba(0,0,0,.35);border-radius:4px}
 .btn{font-family:inherit;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--parch);background:linear-gradient(180deg,#6e4a28,#4a3017);border:2px solid #2c1c0d;border-radius:3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 0 rgba(0,0,0,.4);padding:6px 9px;cursor:pointer;white-space:nowrap}
 .btn:hover{filter:brightness(1.12)}
+.btn:focus-visible,.nest:focus-visible,.bicho:focus-visible,.tr-node:focus-visible,.tr-pick:focus-visible{outline:3px solid var(--sel);outline-offset:3px}
 .btn.on{background:linear-gradient(180deg,#e3a92b,#b8801a);color:#2a1c06;border-color:#7a5410}
 .btn.sm{padding:4px 7px;font-size:10px}
 .tag{display:inline-block;font-size:10px;padding:1px 5px;border-radius:3px;background:#2c1c0d;color:var(--parch)}
@@ -47,7 +48,7 @@ img,canvas,.spr{image-rendering:pixelated;image-rendering:crisp-edges}
 .nest .mound{filter:drop-shadow(0 4px 0 rgba(0,0,0,.32))}
 .nest .banner{margin-top:-8px;display:inline-block;background:linear-gradient(180deg,#3a2614,#23160a);border:2px solid #120a04;border-radius:3px;padding:3px 9px;font-size:12px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.4)}
 .nest .banner b{color:var(--gold)}.nest .census{font-size:10px;color:#ffe9b0}.nest:hover .banner{filter:brightness(1.2)}
-.bicho{position:absolute;left:0;top:0;cursor:pointer;will-change:transform}
+.bicho{position:absolute;left:0;top:0;cursor:pointer;will-change:transform;border-radius:4px}
 .bicho .body{position:absolute;left:0;top:0;transform:translate(-50%,-100%)}
 .bicho .shadow{position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:16px;background:radial-gradient(ellipse at center,rgba(0,0,0,.55),rgba(0,0,0,0) 70%);border-radius:50%;pointer-events:none}
 .bicho .spr{display:block;transform-origin:center bottom}
@@ -178,7 +179,9 @@ table.wb .ti{font-weight:bold;color:var(--parch)}table.wb .kw{font-size:10px;col
 .idea,.dupe{background:rgba(0,0,0,.22);border:2px solid var(--wood2);border-radius:5px;padding:11px 13px;margin-bottom:10px}
 .idea h4{margin:0 0 4px;color:var(--gold);font-size:12px}.idea p,.dupe p{margin:0 0 7px;font-size:11px;color:var(--parch)}.dupe h4{margin:0 0 5px;color:var(--gold);font-size:12px}.dupe .grp{font-size:11px;margin:3px 0}
 .hidden{display:none!important}
-@media(max-width:760px){#hud .title small{display:none}#legend{display:none}}
+@media(max-width:1100px){#hud{flex-wrap:wrap;gap:5px}#res{order:3;flex-basis:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}#search{flex:1;min-width:120px}#lenses{top:auto;bottom:8px;left:8px;transform:none;flex-direction:row;max-width:calc(100vw - 190px);overflow-x:auto}#lenses .lt{display:none}#lenses .btn{min-width:58px}#legend{bottom:92px}}
+@media(max-width:760px){#hud .title small{display:none}#hud .title{font-size:12px}#legend{display:none}#mini{display:none}#cam{top:auto;bottom:8px}#lenses{right:8px;max-width:none}#lenses .btn{width:52px;min-width:52px;font-size:8px}.cuts{grid-template-columns:1fr}.room.reina{grid-column:auto}.board{overflow-x:auto}.col{min-width:240px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 /* ===== Árbol de Mejoras del Taller (módulo añadido) ===== */
 #mejoras .mbox{width:min(1040px,95vw);height:min(90vh,780px)}
 #mejoras .mhd .treehud{display:flex;gap:5px;flex-wrap:wrap}
@@ -568,26 +571,29 @@ function moundSprite(color){const k='mound|'+color;if(SC[k]!==undefined)return S
 
 /* ===== mundo + agentes ===== */
 const layer=$('#layer'),agents=[],agentOf={};const SCALE={alta:9,media:7,baja:6};
+function hashUnit(s){let h=2166136261;for(const ch of String(s||'')){h^=ch.codePointAt(0);h=Math.imul(h,16777619);}return (h>>>0)/4294967296;}
 function badgesHTML(p){let b='';if(p.featured)b+='<span class="star">★</span>';if(p.need==='hambre')b+='<span>🍴</span>';else if(p.need==='confuso')b+='<span>❓</span>';const pr=prioOf(p);
   return (b?'<span class="badges">'+b+'</span>':'')+(pr?'<span class="pri" style="background:'+(pr===1?'#d8392b':pr===2?'#e8941a':'#7d9e6f')+'">P'+pr+'</span>':'');}
 function init_world(){
   layer.innerHTML='';agents.length=0;for(const k in agentOf)delete agentOf[k];
   AREAS0.forEach(a=>{const c=colony[a],sp=SP[a]||{};
-    const nest=ce('div','nest');nest.style.left=c.nestPx.x+'px';nest.style.top=c.nestPx.y+'px';nest.dataset.area=a;
+    const nest=ce('div','nest');nest.style.left=c.nestPx.x+'px';nest.style.top=c.nestPx.y+'px';nest.dataset.area=a;nest.tabIndex=0;nest.setAttribute('role','button');nest.setAttribute('aria-label','Abrir colonia '+(sp.name||a));
     const mUrl=moundSprite(sp.c||'#6f9a3e');
     nest.innerHTML=(mUrl?'<img class="mound" width="150" height="112" src="'+mUrl+'">':'<div class="mound" style="width:112px;height:78px;background:'+(sp.c||'#888')+';border-radius:42% 42% 8px 8px"></div>')+'<div class="banner"><span style="font-size:16px">'+(sp.emo||'🐛')+'</span> <b>'+esc(sp.name||a)+'</b><div class="census">'+(c.list||[]).length+' bichos · 👑</div></div>';
     nest.addEventListener('mousemove',e=>showTip(e,'<b>'+esc(sp.name||a)+'</b> · reina<br><span class="s">'+esc(sp.fn||'')+' — '+(c.list||[]).length+' proyectos. Doble-click para entrar.</span>'));
     nest.addEventListener('mouseleave',hideTip);
+    nest.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openNest(a);}});
     layer.appendChild(nest);
-    Object.keys(c.zones).forEach(zk=>{const z=c.zones[zk];z.list.forEach(p=>{
+    Object.keys(c.zones).forEach(zk=>{const z=c.zones[zk];z.list.forEach((p,zi)=>{
       const col=STCOL[p.state]||p.color||'#9aa0ab',sc=SCALE[p.act]||3,cls=classify(p),f0=bugSprite(sp.key||'ant',col,p.vital,sc,0,cls),f1=bugSprite(sp.key||'ant',col,p.vital,sc,1,cls),dim=16*sc;
-      const node=ce('div','bicho');node.dataset.id=p.id;node.dataset.cls=cls;node.classList.add('k-'+cls);if(p.status==='running')node.classList.add('run');
+      const node=ce('div','bicho');node.dataset.id=p.id;node.dataset.cls=cls;node.classList.add('k-'+cls);node.tabIndex=0;node.setAttribute('role','button');node.setAttribute('aria-label',p.title+' · '+(p.stateName||p.state));if(p.status==='running')node.classList.add('run');
       const sprHtml=f0?'<img class="spr'+(p.vital==='dead'?' dead':'')+'" width="'+dim+'" height="'+dim+'" src="'+f0+'">':'<div class="fallback'+(p.vital==='dead'?' dead':'')+'" style="background:'+col+';width:'+dim+'px;height:'+dim+'px"></div>';
       node.innerHTML='<div class="body"><div class="shadow"></div>'+sprHtml+badgesHTML(p)+'<span class="load"></span></div>';
       layer.appendChild(node);
-      const ang=Math.random()*6.283,rr=Math.sqrt(Math.random())*z.r*0.8,x=z.x+Math.cos(ang)*rr,y=z.y+Math.sin(ang)*rr*0.62,beh=behOf(p);
+      node.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();selectOnly(p.id);openFicha(p);}else if(e.key===' '){e.preventDefault();selectOnly(p.id);}});
+      const hu=hashUnit(p.id),ang=zi*2.3999632297+hu*.7,rr=Math.sqrt((zi+.65)/Math.max(z.list.length,1))*z.r*.72,x=z.x+Math.cos(ang)*rr,y=z.y+Math.sin(ang)*rr*.62,beh=behOf(p);
       const baseSp=(p.act==='alta'?0.7:p.act==='media'?0.5:0.36)*(p.status==='running'?1.4:1)*(beh==='work'?0.55:beh==='sleep'?0.18:beh==='patrol'?1.1:1);
-      const ag={p,node,img:node.querySelector('.spr'),x,y,hx:z.x,hy:z.y,zr:z.r,tx:x,ty:y,dir:1,phase:Math.random()*6.28,speed:baseSp,beh,frames:[f0,f1],cur:0,end:false,carry:false,lensScale:1,dragging:false,granero:c.zones.granero,area:a};
+      const ag={p,node,img:node.querySelector('.spr'),x,y,hx:z.x,hy:z.y,zr:z.r,tx:x,ty:y,dir:1,phase:hu*6.28,speed:baseSp,beh,frames:[f0,f1],cur:0,end:false,carry:false,lensScale:1,dragging:false,granero:c.zones.granero,area:a};
       node.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';node.style.zIndex=100+Math.round(y/4);
       agents.push(ag);agentOf[p.id]=ag;if(beh!=='dead')newTarget(ag);});});});
   markSelection();

@@ -333,11 +333,11 @@ for _m in ("/*__CRITTERS__*/", "/*__DATA__*/", "/*__FONDOS__*/"):
     if _n > 1:
         raise SystemExit("ERROR: el marcador " + _m + " aparece " + str(_n) + " veces en template.html")
 html = (TPL.replace("/*__CRITTERS__*/", CRIT)
-           .replace("/*__DATA__*/", json.dumps(TERR, ensure_ascii=False))
+           .replace("/*__DATA__*/", json.dumps(TERR, ensure_ascii=False).replace("<", "\\u003c"))
            .replace("/*__FONDOS__*/", FONDOS))
 
 salida.parent.mkdir(parents=True, exist_ok=True)
-salida.write_text(html, encoding="utf-8")
+salida.write_text(html, encoding="utf-8", newline="\r\n")
 
 # ---- resumen ----------------------------------------------------------------
 try:
