@@ -8,6 +8,8 @@
   carga (mandíbulas, hoja, miel, madera, seda o semilla), además del color de
   estado. La casta se conserva en jardín, ficha y corte del nido.
 - Cerrado el primer reto de diseño y fijado el patrón para la siguiente especie.
+- CI actualizado a las acciones oficiales compatibles con Node 24, sin la
+  advertencia de ejecución heredada sobre Node 20.
 
 ## En desarrollo — robustez y accesibilidad
 
