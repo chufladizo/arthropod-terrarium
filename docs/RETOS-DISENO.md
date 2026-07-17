@@ -9,11 +9,14 @@ motor, y con impacto visible. Ábrelos en la demo y propón.
 
 ---
 
-## 1. 🐜 Rediseñar la hormiga obrera (especie piloto)
-La colonia de hormigas es la que marca el patrón para las demás. Buscamos una
-silueta de obrera más reconocible de un vistazo, que distinga bien sus castas
-(obrera, soldado, exploradora) sin perder la estética de tinta sepia.
-**Entrega:** propuesta SVG del bicho `ant` con sus castas. **Impacto:** alto (marca el estándar).
+## 1. ✅ 🐜 Hormiga obrera rediseñada (especie piloto)
+La colonia de hormigas marca ya el patrón para las demás: silueta articulada con
+abdomen, peciolo, tórax, cabeza, seis patas y antenas acodadas. La vista moderna
+añade señales propias para legionaria, bala, cortadora, cosechadora, carpintera,
+tejedora y melífera sin depender solo del color de estado. La vista SVG conserva
+la estética de tinta sepia y adopta la misma anatomía articulada.
+
+**Entregado en julio de 2026.** Siguiente patrón a extender: escarabajos.
 
 ## 2. 🎨 Afinar la paleta de estados
 Los 5 estados (activo, pendiente, atascado, hibernando, relevado) deben leerse

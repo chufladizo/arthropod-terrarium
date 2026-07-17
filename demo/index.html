@@ -539,7 +539,7 @@ function drawTerrain(){const ctx=terrain.getContext&&terrain.getContext('2d');if
 
 /* ===== sprites ===== */
 const SC={};
-function bugSprite(key,color,vital,scale,frame,cls){scale=scale||4;frame=frame||0;cls=cls||'';const k=key+'|'+color+'|'+vital+'|'+scale+'|'+frame+'|'+cls;if(SC[k]!==undefined)return SC[k];
+function bugSprite(key,color,vital,scale,frame,cls,caste){scale=scale||4;frame=frame||0;cls=cls||'';caste=caste||'';const k=key+'|'+color+'|'+vital+'|'+scale+'|'+frame+'|'+cls+'|'+caste;if(SC[k]!==undefined)return SC[k];
   const G=16,cv=ce('canvas');cv.width=G*scale;cv.height=G*scale;const ctx=cv.getContext&&cv.getContext('2d');if(!ctx){SC[k]='';return '';}ctx.imageSmoothingEnabled=false;
   const px=(x,y,c,w,h)=>{ctx.fillStyle=c;ctx.fillRect(x*scale,y*scale,(w||1)*scale,(h||1)*scale);};
   const dk=shade(color,0.58),lt=shade(color,1.28),blk='#180f08',eye='#fff',air=(SP[Object.keys(SP).find(a=>SP[a].key===key)]||{}).air,fo=frame?1:0;
@@ -547,7 +547,25 @@ function bugSprite(key,color,vital,scale,frame,cls){scale=scale||4;frame=frame||
   function body(y0,y1,wL,wR){for(let y=y0;y<=y1;y++){px(wL,y,dk,(wR-wL+1),1);px(wL+1,y,color,(wR-wL-1),1);}px(wL+1,y0,lt,(wR-wL-1),1);}
   if(air){px(3,4,'#eef5ff');px(2,5,'#dbe9ff',3,2);px(12,4,'#eef5ff');px(11,5,'#dbe9ff',3,2);}
   switch(key){
-    case 'ant':legs([7,9,11]);body(5,11,6,9);px(7,3,dk,2,2);px(7,3,color,2,1);px(6,2,blk);px(9,2,blk);px(8,6,eye);break;
+    case 'ant':{
+      // Perfil piloto: abdomen + peciolo + tórax + cabeza, seis patas
+      // articuladas y antenas acodadas. La casta añade un segundo canal visual.
+      const step=fo?1:0;
+      [[6,-1],[8,0],[10,1]].forEach((v,n)=>{const y=v[0]+((n%2)?step:1-step);px(2,y,blk,2);px(4,y-1,dk,2);px(10,y-1,dk,2);px(12,y,blk,2);});
+      px(3,7,dk,3,4);px(4,7,color,2,3);                 // abdomen
+      px(6,8,dk,1,2);                                   // peciolo
+      px(7,6,dk,3,5);px(8,6,color,2,4);                 // tórax
+      px(10,5,dk,3,5);px(11,5,color,2,4);               // cabeza
+      px(12,3,dk);px(13,2,blk);px(11,3,dk);px(11,2,blk);// antenas
+      px(11,6,eye);px(12,6,blk);                        // ojo con brillo
+      if(caste==='legionaria'||caste==='bala'){px(10,4,dk,3);px(13,6,blk);px(13,8,blk);}
+      else if(caste==='cortadora'){px(8,3,'#4f9b43',4,2);px(9,2,'#72bd55',3);px(9,4,'#315f2b',3);}
+      else if(caste==='melifera'){px(2,6,'#d6a83e',4,5);px(3,7,'#efc55b',2,3);}
+      else if(caste==='carpintera'){px(12,10,'#8b5a2b',3,2);px(13,10,'#bd8145');}
+      else if(caste==='tejedora'){px(13,9,'#dcecff');px(14,10,'#dcecff');px(15,11,'#dcecff');}
+      else if(caste==='cosechadora'){px(13,9,'#c9a64b',2,2);px(14,9,'#f0d177');}
+      break;
+    }
     case 'beetle':legs([8,10]);body(4,12,4,11);px(8,5,blk,1,7);px(7,4,dk,2,1);break;
     case 'butterfly':px(3,3,lt,3,5);px(2,4,color,3,4);px(10,3,lt,3,5);px(11,4,color,3,4);body(5,11,7,8);px(7,2,blk);px(8,2,blk);break;
     case 'spider':legs([6,8,10]);px(1,5,dk);px(14,5,dk);px(1,11,dk);px(14,11,dk);body(6,11,6,9);px(6,5,color,4,2);px(7,7,eye);px(8,7,eye);break;
@@ -585,7 +603,7 @@ function init_world(){
     nest.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openNest(a);}});
     layer.appendChild(nest);
     Object.keys(c.zones).forEach(zk=>{const z=c.zones[zk];z.list.forEach((p,zi)=>{
-      const col=STCOL[p.state]||p.color||'#9aa0ab',sc=SCALE[p.act]||3,cls=classify(p),f0=bugSprite(sp.key||'ant',col,p.vital,sc,0,cls),f1=bugSprite(sp.key||'ant',col,p.vital,sc,1,cls),dim=16*sc;
+      const col=STCOL[p.state]||p.color||'#9aa0ab',sc=SCALE[p.act]||3,cls=classify(p),f0=bugSprite(sp.key||'ant',col,p.vital,sc,0,cls,p.caste),f1=bugSprite(sp.key||'ant',col,p.vital,sc,1,cls,p.caste),dim=16*sc;
       const node=ce('div','bicho');node.dataset.id=p.id;node.dataset.cls=cls;node.classList.add('k-'+cls);node.tabIndex=0;node.setAttribute('role','button');node.setAttribute('aria-label',p.title+' · '+(p.stateName||p.state));if(p.status==='running')node.classList.add('run');
       const sprHtml=f0?'<img class="spr'+(p.vital==='dead'?' dead':'')+'" width="'+dim+'" height="'+dim+'" src="'+f0+'">':'<div class="fallback'+(p.vital==='dead'?' dead':'')+'" style="background:'+col+';width:'+dim+'px;height:'+dim+'px"></div>';
       node.innerHTML='<div class="body"><div class="shadow"></div>'+sprHtml+badgesHTML(p)+'<span class="load"></span></div>';
@@ -806,7 +824,7 @@ $('#search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault
 
 /* ===== ficha ===== */
 const ficha=$('#ficha');function camaraName(sp,cam){return (sp.camaras||{})[cam]||cam||'—';}
-function openFicha(p){if(!p)return;const sp=SP[p.area]||{},col=STCOL[p.state]||p.color||'#999',url=bugSprite(sp.key||'ant',col,p.vital,4,0,classify(p));
+function openFicha(p){if(!p)return;const sp=SP[p.area]||{},col=STCOL[p.state]||p.color||'#999',url=bugSprite(sp.key||'ant',col,p.vital,4,0,classify(p),p.caste);
   $('#fichaPor').innerHTML=url?'<img width="44" height="44" style="image-rendering:pixelated" src="'+url+'">':'<span style="font-size:28px">'+(sp.emo||'🐛')+'</span>';
   $('#fichaTit').textContent=p.title;$('#fichaMeta').innerHTML=(sp.emo||'')+' '+esc(sp.name||p.area)+' · '+esc(p.casteName||p.caste||'');
   $('#fichaActs').innerHTML=['<button class="btn sm" data-a="f" data-tip="Destacar (★) — marcar como importante">★</button>','<button class="btn sm" data-a="1" data-tip="P1 — prioridad máxima">P1</button>','<button class="btn sm" data-a="2" data-tip="P2 — prioridad media">P2</button>','<button class="btn sm" data-a="3" data-tip="P3 — prioridad baja">P3</button>','<button class="btn sm" data-a="g" data-tip="A Memoria/Bóveda (granero = tu memoria guardada)">🧠</button>','<button class="btn sm" data-a="v" data-tip="Archivar (al archivo/vertedero)">🪦</button>'].join('');
@@ -836,7 +854,7 @@ function openNest(a){const sp=SP[a]||{},list=colony[a].list||[];$('#nestEmo').te
   const g={};CAMO.forEach(c=>g[c[0]]=[]);list.forEach(p=>{(g[p.camara]||(g[p.camara]=[])).push(p);});
   let h='<div class="cuts">';CAMO.forEach(c=>{const arr=g[c[0]]||[],cls='room'+(c[0]==='reina'?' reina':'')+(c[0]==='granero'?' granero':'');
     h+='<div class="'+cls+'"><h3>'+esc(camaraName(sp,c[0])||c[1])+'</h3><div class="sub">'+arr.length+' bichos</div><div class="pop">';if(!arr.length)h+='<span class="empty">vacía</span>';
-    arr.forEach(p=>{const col=STCOL[p.state]||p.color||'#999',url=bugSprite(sp.key||'ant',col,p.vital,3,0);h+='<div class="b" data-id="'+esc(p.id)+'" title="'+esc(p.title)+'">'+(url?'<img class="spr'+(p.vital==='dead'?' dead':'')+'" width="30" height="30" src="'+url+'">':'<div class="fallback" style="background:'+col+';width:26px;height:26px"></div>')+(p.featured?'<span class="star" style="position:absolute;top:-8px;right:-4px;font-size:10px">★</span>':'')+'</div>';});
+    arr.forEach(p=>{const col=STCOL[p.state]||p.color||'#999',url=bugSprite(sp.key||'ant',col,p.vital,3,0,'',p.caste);h+='<div class="b" data-id="'+esc(p.id)+'" title="'+esc(p.title)+'">'+(url?'<img class="spr'+(p.vital==='dead'?' dead':'')+'" width="30" height="30" src="'+url+'">':'<div class="fallback" style="background:'+col+';width:26px;height:26px"></div>')+(p.featured?'<span class="star" style="position:absolute;top:-8px;right:-4px;font-size:10px">★</span>':'')+'</div>';});
     h+='</div></div>';});h+='</div>';$('#nestbody').innerHTML=h;
   $('#nestbody').querySelectorAll('.b').forEach(el=>el.onclick=()=>{const p=byId(el.dataset.id);if(p){closeModal('nest');openFicha(p);}});openModal('nest');}
 

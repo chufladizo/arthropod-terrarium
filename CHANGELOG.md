@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-07-18 — Hormigas como especie piloto
+
+- Rediseño anatómico de la hormiga en SVG: patas y antenas articuladas, con una
+  silueta más reconocible a tamaño pequeño.
+- El sprite moderno distingue ahora siete castas de hormiga mediante forma y
+  carga (mandíbulas, hoja, miel, madera, seda o semilla), además del color de
+  estado. La casta se conserva en jardín, ficha y corte del nido.
+- Cerrado el primer reto de diseño y fijado el patrón para la siguiente especie.
+
 ## En desarrollo — robustez y accesibilidad
 
 - Build multiplataforma: `motor/run-python.js` encuentra Python 3 en Windows, macOS y Linux.

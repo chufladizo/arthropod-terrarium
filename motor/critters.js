@@ -18,11 +18,13 @@ function antV2(o){
   if(vital==="dead")      eyes=`<path d="M66 44 l6 6 M72 44 l-6 6" stroke="${d}" stroke-width="2.1" stroke-linecap="round"/>`;
   else if(vital==="sleep")eyes=`<path d="M66 47 q4 3 8 0" stroke="${d}" stroke-width="2.1" fill="none" stroke-linecap="round"/>`;
   else                    eyes=eye(70,46,3);
-  let legsArr=["M50 52 L34 40","M50 56 L32 56","M50 60 L36 74","M58 52 L74 40","M58 56 L76 56","M58 60 L72 74"];
+  // Tres pares con codo visible: la silueta se reconoce como hormiga incluso
+  // a tamaño pequeño y conserva el lenguaje de tinta sepia del terrario.
+  let legsArr=["M51 51 L43 43 L32 39","M50 55 L40 56 L29 54","M51 59 L43 67 L35 76","M58 51 L67 42 L76 38","M59 55 L70 56 L80 54","M58 59 L68 67 L76 75"];
   let head   =`<circle cx="66" cy="48" r="10" fill="${c}"/>`;
   let abd    =`<ellipse cx="34" cy="56" rx="15" ry="12" fill="${c}"/>`;
   let petiole=`<ellipse cx="52" cy="54" rx="8" ry="8" fill="${c}"/>`;
-  let ant    =`<path d="M64 40 L74 30 M66 42 L80 36" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+  let ant    =`<path d="M64 40 L69 33 L76 29 M67 41 L74 36 L82 36" stroke="${d}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
   let wings="", stinger="", mand="", carry="", crown="";
   switch(caste){
     case "legionaria":
@@ -1461,4 +1463,3 @@ function crit_mantis(o){
 
 function critV2(key,o){switch(key){case 'ant':return crit_ant(o);case 'beetle':return crit_beetle(o);case 'butterfly':return crit_butterfly(o);case 'spider':return crit_spider(o);case 'bee':return crit_bee(o);case 'scorpion':return crit_scorpion(o);case 'centipede':return crit_centipede(o);case 'dung':return crit_dung(o);case 'snail':return crit_snail(o);case 'dragonfly':return crit_dragonfly(o);case 'ladybug':return crit_ladybug(o);case 'mite':return crit_mite(o);case 'mantis':return crit_mantis(o);}return antV2(o);}
 function bugSVG2(key,o){return '<svg viewBox="0 0 100 100">'+critV2(key,o)+'</svg>';}
-
